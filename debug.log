@@ -736,3 +736,6 @@
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-06-27T17:06:28.707Z","v":0}
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-06-27T17:06:33.247Z","v":0}
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-06-27T17:06:58.861Z","v":0}
+{"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-06-27T17:08:37.208Z","v":0}
+{"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":30,"msg":"Bye!","time":"2017-06-27T17:09:20.693Z","v":0}
+{"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Database saved","time":"2017-06-27T17:09:20.746Z","v":0}
