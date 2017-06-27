@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-author: Leon Ren
-language:
+title: DragonFly的博客
+subtitle: 我曾七次鄙视自己的灵魂
+description: iOS开发 Web开发 AR
+author: DragonFly
+language: zh-Hans
 timezone:
 
 # URL
