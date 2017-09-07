@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AR入坑指南">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/AR入坑指南/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-05T13:18:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AR入坑指南">
+<meta name="twitter:description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/28/AR入坑指南/"/>
+
+
+
+
+
+  <title>AR入坑指南 | DragonFly的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/AR入坑指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AR入坑指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-28T01:16:11+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##ARKit简介</p>
+<p>  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。</p>
+<p>1.Slam的概念  </p>
+<p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
+<p>  要实现SLAM，最基础就是传感器，目前传感器分为激光和VSLAM两大类。激光雷达由于精度高、速度快，能方便地实现SLAM功能而被研究得最多，主要用于机器人及无人车（机）领域，但缺点就是价格昂贵。<br>  而VSLAM则主要用摄像头来实现，摄像头品种繁多，主要分为单目、双目（或多目）、RGBD。实现难度正序：单目视觉&gt;双目视觉&gt;RGBD。  单目视觉因为基于一个摄像头，在深度感知上存在问题，无法得到机器人的运动轨迹及地图的真实大小，但这也使得单目SLAM不受环境大小的影响，既可用于室内，又可用于室外。</p>
+<p>  目前，SLAM技术的实现途径主要包括VSLAM、Wifi-SLAM与Lidar SLAM。</p>
+<p>VSLAM (视觉SLAM)  </p>
+<p>指在室内环境下，用摄像机、Kinect等深度相机来做导航和探索。其工作原理简单来说就是对机器人周边的环境进行光学处理，先用摄像头进行图像信息采集，将采集的信息进行压缩，然后将它反馈到一个由神经网络和统计学方法构成的学习子系统，再由学习子系统将采集到的图像信息和机器人的实际位置联系起来，完成机器人的自主导航定位功能。<br>但是，室内的VSLAM仍处于研究阶段，远未到实际应用的程度。一方面，计算量太大，对机器人系统的性能要求较高；另一方面，VSLAM生成的地图（多数是点云）还不能用来做机器人的路径规划，需要进一步探索和研究。</p>
+<p>Wifi-SLAM</p>
+<p>这项技术主要作用是室内定位，指利用智能手机中的多种传感设备进行定位，包括Wifi、GPS、陀螺仪、加速计和磁力计，并通过机器学**和模式识别等算法将获得的数据绘制出准确的室内地图。</p>
+<p>该技术的提供商已于2013年被苹果公司收购，苹果公司是否已经把 Wifi-SLAM 的科技用到iPhone上，使所有 iPhone 用户相当于携带了一个绘图小机器人，这一切暂未可知。毋庸置疑的是，更精准的定位不仅有利于地图，它会让所有依赖地理位置的应用（LBS) 更加精准。</p>
+<p>Lidar SLAM</p>
+<p>指利用激光雷达作为传感器，获取地图数据，使机器人实现同步定位与地图构建。该技术是目前最稳定、最可靠、高性能的SLAM方式。就技术本身而言，经过多年验证，已相当成熟，但Lidar成本昂贵这一瓶颈问题亟待解决。<br>Google无人驾驶汽车正是采用该项技术，车顶安装的激光雷达来自美国Velodyne公司，售价高达7万美元以上。<br>这款激光雷达可以在高速旋转时向周围发射64束激光，激光碰到周围物体并返回，便可计算出车体与周边物体的距离。<br>计算机系统再根据这些数据描绘出精细的3D地形图，然后与高分辨率地图相结合，生成不同的数据模型供车载计算机系统使用。激光雷达占去了整车成本的一半，这可能也是 Google 无人车迟迟无法量产的原因之一。<br>对于 AR/VR 使用场景的室内空间定位，我们可以通过蓝牙，路由器等建立标准点，或者通过红外线进行室内扫描来进行判定。但是一旦将室内定位与 VR 联系起来，就无法通过其它设备进行辅助了。目前我们已经能通过 Oculus 和 HTC Vive 的摄像头和「base station」做到进行小范围内的室内定位，但在移动 VR 领域里，空间定位一直是难题，目前还没有任何一个消费者级移动 VR 设备能够做到空间移动。</p>
+<p>如果要让移动 VR 产品具有室内定位功能，我们要么需要在外部环境架设识别设备进行捕捉，要么则赋予产品本身判断环境的能力。由此，我们就衍生出了两大场景识别机制：Inside-Out 与 Outside-In。<br>Inside-Out</p>
+<p>顾名思义，Inside-Out 是从发射端发射场景识别信号，经过外部环境后再传送到发射端进行数据处理，也就是说设备本身即是发射端也是接收端。Inside-Out 因为涉及到复杂的计算机视觉算法和需要与强大的硬件支持限制，一直无法普及到小型设备中。<br>Outside-In</p>
+<p> Outside-In 则是在外部建立信号发射设备，信号经过外部环境之后再传输到产品自身的接收端中，从而实现位置，场景的判断。目前来说，Outside-In 的技术因为实现简单，效果好而被广泛普及，时下大热的 HTC Vive 即是采用 Outside-In 原理实现。<br>总得来讲，通过各类传感设备进行室外和室内空间定位正在从理论研究逐渐落地，渗透到各个领域，我们已经能从无人驾驶汽车，机器人上看到 SLAM 的应用场景了。随着小型芯片性能的提高和算法研究的优化，以移动设备为主的小型设备也初露锋芒。移动 VR/AR 作为新兴的领域，也给了 SLAM 一个很大的发展空间，这项技术很可能成为人工智能真正的 “眼睛” 和 VR/AR 技术沉浸式体验的基础支撑。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/iOS代码混淆/" rel="next" title="iOS代码加固">
+                <i class="fa fa-chevron-left"></i> iOS代码加固
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/05/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
