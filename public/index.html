@@ -348,51 +348,18 @@
 
       
         
-          
-            <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="external">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
+          <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="external">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
 <p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）</p>
-<h4 id="OLLVM-iOS编译环境搭建"><a href="#OLLVM-iOS编译环境搭建" class="headerlink" title="OLLVM iOS编译环境搭建"></a>OLLVM iOS编译环境搭建</h4><p>以下，介绍OLLVM iOS环境的插件创建过程。<br>首先下载源码，编译OLLVM混淆器，这里采用LLVM的版本是4.0。下载编译过程如下：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git  </div><div class="line">$ mkdir build  </div><div class="line">$ cd build  </div><div class="line">$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/  </div><div class="line">$ make -j7</div></pre></td></tr></table></figure>
-<p>下载的源码里已经包含了LLVM和Clang，编译完成后，编译好的二进制程序都存在在build/bin目录下。</p>
-<p>依据github上的wiki，bin目录下编译好的工具链可以直接用来编译混淆linux下的程序，就像我们常用的gcc那样。若想使用OLLVM来混淆iOS程序，还需将bin目录下的工具链整合进Xcode插件中，具体步骤如下。</p>
-<p>配置Xcode–新建Obfuscator插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ cd /Applications/Xcode.app/Contents/PlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer/Library/Xcode/Plug-ins/  </div><div class="line">$ sudo cp -r Clang\ LLVM\ 1.0.xcplugin/ Obfuscator.xcplugin  </div><div class="line">$ cd Obfuscator.xcplugin/Contents/  </div><div class="line">$ sudo plutil -convert xml1 Info.plist  </div><div class="line">$ sudo vim Info.plist</div></pre></td></tr></table></figure>
-<p>修改Info.plist中的对应内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;string&gt;com.apple.compilers.clang&lt;/string&gt; -&gt; &lt;string&gt;com.apple.compilers.obfuscator&lt;/string&gt;  </div><div class="line">&lt;string&gt;Clang LLVM 1.0 Compiler Xcode Plug-in&lt;/string&gt; -&gt; &lt;string&gt;Obfuscator Xcode Plug-in&lt;/string&gt;</div></pre></td></tr></table></figure>
-<p>修改Obfuscator.xcspec文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo plutil -convert binary1 Info.plist  </div><div class="line">$ cd Resources/  </div><div class="line">$ sudo mv Clang\ LLVM\ 1.0.xcspec Obfuscator.xcspec  </div><div class="line">$ sudo vim Obfuscator.xcspec</div></pre></td></tr></table></figure>
-<p>修改ExecPath的地址为当前build/bin的地址(!重点)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Identifier = &quot;com.apple.compilers.llvm.clang.1_0&quot;; -&gt; Identifier = &quot;com.apple.compilers.llvm.obfuscator.4_0&quot;;  </div><div class="line">Name = &quot;Apple LLVM 8.0&quot;; -&gt; Name = &quot;Obfuscator 4.0&quot;;  </div><div class="line">Description = &quot;Apple LLVM 8.0 compiler&quot;; -&gt; Description = &quot;Obfuscator 4.0&quot;;  </div><div class="line">Vendor = Apple; -&gt; Vendor = HEIG-VD;  </div><div class="line">Version = &quot;7.0&quot;; -&gt; Version = &quot;4.0&quot;;  </div><div class="line">ExecPath = &quot;clang&quot;; -&gt; ExecPath = &quot;/path/to/obfuscator_bin/clang&quot;;</div></pre></td></tr></table></figure>
-<p>修改 Obfuscator 4.0 Strings</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cd English.lproj/  </div><div class="line">$ sudo mv Apple\ LLVM\ 8.0.strings &quot;Obfuscator 4.0.strings&quot;  </div><div class="line">$ sudo plutil -convert xml1 Obfuscator\ 4.0.strings  </div><div class="line">$ sudo vim Obfuscator\ 4.0.strings</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;Description&quot; = &quot;Apple LLVM 8.0 Compiler&quot;; -&gt; &quot;Description&quot; = &quot;Obfuscator 4.0&quot;;  </div><div class="line">&quot;Name&quot; = &quot;Apple LLVM 8.0&quot;; -&gt; &quot;Name&quot; = &quot;Obfuscator 4.0&quot;;  </div><div class="line">&quot;Vendor&quot; = &quot;Apple&quot;; -&gt; &quot;Vendor&quot; = &quot;HEIG-VD&quot;;  </div><div class="line">&quot;Version&quot; = &quot;8.0&quot;; -&gt; &quot;Version&quot; = &quot;4.0&quot;;</div></pre></td></tr></table></figure>
-<p><code>sudo plutil -convert binary1 Obfuscator\ 4.0.strings</code>  </p>
-<p>现在，你可以打开Xcode在项目配置里来选择新的编译器，并且可以在C Flags或C++ Flags下添加混淆标签。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1944396-a27167d3a47b3bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择编译器"><br><img src="http://upload-images.jianshu.io/upload_images/1944396-76e1b58511f4a559.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加混淆标签"></p>
-<p>这样配置完成后，就可以编译项目生成混淆后的程序。</p>
-<h4 id="ollvm混淆使用"><a href="#ollvm混淆使用" class="headerlink" title="ollvm混淆使用"></a>ollvm混淆使用</h4><p>接下来使用以下demo介绍混淆功能的具体使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">int main()&#123;  </div><div class="line">    int a = 1;  </div><div class="line">    int b = 0;  </div><div class="line">    int c = 0;  </div><div class="line">    if(a &gt; b)&#123;  </div><div class="line">        a = 100;    </div><div class="line">        b = 50;    </div><div class="line">        c = a - b;    </div><div class="line">        int d = a + b;    </div><div class="line">        int e = a &amp; b;    </div><div class="line">        int f = a ^ b;    </div><div class="line">        printf(&quot;c = %d\n&quot;,c);    </div><div class="line">        printf(&quot;d = %d\n&quot;,d);    </div><div class="line">        printf(&quot;e = %d\n&quot;,e);    </div><div class="line">        printf(&quot;f = %d\n&quot;,f);    </div><div class="line">        printf(&quot;a &gt; b\n&quot;);    </div><div class="line">    &#125;else&#123;  </div><div class="line">        printf(&quot;a &lt; b\n&quot;);    </div><div class="line">    &#125;  </div><div class="line">    return 0;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>OLLVM默认支持-fla -sub -bcf 三个混淆参数，这三个参数可以单独使用，也可以配合着使用。-fla 参数表示使用控制流平展（Control Flow Flattening）模式， -sub 参数表示使用指令替换（Instructions Substitution）模式， -bcf 参数表示使用控制流伪造（Bogus Control Flow）模式。</p>
-<h5 id="Instructions-Substitution"><a href="#Instructions-Substitution" class="headerlink" title="Instructions Substitution"></a>Instructions Substitution</h5><p>指令替换模式主要是将正常的运算操作（+，-，&amp;，|等）替换成功能相等但表述更复杂的形式。比如，对于表达式 a = b + c，它的等价式可以有 a = – ( -b – c), a = b – (-c) 或 a = -(-b) + c 等，原表达式可以替换成任意相等式，或者通过随机数在多个相等式中做选择。SUB模式目前只支持整数运算操作，支持 + , – , &amp; , | 和 ^ 操作，还是比较局限的。编译时，使用 -mllvm -sub 参数即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-mllvm -sub: 启用instructions substitution  </div><div class="line">-mllvm -sub_loop=3: 对每个函数混淆3次，默认1词</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/1944396-d3ef62eb9e13ae93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1944396-a8aff8dc34d9a432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h5 id="Control-Flow-Flattening"><a href="#Control-Flow-Flattening" class="headerlink" title="Control Flow Flattening"></a>Control Flow Flattening</h5><p>控制流平展模式可以完全改变程序原本的控制流图。如下示例代码是简单的if-else分支语句，正常编译后其控制流图在IDA中下图所示，是正常的if-else分支，使用 -mllvm -fla参数混淆后，在IDA中显示的控制流图如下：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-4a84eba4712effb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1944396-47b61ea46b1eee67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>经FLA模式混淆后，程序的执行流程已经被打乱，出现许多代码分支。通过仔细对比程序混淆前后，可以发现上图着色区域是相对应的，也就是说，FLA模式只去更改代码分支，而不会对单个代码块做处理。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-mllvm -fla: 启用control flow flattening</div><div class="line">-mllvm -split: 启用block切分，提升平展程度</div><div class="line">-mllvm -split_num=3: 对每个block混淆3次，默认1词</div></pre></td></tr></table></figure>
-<h5 id="Bogus-Control-Flow"><a href="#Bogus-Control-Flow" class="headerlink" title="Bogus Control Flow"></a>Bogus Control Flow</h5><p>控制流伪造模式也是对程序的控制流做操作，不同的是，BCF模式会在原代码块的前后随机插入新的代码块，新插入的代码块不是确定的，然后新代码块再通过条件判断跳转到原代码块中。更要命地是，原代码块可能会被克隆并插入随机的垃圾指令。这么多不确定性，就导致对同一份代码多次做BCF模式的混淆时，得到的是不同的混淆效果。可见，BCF混淆模式还是很强大的，不同于FLA那种较确定的混淆模式。使用BCF模式编译时配置参数 -mllvm -bcf即可，此外，BCF模式还支持其它几个参数，下面参数与-mllvm -bcf参数配合使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-mllvm -bcf: 启用 bogus control flow</div><div class="line">-mllvm -bcf_loop=3: 对一个函数混淆3次，默认1次</div><div class="line">-mllvm -bcf_prob=40: 代码块被混淆的概率是40%，默认30%</div></pre></td></tr></table></figure></p>
-<p>如上图，下面两个着色的代码块就是有上面两个代码块克隆而来，而且其中被插入了一些垃圾指令，类似于这样：</p>
-<p>当然，上述介绍的三种混淆模式可以搭配使用，同时使用三个参数混淆后，原本简单的if-else分支代码将会变得异常复杂，这无疑给逆向分析增加巨大的难度。</p>
-<h5 id="Functions-annotations"><a href="#Functions-annotations" class="headerlink" title="Functions annotations"></a>Functions annotations</h5><p>有的时候，由于效率或其他原因的考虑，我们只想给指定的函数混淆或不混淆该函数，OLLVM也提供了对这一特性的支持，你只需要给对应的函数添加attributes即可。比如，想对函数foo()使用fla混淆，只需要给函数foo()增加fla属性即可。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int foo() __attribute((__annotate__((&quot;fla&quot;))));</div><div class="line">int foo() &#123;</div><div class="line">   return 2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>你可以给函数添加一个或多个注释。如果你不想混淆某个函数，你可以使用否定标签。例如如果不想对func()函数使用bcf属性，那标记为“nobcf”即可。</p>
-<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>1.编译时报错，提示信息如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">clang-3.6: error: unknown argument: &apos;-gmodules&apos;</div><div class="line">clang-3.6: error: unknown argument: &apos;-fembed-bitcode-marker&apos;</div><div class="line">Command /Users/dream/ollvm/build/bin/clang failed with exit code 1</div></pre></td></tr></table></figure>
-<p>在Build Settings中搜索并修改：<br>-gmodules: Obfuscator 4.0 - Code Generation: Generate Debug Symbols: 原来yes，改成no<br>-fembed-bitcode-marker: Build Option: Enable Bitcode: 原来yes，改成no</p>
-<p>你可以在该<a href="">git地址</a>下找到最新的插件和build编译器文件，该编译器所使用的Xcode版本是8.3.3。</p>
-
-          
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/07/OLLVM在iOS中的实践/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -659,25 +626,17 @@
 
       
         
-          
-            <p>##ARKit简介</p>
-<p>  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。</p>
-<p>1.Slam的概念  </p>
-<p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
+          <h3 id="ARKit简介"><a href="#ARKit简介" class="headerlink" title="ARKit简介"></a>ARKit简介</h3><p>  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。</p>
+<h4 id="1-Slam的概念"><a href="#1-Slam的概念" class="headerlink" title="1.Slam的概念"></a>1.Slam的概念</h4><p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
 <p>  要实现SLAM，最基础就是传感器，目前传感器分为激光和VSLAM两大类。激光雷达由于精度高、速度快，能方便地实现SLAM功能而被研究得最多，主要用于机器人及无人车（机）领域，但缺点就是价格昂贵。<br>  而VSLAM则主要用摄像头来实现，摄像头品种繁多，主要分为单目、双目（或多目）、RGBD。实现难度正序：单目视觉&gt;双目视觉&gt;RGBD。  单目视觉因为基于一个摄像头，在深度感知上存在问题，无法得到机器人的运动轨迹及地图的真实大小，但这也使得单目SLAM不受环境大小的影响，既可用于室内，又可用于室外。</p>
 <p>  目前，SLAM技术的实现途径主要包括VSLAM、Wifi-SLAM与Lidar SLAM。</p>
-<p>VSLAM (视觉SLAM)  </p>
-<p>指在室内环境下，用摄像机、Kinect等深度相机来做导航和探索。其工作原理简单来说就是对机器人周边的环境进行光学处理，先用摄像头进行图像信息采集，将采集的信息进行压缩，然后将它反馈到一个由神经网络和统计学方法构成的学习子系统，再由学习子系统将采集到的图像信息和机器人的实际位置联系起来，完成机器人的自主导航定位功能。<br>但是，室内的VSLAM仍处于研究阶段，远未到实际应用的程度。一方面，计算量太大，对机器人系统的性能要求较高；另一方面，VSLAM生成的地图（多数是点云）还不能用来做机器人的路径规划，需要进一步探索和研究。</p>
-<p>Wifi-SLAM</p>
-<p>这项技术主要作用是室内定位，指利用智能手机中的多种传感设备进行定位，包括Wifi、GPS、陀螺仪、加速计和磁力计，并通过机器学**和模式识别等算法将获得的数据绘制出准确的室内地图。</p>
-<p>该技术的提供商已于2013年被苹果公司收购，苹果公司是否已经把 Wifi-SLAM 的科技用到iPhone上，使所有 iPhone 用户相当于携带了一个绘图小机器人，这一切暂未可知。毋庸置疑的是，更精准的定位不仅有利于地图，它会让所有依赖地理位置的应用（LBS) 更加精准。</p>
-<p>Lidar SLAM</p>
-<p>指利用激光雷达作为传感器，获取地图数据，使机器人实现同步定位与地图构建。该技术是目前最稳定、最可靠、高性能的SLAM方式。就技术本身而言，经过多年验证，已相当成熟，但Lidar成本昂贵这一瓶颈问题亟待解决。<br>Google无人驾驶汽车正是采用该项技术，车顶安装的激光雷达来自美国Velodyne公司，售价高达7万美元以上。<br>这款激光雷达可以在高速旋转时向周围发射64束激光，激光碰到周围物体并返回，便可计算出车体与周边物体的距离。<br>计算机系统再根据这些数据描绘出精细的3D地形图，然后与高分辨率地图相结合，生成不同的数据模型供车载计算机系统使用。激光雷达占去了整车成本的一半，这可能也是 Google 无人车迟迟无法量产的原因之一。<br>对于 AR/VR 使用场景的室内空间定位，我们可以通过蓝牙，路由器等建立标准点，或者通过红外线进行室内扫描来进行判定。但是一旦将室内定位与 VR 联系起来，就无法通过其它设备进行辅助了。目前我们已经能通过 Oculus 和 HTC Vive 的摄像头和「base station」做到进行小范围内的室内定位，但在移动 VR 领域里，空间定位一直是难题，目前还没有任何一个消费者级移动 VR 设备能够做到空间移动。</p>
-<p>如果要让移动 VR 产品具有室内定位功能，我们要么需要在外部环境架设识别设备进行捕捉，要么则赋予产品本身判断环境的能力。由此，我们就衍生出了两大场景识别机制：Inside-Out 与 Outside-In。<br>Inside-Out</p>
-<p>顾名思义，Inside-Out 是从发射端发射场景识别信号，经过外部环境后再传送到发射端进行数据处理，也就是说设备本身即是发射端也是接收端。Inside-Out 因为涉及到复杂的计算机视觉算法和需要与强大的硬件支持限制，一直无法普及到小型设备中。<br>Outside-In</p>
-<p> Outside-In 则是在外部建立信号发射设备，信号经过外部环境之后再传输到产品自身的接收端中，从而实现位置，场景的判断。目前来说，Outside-In 的技术因为实现简单，效果好而被广泛普及，时下大热的 HTC Vive 即是采用 Outside-In 原理实现。<br>总得来讲，通过各类传感设备进行室外和室内空间定位正在从理论研究逐渐落地，渗透到各个领域，我们已经能从无人驾驶汽车，机器人上看到 SLAM 的应用场景了。随着小型芯片性能的提高和算法研究的优化，以移动设备为主的小型设备也初露锋芒。移动 VR/AR 作为新兴的领域，也给了 SLAM 一个很大的发展空间，这项技术很可能成为人工智能真正的 “眼睛” 和 VR/AR 技术沉浸式体验的基础支撑。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/28/AR入坑指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -805,26 +764,16 @@
 
       
         
-          
-            <p>众所周知的是大部分iOS代码一般不会做加密加固，因为iOS APP一般是通过AppStore发布的，而且苹果的系统难以攻破，所以在iOS里做代码加固一般是一件出力不讨好的事情。万事皆有例外，不管iOS、adr还是js，加密的目的是为了代码的安全性，虽然现在开源畅行，但是不管个人开发者还是大厂皆有保护代码安全的需求，所以iOS代码加固有了生存的土壤。下面简单介绍下iOS代码加密的几种方式。</p>
+          <p>众所周知的是大部分iOS代码一般不会做加密加固，因为iOS APP一般是通过AppStore发布的，而且苹果的系统难以攻破，所以在iOS里做代码加固一般是一件出力不讨好的事情。万事皆有例外，不管iOS、adr还是js，加密的目的是为了代码的安全性，虽然现在开源畅行，但是不管个人开发者还是大厂皆有保护代码安全的需求，所以iOS代码加固有了生存的土壤。下面简单介绍下iOS代码加密的几种方式。</p>
 <h3 id="iOS代码加密的几种方式"><a href="#iOS代码加密的几种方式" class="headerlink" title="iOS代码加密的几种方式"></a>iOS代码加密的几种方式</h3><h4 id="1-字符串加密"><a href="#1-字符串加密" class="headerlink" title="1.字符串加密"></a>1.字符串加密</h4><p>  字符串会暴露APP的很多关键信息，攻击者可以根据从界面获取的字符串，快速找到相关逻辑的处理函数，从而进行分析破解。加密字符串可以增加攻击者阅读代码的难度以及根据字符串静态搜索的难度。<br>  一般的处理方式是对需要加密的字符串加密，并保存加密后的数据，再在使用字符串的地方插入解密算法。简单的加密算法可以把NSString转为byte或者NSData的方式，还可以把字符串放到后端来返回，尽量少的暴露页面信息。下面举个简单例子，把NSString转为16进制的字符串：   </p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)globalString &#123;    </div><div class="line">  return   @&quot;5f48494748203d20323b202020202020202020202020202020202020202020202020202020202020676c6f62616c2e44495350415443485f51554555455f5052494f524954595f44454641554c54203d20303b2020202020202020202020202020202020202020202020202&quot;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-符号混淆"><a href="#2-符号混淆" class="headerlink" title="2.符号混淆"></a>2.符号混淆</h4><p>  符号混淆的中心思想是将类名、方法名、变量名替换为无意义符号，提高应用安全性；防止敏感符号被class-dump工具提取，防止IDA Pro等工具反编译后分析业务代码。目前市面上的IOS应用基本上是没有使用类名方法名混淆的。  </p>
-<h5 id="a-别名"><a href="#a-别名" class="headerlink" title="a. 别名"></a>a. 别名</h5><p>  在编写代码的时候直接用别名可能是最简单的一种方式，也是比较管用的一种方式。因为你的app被破解后，假如很容易就能从你的类名中寻找到蛛丝马迹，那离hook只是一步之遥，之前微信抢红包的插件应该就是用hook的方式执行的。</p>
-<h5 id="b-C重写"><a href="#b-C重写" class="headerlink" title="b.C重写"></a>b.C重写</h5><p>  编写别名的方式不是很易读，而且也不利于后续维护，这时你可能需要升级一下你的保护方式，用C来重写你的代码吧。这样把函数名隐藏在结构体中，用函数指针成员的形式存储，编译后，只留下了地址，去掉了名字和参数表，让他们无从下手(copy from 念茜)。如下例子：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">typedef struct _util &#123;  </div><div class="line">  BOOL (*doTrade)(void);  </div><div class="line">  BOOL (*makeDeal)(void);  </div><div class="line">void (*transferMoney)(NSString *password);  </div><div class="line"> &#125;FTradeUtil_t ;  </div><div class="line"></div><div class="line">#define FTradeUtil ([_FTradeUtil sharedUtil])  </div><div class="line"></div><div class="line">@interface _FTradeUtil : NSObject  </div><div class="line"></div><div class="line">+ (FTradeUtil_t *)sharedUtil;  </div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<h5 id="c-脚本处理"><a href="#c-脚本处理" class="headerlink" title="c.脚本处理"></a>c.脚本处理</h5><p>  稍微高级一点的是脚本扫描处理替换代码，因为要用到linux命令来编写脚本，可能会有一点门槛，不过学了之后你就可以出去吹嘘你全栈工程师的名头啦。。。<br>  linux脚本比较常用的几个命令如下：<br>  <code>grep  sed  awk</code><br>  脚本混淆替换是用上述几个命令扫描出来需要替换的字符串，比如方法名，类名，变量名，并做替换，如果你能熟练应用上述几个命令，恭喜你，已经了解了脚本的一点皮毛了。<br>  如以下脚本搜索遍历了代码目录下的需要混淆的关键字：  </p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -h -r -I  &quot;^[-+]&quot; $ROOTFOLDER $EXCLUDE_DIR --include &apos;*.[mh]&apos; |sed &quot;s/[+-]//g&quot;|sed &quot;s/[();,: *\^\/\&#123;]/ /g&quot;|sed &quot;s/[ ]*&lt;/&lt;/&quot;| sed &quot;s/&lt;.*&gt;//g&quot; |awk &apos;&#123;split($0,b,&quot; &quot;);print b[2];&#125;&apos;| sort|uniq |sed &quot;/^$/d&quot;|sed &quot;/^init/d&quot; &gt;filter_fun.txt</div></pre></td></tr></table></figure>
-<p>  替换的方式可以直接扫描文件并对文件中的所有内容替换，也可以采用define的方式定义别名。例如：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ifndef setIsBackgroundFetchInterval    </div><div class="line">#define setIsBackgroundFetchInterval setIsN0XsgPe2OVJoyuT5QWAKwaH    </div><div class="line">#endif // setIsBackgroundFetchInterval</div></pre></td></tr></table></figure>
-<h5 id="d-开源项目ios-class-guard"><a href="#d-开源项目ios-class-guard" class="headerlink" title="d.开源项目ios-class-guard"></a>d.开源项目<a href="https://github.com/Polidea/ios-class-guard" target="_blank" rel="external">ios-class-guard</a></h5><p>  该项目是基于class-dump的扩展，和脚本处理类似，是用class-dump扫描出编译后的类名、方法名、属性名等并做替换，只是不支持隐式C方法的替换，有兴趣的同学可以使用下。  </p>
-<h4 id="2-代码逻辑混淆"><a href="#2-代码逻辑混淆" class="headerlink" title="2.代码逻辑混淆"></a>2.代码逻辑混淆</h4><p>  代码逻辑混淆有以下几个方面的含义：<br>  对方法体进行混淆，保证源码被逆向后该部分的代码有很大的迷惑性，因为有一些垃圾代码的存在；<br>  对应用程序逻辑结构进行打乱混排，保证源码可读性降到最低，这很容易把破解者带到沟里去；<br>  它拥有和原始的代码一样的功能，这是最最关键的。<br>  一般使用<a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">obfuscator-llvm</a>来做代码逻辑混淆，或许会对该开源工具做个简单介绍。</p>
-<h4 id="3-加固SDK"><a href="#3-加固SDK" class="headerlink" title="3.加固SDK"></a>3.加固SDK</h4><p>  adr中一般比较常见的加固等操作，iOS也有一些第三方提供这样的服务，但是没有真正使用过，不知道效果如何。   </p>
-<p>  当然还有一些第三方服务的加固产品，基本上都是采用了以上一种或几种混淆方式做的封装，如果想要直接可以拿来使用的服务，可以采用下，常用的一些服务如下：   </p>
-<p>  <a href="http://www.ijiami.cn/ios" target="_blank" rel="external">爱加密iOS加密</a><br>  <a href="http://www.safengine.com/mobile/" target="_blank" rel="external">Safengine</a><br>  <a href="http://kiwisec.com/" target="_blank" rel="external">几维安全</a>   </p>
-<p>  iOS加密可能市场很小，但是存在必有道理，在越狱/开源/极客的眼中，你的APP并没有你想像的那么安全，如果希望你的代码更加安全，在闲暇的精力之外，可以小做研究，说不准你在哪天就会用到它。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/28/iOS代码混淆/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -18,7 +18,7 @@ LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的
 ![](http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）
-
+<!--more-->
 #### OLLVM iOS编译环境搭建
 以下，介绍OLLVM iOS环境的插件创建过程。
 首先下载源码，编译OLLVM混淆器，这里采用LLVM的版本是4.0。下载编译过程如下：
