@@ -739,3 +739,26 @@
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-06-27T17:08:37.208Z","v":0}
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":30,"msg":"Bye!","time":"2017-06-27T17:09:20.693Z","v":0}
 {"name":"hexo","hostname":"suxiaoxiaodeMacBook.local","pid":40560,"level":20,"msg":"Database saved","time":"2017-06-27T17:09:20.746Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Hexo version: \u001b[35m3.3.8\u001b[39m","time":"2017-09-07T04:03:38.830Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Working directory: \u001b[35m~/Desktop/Code/Blog/fighting300.github.io/\u001b[39m","time":"2017-09-07T04:03:38.833Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Config loaded: \u001b[35m~/Desktop/Code/Blog/fighting300.github.io/_config.yml\u001b[39m","time":"2017-09-07T04:03:38.921Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-archive\u001b[39m","time":"2017-09-07T04:03:38.935Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-category\u001b[39m","time":"2017-09-07T04:03:38.937Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-index\u001b[39m","time":"2017-09-07T04:03:38.938Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-tag\u001b[39m","time":"2017-09-07T04:03:38.940Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-ejs\u001b[39m","time":"2017-09-07T04:03:38.942Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-marked\u001b[39m","time":"2017-09-07T04:03:38.947Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-stylus\u001b[39m","time":"2017-09-07T04:03:38.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-server\u001b[39m","time":"2017-09-07T04:03:39.002Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/merge-configs.js\u001b[39m","time":"2017-09-07T04:03:39.005Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/button.js\u001b[39m","time":"2017-09-07T04:03:39.005Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/center-quote.js\u001b[39m","time":"2017-09-07T04:03:39.006Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/merge.js\u001b[39m","time":"2017-09-07T04:03:39.008Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/exturl.js\u001b[39m","time":"2017-09-07T04:03:39.008Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/full-image.js\u001b[39m","time":"2017-09-07T04:03:39.009Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/group-pictures.js\u001b[39m","time":"2017-09-07T04:03:39.010Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/label.js\u001b[39m","time":"2017-09-07T04:03:39.010Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/lazy-image.js\u001b[39m","time":"2017-09-07T04:03:39.010Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/note.js\u001b[39m","time":"2017-09-07T04:03:39.010Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/tabs.js\u001b[39m","time":"2017-09-07T04:03:39.011Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Database saved","time":"2017-09-07T04:03:39.015Z","v":0}
