@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-a8aff8dc34d9a432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-4a84eba4712effb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-47b61ea46b1eee67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-09-07T07:37:35.000Z">
+<meta property="og:updated_time" content="2017-09-07T09:09:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS混淆--OLLVM在iOS中的实践">
 <meta name="twitter:description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以">
@@ -359,7 +359,7 @@
 <p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）</p>
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br><a id="more"></a></p>
 <h4 id="OLLVM-iOS编译环境搭建"><a href="#OLLVM-iOS编译环境搭建" class="headerlink" title="OLLVM iOS编译环境搭建"></a>OLLVM iOS编译环境搭建</h4><p>以下，介绍OLLVM iOS环境的插件创建过程。<br>首先下载源码，编译OLLVM混淆器，这里采用LLVM的版本是4.0。下载编译过程如下：</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git  </div><div class="line">$ mkdir build  </div><div class="line">$ cd build  </div><div class="line">$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/  </div><div class="line">$ make -j7</div></pre></td></tr></table></figure>
 <p>下载的源码里已经包含了LLVM和Clang，编译完成后，编译好的二进制程序都存在在build/bin目录下。</p>

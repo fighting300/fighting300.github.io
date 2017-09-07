@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+<meta name="description" content="ARKit简介  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加">
 <meta name="keywords" content="-AR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AR入坑指南">
 <meta property="og:url" content="http://dragonfly.com/2017/06/28/AR入坑指南/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
-<meta property="og:description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+<meta property="og:description" content="ARKit简介  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-07T07:42:41.000Z">
+<meta property="og:updated_time" content="2017-09-07T09:09:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AR入坑指南">
-<meta name="twitter:description" content="##ARKit简介   iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念     SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信">
+<meta name="twitter:description" content="ARKit简介  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。 1.Slam的概念  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加">
 
 
 
@@ -346,12 +346,11 @@
       
 
       
-        <p>##ARKit简介</p>
-<p>  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。</p>
-<p>1.Slam的概念  </p>
-<p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
+        <h3 id="ARKit简介"><a href="#ARKit简介" class="headerlink" title="ARKit简介"></a>ARKit简介</h3><p>  iOS11发布了ARKit之后，iphone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。</p>
+<h4 id="1-Slam的概念"><a href="#1-Slam的概念" class="headerlink" title="1.Slam的概念"></a>1.Slam的概念</h4><p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
 <p>  要实现SLAM，最基础就是传感器，目前传感器分为激光和VSLAM两大类。激光雷达由于精度高、速度快，能方便地实现SLAM功能而被研究得最多，主要用于机器人及无人车（机）领域，但缺点就是价格昂贵。<br>  而VSLAM则主要用摄像头来实现，摄像头品种繁多，主要分为单目、双目（或多目）、RGBD。实现难度正序：单目视觉&gt;双目视觉&gt;RGBD。  单目视觉因为基于一个摄像头，在深度感知上存在问题，无法得到机器人的运动轨迹及地图的真实大小，但这也使得单目SLAM不受环境大小的影响，既可用于室内，又可用于室外。</p>
 <p>  目前，SLAM技术的实现途径主要包括VSLAM、Wifi-SLAM与Lidar SLAM。</p>
+<a id="more"></a>
 <p>VSLAM (视觉SLAM)  </p>
 <p>指在室内环境下，用摄像机、Kinect等深度相机来做导航和探索。其工作原理简单来说就是对机器人周边的环境进行光学处理，先用摄像头进行图像信息采集，将采集的信息进行压缩，然后将它反馈到一个由神经网络和统计学方法构成的学习子系统，再由学习子系统将采集到的图像信息和机器人的实际位置联系起来，完成机器人的自主导航定位功能。<br>但是，室内的VSLAM仍处于研究阶段，远未到实际应用的程度。一方面，计算量太大，对机器人系统的性能要求较高；另一方面，VSLAM生成的地图（多数是点云）还不能用来做机器人的路径规划，需要进一步探索和研究。</p>
 <p>Wifi-SLAM</p>
@@ -492,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -563,6 +571,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARKit简介"><span class="nav-number">1.</span> <span class="nav-text">ARKit简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Slam的概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.Slam的概念</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
