@@ -1,7 +1,8 @@
 ---
 title: AR入坑指南
 date: 2017-06-28 01:16:11
-tags:
+type: AR
+tags: AR
 ---
 
 ##ARKit简介
