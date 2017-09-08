@@ -7,7 +7,7 @@ date: 2017-03-28 01:16:11
 Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
 本文将持续记录一些hexo使用方法和常见错误的解决方式。
 
-## Quick Start
+### Quick Start
 
 安装Hexo前，首先需要在电脑上安装git和Node.js。
 
@@ -36,7 +36,7 @@ $ cd <folder>
 $ npm install
 ```
 
-### 新建一片文章
+### 新建一篇文章
 
 ``` bash
 $ hexo new "My New Post"
