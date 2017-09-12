@@ -762,3 +762,272 @@
 {"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/note.js\u001b[39m","time":"2017-09-07T04:03:39.010Z","v":0}
 {"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/tabs.js\u001b[39m","time":"2017-09-07T04:03:39.011Z","v":0}
 {"name":"hexo","hostname":"Leon-3.local","pid":58360,"level":20,"msg":"Database saved","time":"2017-09-07T04:03:39.015Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Hexo version: \u001b[35m3.3.9\u001b[39m","time":"2017-09-12T08:28:56.670Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Working directory: \u001b[35m~/Desktop/Code/Blog/fighting300.github.io/\u001b[39m","time":"2017-09-12T08:28:56.672Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Config loaded: \u001b[35m~/Desktop/Code/Blog/fighting300.github.io/_config.yml\u001b[39m","time":"2017-09-12T08:28:56.837Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-archive\u001b[39m","time":"2017-09-12T08:28:56.857Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-category\u001b[39m","time":"2017-09-12T08:28:56.860Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-index\u001b[39m","time":"2017-09-12T08:28:56.863Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-deployer-git\u001b[39m","time":"2017-09-12T08:28:56.890Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-tag\u001b[39m","time":"2017-09-12T08:28:56.892Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-ejs\u001b[39m","time":"2017-09-12T08:28:56.896Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-marked\u001b[39m","time":"2017-09-12T08:28:56.902Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-stylus\u001b[39m","time":"2017-09-12T08:28:56.904Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-server\u001b[39m","time":"2017-09-12T08:28:57.015Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/merge-configs.js\u001b[39m","time":"2017-09-12T08:28:57.025Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/center-quote.js\u001b[39m","time":"2017-09-12T08:28:57.025Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/button.js\u001b[39m","time":"2017-09-12T08:28:57.026Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/exturl.js\u001b[39m","time":"2017-09-12T08:28:57.026Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/merge.js\u001b[39m","time":"2017-09-12T08:28:57.028Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/full-image.js\u001b[39m","time":"2017-09-12T08:28:57.029Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/group-pictures.js\u001b[39m","time":"2017-09-12T08:28:57.029Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/label.js\u001b[39m","time":"2017-09-12T08:28:57.030Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/note.js\u001b[39m","time":"2017-09-12T08:28:57.030Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/lazy-image.js\u001b[39m","time":"2017-09-12T08:28:57.030Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Script loaded: \u001b[35mthemes/next/scripts/tags/tabs.js\u001b[39m","time":"2017-09-12T08:28:57.031Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Loading database.","time":"2017-09-12T08:28:57.038Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":30,"msg":"Start processing","time":"2017-09-12T08:28:57.107Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-Add-3d-Content.md\u001b[39m","time":"2017-09-12T08:28:57.200Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-startup.md\u001b[39m","time":"2017-09-12T08:28:57.201Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/hello-world.md\u001b[39m","time":"2017-09-12T08:28:57.201Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/iOS-code-obfuscate.md\u001b[39m","time":"2017-09-12T08:28:57.202Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ollvm-in-iOS.md\u001b[39m","time":"2017-09-12T08:28:57.202Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mtags/index.md\u001b[39m","time":"2017-09-12T08:28:57.202Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35muploads/avatar.jpeg\u001b[39m","time":"2017-09-12T08:28:57.227Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35muploads/alipay-reward.jpg\u001b[39m","time":"2017-09-12T08:28:57.228Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35muploads/wechat-reward.jpg\u001b[39m","time":"2017-09-12T08:28:57.247Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Theme config loaded.","time":"2017-09-12T08:28:57.295Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_config.yml\u001b[39m","time":"2017-09-12T08:28:57.297Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/css/main.styl\u001b[39m","time":"2017-09-12T08:28:57.297Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/algolia_logo.svg\u001b[39m","time":"2017-09-12T08:28:57.297Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/avatar.gif\u001b[39m","time":"2017-09-12T08:28:57.298Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by-nc-nd.svg\u001b[39m","time":"2017-09-12T08:28:57.298Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by-nc-sa.svg\u001b[39m","time":"2017-09-12T08:28:57.298Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by-nc.svg\u001b[39m","time":"2017-09-12T08:28:57.299Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by-nd.svg\u001b[39m","time":"2017-09-12T08:28:57.299Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by.svg\u001b[39m","time":"2017-09-12T08:28:57.299Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-by-sa.svg\u001b[39m","time":"2017-09-12T08:28:57.299Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/cc-zero.svg\u001b[39m","time":"2017-09-12T08:28:57.300Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/loading.gif\u001b[39m","time":"2017-09-12T08:28:57.300Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/placeholder.gif\u001b[39m","time":"2017-09-12T08:28:57.300Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/quote-l.svg\u001b[39m","time":"2017-09-12T08:28:57.300Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/quote-r.svg\u001b[39m","time":"2017-09-12T08:28:57.301Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/images/searchicon.png\u001b[39m","time":"2017-09-12T08:28:57.301Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_layout.swig\u001b[39m","time":"2017-09-12T08:28:57.465Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/.DS_Store\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/archive.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/index.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/category.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/page.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/post.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/schedule.swig\u001b[39m","time":"2017-09-12T08:28:57.466Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/tag.swig\u001b[39m","time":"2017-09-12T08:28:57.467Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/default.yml\u001b[39m","time":"2017-09-12T08:28:57.477Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/en.yml\u001b[39m","time":"2017-09-12T08:28:57.477Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/de.yml\u001b[39m","time":"2017-09-12T08:28:57.477Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/fr-FR.yml\u001b[39m","time":"2017-09-12T08:28:57.477Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/id.yml\u001b[39m","time":"2017-09-12T08:28:57.477Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/ko.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/ja.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/pt.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/pt-BR.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/ru.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlanguages/zh-Hans.yml\u001b[39m","time":"2017-09-12T08:28:57.478Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":50,"err":{"message":"Cannot convert undefined or null to object","name":"TypeError","stack":"TypeError: Cannot convert undefined or null to object\n    at Function.keys (native)\n    at flattenObject (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:71:21)\n    at flattenObject (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:80:7)\n    at i18n.set (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:50:21)\n    at /Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo/lib/theme/processors/i18n.js:19:10\n    at tryCatcher (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/util.js:16:23)\n    at Promise._settlePromiseFromHandler (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:512:31)\n    at Promise._settlePromise (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:569:18)\n    at Promise._settlePromise0 (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:614:10)\n    at Promise._settlePromises (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:693:18)\n    at Async._drainQueue (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:133:16)\n    at Async._drainQueues (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:143:10)\n    at Immediate.Async.drainQueues [as _onImmediate] (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:17:14)\n    at processImmediate [as _immediateCallback] (timers.js:383:17)"},"msg":"Process failed: \u001b[35mlanguages/zh-hk.yml\u001b[39m","time":"2017-09-12T08:28:57.479Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":50,"err":{"message":"Cannot convert undefined or null to object","name":"TypeError","stack":"TypeError: Cannot convert undefined or null to object\n    at Function.keys (native)\n    at flattenObject (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:71:21)\n    at flattenObject (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:80:7)\n    at i18n.set (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo-i18n/lib/i18n.js:50:21)\n    at /Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/hexo/lib/theme/processors/i18n.js:19:10\n    at tryCatcher (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/util.js:16:23)\n    at Promise._settlePromiseFromHandler (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:512:31)\n    at Promise._settlePromise (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:569:18)\n    at Promise._settlePromise0 (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:614:10)\n    at Promise._settlePromises (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/promise.js:693:18)\n    at Async._drainQueue (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:133:16)\n    at Async._drainQueues (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:143:10)\n    at Immediate.Async.drainQueues [as _onImmediate] (/Users/leon/Desktop/Code/Blog/fighting300.github.io/node_modules/bluebird/js/release/async.js:17:14)\n    at processImmediate [as _immediateCallback] (timers.js:383:17)"},"msg":"Process failed: \u001b[35mlanguages/zh-tw.yml\u001b[39m","time":"2017-09-12T08:28:57.480Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/affix.js\u001b[39m","time":"2017-09-12T08:28:57.480Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/algolia-search.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/exturl.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/bootstrap.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/hook-duoshuo.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/js.cookie.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/motion.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/post-details.js\u001b[39m","time":"2017-09-12T08:28:57.481Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/scroll-cookie.js\u001b[39m","time":"2017-09-12T08:28:57.482Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/scrollspy.js\u001b[39m","time":"2017-09-12T08:28:57.482Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/utils.js\u001b[39m","time":"2017-09-12T08:28:57.482Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/algolia-instant-search/instantsearch.min.css\u001b[39m","time":"2017-09-12T08:28:57.483Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/canvas-nest/canvas-nest.min.js\u001b[39m","time":"2017-09-12T08:28:57.483Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/canvas-ribbon/canvas-ribbon.js\u001b[39m","time":"2017-09-12T08:28:57.484Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fastclick/LICENSE\u001b[39m","time":"2017-09-12T08:28:57.485Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fastclick/bower.json\u001b[39m","time":"2017-09-12T08:28:57.485Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fastclick/README.md\u001b[39m","time":"2017-09-12T08:28:57.485Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/bower.json\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/HELP-US-OUT.txt\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery_lazyload/CONTRIBUTING.md\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery_lazyload/README.md\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery_lazyload/bower.json\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-barber-shop.min.css\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery_lazyload/jquery.lazyload.js\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery_lazyload/jquery.scrollstop.js\u001b[39m","time":"2017-09-12T08:28:57.486Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-big-counter.min.css\u001b[39m","time":"2017-09-12T08:28:57.487Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-center-atom.min.css\u001b[39m","time":"2017-09-12T08:28:57.493Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-bounce.min.css\u001b[39m","time":"2017-09-12T08:28:57.493Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-center-circle.min.css\u001b[39m","time":"2017-09-12T08:28:57.493Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-center-radar.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-corner-indicator.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-center-simple.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-fill-left.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-flash.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-loading-bar.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-mac-osx.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace-theme-minimal.min.css\u001b[39m","time":"2017-09-12T08:28:57.494Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/pace/pace.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/three/canvas_lines.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/three/canvas_sphere.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/three/three-waves.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/velocity/bower.json\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/velocity/velocity.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/velocity/velocity.ui.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/velocity/velocity.ui.min.js\u001b[39m","time":"2017-09-12T08:28:57.495Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/jquery/index.js\u001b[39m","time":"2017-09-12T08:28:57.505Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_custom/sidebar.swig\u001b[39m","time":"2017-09-12T08:28:57.562Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_custom/header.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/post-copyright.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/reward.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/post.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/wechat-subscriber.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/sidebar.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/comments.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/footer.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/head.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_macro/post-collapse.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/header.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/pagination.swig\u001b[39m","time":"2017-09-12T08:28:57.563Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/page-header.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/search.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/commons.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/boostrap.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/.DS_Store\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/vendors.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/duoshuo-hot-articles.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/exturl.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/rating.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/schedule.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/scroll-cookie.swig\u001b[39m","time":"2017-09-12T08:28:57.564Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/mathjax.swig\u001b[39m","time":"2017-09-12T08:28:57.565Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/js/src/schemes/pisces.js\u001b[39m","time":"2017-09-12T08:28:57.569Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/han.css\u001b[39m","time":"2017-09-12T08:28:57.569Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/han.min.js\u001b[39m","time":"2017-09-12T08:28:57.570Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/blank.gif\u001b[39m","time":"2017-09-12T08:28:57.570Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/han.min.css\u001b[39m","time":"2017-09-12T08:28:57.570Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/fancybox_loading.gif\u001b[39m","time":"2017-09-12T08:28:57.570Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/fancybox_overlay.png\u001b[39m","time":"2017-09-12T08:28:57.571Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/fancybox_loading@2x.gif\u001b[39m","time":"2017-09-12T08:28:57.571Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/fancybox_sprite.png\u001b[39m","time":"2017-09-12T08:28:57.571Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/jquery.fancybox.css\u001b[39m","time":"2017-09-12T08:28:57.571Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/fancybox_sprite@2x.png\u001b[39m","time":"2017-09-12T08:28:57.571Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/jquery.fancybox.js\u001b[39m","time":"2017-09-12T08:28:57.572Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/jquery.fancybox.pack.js\u001b[39m","time":"2017-09-12T08:28:57.572Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fastclick/lib/fastclick.js\u001b[39m","time":"2017-09-12T08:28:57.572Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fastclick/lib/fastclick.min.js\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/css/font-awesome.css\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/css/font-awesome.css.map\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/css/font-awesome.min.css\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/ua-parser-js/dist/ua-parser.min.js\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/ua-parser-js/dist/ua-parser.pack.js\u001b[39m","time":"2017-09-12T08:28:57.573Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/schemes/mist.swig\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/schemes/muse.swig\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/han.js\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/velocity/velocity.js\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/fontawesome-webfont.woff2\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/fontawesome-webfont.woff\u001b[39m","time":"2017-09-12T08:28:57.578Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/head/custom-head.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/head/external-fonts.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/search/localsearch.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/search/swiftype.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/share/add-this.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/search/tinysou.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/share/baidushare.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/share/duoshuo_share.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_partials/share/jiathis.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/pages/post-details.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/schemes/gemini.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_scripts/schemes/pisces.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/application-insights.swig\u001b[39m","time":"2017-09-12T08:28:57.610Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/analytics-with-widget.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/baidu-analytics.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/busuanzi-counter.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/cnzz-analytics.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/index.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/facebook-sdk.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/google-analytics.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/lean-analytics.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/changyan.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/tencent-analytics.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/tencent-mta.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/analytics/vkontakte-api.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/duoshuo.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/disqus.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/hypercomments.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/index.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/livere.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/valine.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/comments/youyan.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/search/index.swig\u001b[39m","time":"2017-09-12T08:28:57.611Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/search/localsearch.swig\u001b[39m","time":"2017-09-12T08:28:57.612Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/search/tinysou.swig\u001b[39m","time":"2017-09-12T08:28:57.612Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/seo/baidu-push.swig\u001b[39m","time":"2017-09-12T08:28:57.612Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/font/han-space.otf\u001b[39m","time":"2017-09-12T08:28:57.614Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/font/han.otf\u001b[39m","time":"2017-09-12T08:28:57.614Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/font/han-space.woff\u001b[39m","time":"2017-09-12T08:28:57.614Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/font/han.woff2\u001b[39m","time":"2017-09-12T08:28:57.614Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/fancybox_buttons.png\u001b[39m","time":"2017-09-12T08:28:57.614Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/Han/dist/font/han.woff\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/jquery.fancybox-buttons.css\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/jquery.fancybox-buttons.js\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/jquery.fancybox-media.js\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/jquery.fancybox-thumbs.css\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/FontAwesome.otf\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/fancybox/source/helpers/jquery.fancybox-thumbs.js\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/fontawesome-webfont.eot\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/fontawesome-webfont.ttf\u001b[39m","time":"2017-09-12T08:28:57.615Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/algolia-instant-search/instantsearch.min.js\u001b[39m","time":"2017-09-12T08:28:57.618Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/search/algolia-search/dom.swig\u001b[39m","time":"2017-09-12T08:28:57.621Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35mlayout/_third-party/search/algolia-search/assets.swig\u001b[39m","time":"2017-09-12T08:28:57.621Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/three/three.min.js\u001b[39m","time":"2017-09-12T08:28:57.621Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35msource/lib/font-awesome/fonts/fontawesome-webfont.svg\u001b[39m","time":"2017-09-12T08:28:57.621Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-09-12T08:28:57.748Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-09-12T08:28:57.749Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":30,"msg":"Hexo is running at \u001b[4mhttp://localhost:4000/\u001b[24m. Press Ctrl+C to stop.","time":"2017-09-12T08:28:57.759Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Database saved","time":"2017-09-12T08:28:57.778Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-09-12T08:29:13.025Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-Plane-Detector.md\u001b[39m","time":"2017-09-12T12:53:07.375Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-09-12T12:53:07.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-09-12T12:53:07.529Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-Plane-Detector.md\u001b[39m","time":"2017-09-12T12:53:26.370Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-09-12T12:53:26.523Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-09-12T12:53:26.523Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-09-12T12:53:26.523Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-09-12T12:53:26.523Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-09-12T12:53:26.524Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-09-12T12:53:26.524Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-09-12T12:53:26.526Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-Plane-Detector.md\u001b[39m","time":"2017-09-12T12:53:28.033Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-09-12T12:53:28.171Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-09-12T12:53:28.171Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-09-12T12:53:28.172Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-09-12T12:53:28.172Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-09-12T12:53:28.173Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-09-12T12:53:28.173Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-09-12T12:53:28.175Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-09-12T12:53:34.022Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Processed: \u001b[35m_posts/ARKit-Plane-Detector.md\u001b[39m","time":"2017-09-12T12:55:39.818Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-09-12T12:55:39.948Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-09-12T12:55:39.949Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":1480,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-09-12T12:55:43.692Z","v":0}
