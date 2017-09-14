@@ -267,6 +267,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/14/iOS11-UI-adjust/" itemprop="url">iOS11最新适配指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T11:47:19+08:00">
+                2017-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/14/iOS11-UI-adjust/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/14/iOS11-UI-adjust/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。<br>适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。</p>
+<h4 id="版本判断"><a href="#版本判断" class="headerlink" title="版本判断"></a>版本判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="UI适配"><a href="#UI适配" class="headerlink" title="UI适配"></a>UI适配</h4><h5 id="安全区域适配"><a href="#安全区域适配" class="headerlink" title="安全区域适配"></a>安全区域适配</h5><p>经过实验，如果你的app之前未用LaunchScreen.Storyboard作为启动页面、需要使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小，但是个人感觉还有别的解决方案，找到之后会在此更新。</p>
+<h5 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a>UITableView</h5><h4 id="API适配"><a href="#API适配" class="headerlink" title="API适配"></a>API适配</h4><h5 id="LocalAuthentication-本地认证"><a href="#LocalAuthentication-本地认证" class="headerlink" title="LocalAuthentication 本地认证"></a>LocalAuthentication 本地认证</h5><p>本地认证框架提供了从具有指定安全策略(密码或生物学特征)的用户请求身份验证的功能。例如，要求用户仅使用Face ID或Touch ID进行身份验证，可使用以下代码：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">let myContext = LAContext()</div><div class="line">let myLocalizedReasonString = &lt;#String explaining why app needs authentication#&gt;</div><div class="line"></div><div class="line">var authError: NSError?</div><div class="line">if #available(iOS 8.0, macOS 10.12.1, *) &#123;</div><div class="line">    if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;authError) &#123;</div><div class="line">        myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) &#123; success, evaluateError in</div><div class="line">            if success &#123;</div><div class="line">                // 用户验证通过</div><div class="line">            &#125; else &#123;</div><div class="line">                // 用户验证失败，处理失败信息</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        // 不能执行策略验证，处理验证错误信息</div><div class="line">    &#125;</div><div class="line">&#125; else &#123;</div><div class="line">    // Fallback on earlier versions</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LAContext新增API如下：  </p>
+<ol>
+<li>biometryType属性返回当前设备支持的生物学特征验证方式，他的值可以分别为typeFaceID、typeTouchID或者none。  </li>
+<li>localizedReason需要验证时展示在弹框上的提示信息</li>
+</ol>
+<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
+<li><a href="https://developer.apple.com/videos/fall2017/" target="_blank" rel="external">https://developer.apple.com/videos/fall2017/</a></li>
+<li><a href="https://developer.apple.com/iphone/" target="_blank" rel="external">https://developer.apple.com/iphone/</a></li>
+</ol>
+<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><p>iPhone X 侧边按钮的使用方式：  </p>
+<ul>
+<li>按一下锁屏；</li>
+<li>按两下 Apple Pay；</li>
+<li>按三下辅助功能快捷键（比如 VoiceOver）；</li>
+<li>按五下 SOS；</li>
+<li>短按 Siri；</li>
+<li>长按关机；</li>
+<li>按一下+Volume Up 截屏。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/13/ARKit-Face/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1305,7 +1459,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

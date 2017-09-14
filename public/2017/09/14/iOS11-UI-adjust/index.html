@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文将持续记录一些hexo使用方法和常见错误的解决方式。 Quick Start安装Hexo前，首先需要在电脑上安装git和Node.js。 Node安装：最佳方式是使用nvm1$ curl https://raw.github.com/creationix/">
+<meta name="description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125; UI适配安全区域适配经过实验，如果你的app之前未用LaunchScreen.Storyboard作为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World 之 Hexo的使用">
-<meta property="og:url" content="http://dragonfly.com/2017/03/28/hello-world/index.html">
+<meta property="og:title" content="iOS11最新适配指南">
+<meta property="og:url" content="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
-<meta property="og:description" content="Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文将持续记录一些hexo使用方法和常见错误的解决方式。 Quick Start安装Hexo前，首先需要在电脑上安装git和Node.js。 Node安装：最佳方式是使用nvm1$ curl https://raw.github.com/creationix/">
+<meta property="og:description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125; UI适配安全区域适配经过实验，如果你的app之前未用LaunchScreen.Storyboard作为">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-08T07:10:32.000Z">
+<meta property="og:updated_time" content="2017-09-14T13:46:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World 之 Hexo的使用">
-<meta name="twitter:description" content="Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文将持续记录一些hexo使用方法和常见错误的解决方式。 Quick Start安装Hexo前，首先需要在电脑上安装git和Node.js。 Node安装：最佳方式是使用nvm1$ curl https://raw.github.com/creationix/">
+<meta name="twitter:title" content="iOS11最新适配指南">
+<meta name="twitter:description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125; UI适配安全区域适配经过实验，如果你的app之前未用LaunchScreen.Storyboard作为">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://dragonfly.com/2017/03/28/hello-world/"/>
+  <link rel="canonical" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/"/>
 
 
 
 
 
-  <title>Hello World 之 Hexo的使用 | DragonFly的博客</title>
+  <title>iOS11最新适配指南 | DragonFly的博客</title>
   
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/03/28/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DragonFly">
@@ -284,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World 之 Hexo的使用</h1>
+          <h1 class="post-title" itemprop="name headline">iOS11最新适配指南</h1>
         
 
         <div class="post-meta">
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T01:16:11+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T11:47:19+08:00">
+                2017-09-14
               </time>
             
 
@@ -315,9 +315,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/28/hello-world/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/14/iOS11-UI-adjust/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/03/28/hello-world/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/14/iOS11-UI-adjust/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -345,35 +345,30 @@
       
 
       
-        <p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>本文将持续记录一些hexo使用方法和常见错误的解决方式。</p>
-<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>安装Hexo前，首先需要在电脑上安装git和Node.js。</p>
-<p>Node安装：<br>最佳方式是使用nvm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure></p>
-<p>安装完nvm后，执行一下命令安装Node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install stable</div></pre></td></tr></table></figure></p>
-<p>Hexo安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
-<h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><p>安装 Hexo 完成后执行下列命令，Hexo将会在指定文件夹中新建所需要的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init &lt;folder&gt;</div><div class="line">$ cd &lt;folder&gt;</div><div class="line">$ npm install</div></pre></td></tr></table></figure></p>
-<h3 id="新建一篇文章"><a href="#新建一篇文章" class="headerlink" title="新建一篇文章"></a>新建一篇文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server //hexo s</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate  //hexo g</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy //hexo d</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-<h3 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h3><p>新建一个页面，命名为tags。命令如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page &quot;tags&quot;</div></pre></td></tr></table></figure>
-<p>编辑刚新建的页面，将页面的类型设置为 tags ，主题将自动为这个页面显示标签云。页面内容如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">title: tags</div><div class="line">date: 2016-12-22 12:39:04</div><div class="line">type: &quot;tags&quot;</div></pre></td></tr></table></figure>
-<p>注意： 如果有启用Disqus评论，默认页面也会带有评论。如果需要关闭，请添加comments字段并将值设置为false，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
-<p>然后在菜单中添加链接，编辑主题配置文件，添加tags到menu中，如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">  home: /</div><div class="line">  archives: /archives</div><div class="line">  tags: /tags</div></pre></td></tr></table></figure>
-<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
-<li><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>!</li>
-<li><a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a></li>
-<li><a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a></li>
-<li><a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</li>
+        <p>新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。<br>适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。</p>
+<h4 id="版本判断"><a href="#版本判断" class="headerlink" title="版本判断"></a>版本判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="UI适配"><a href="#UI适配" class="headerlink" title="UI适配"></a>UI适配</h4><h5 id="安全区域适配"><a href="#安全区域适配" class="headerlink" title="安全区域适配"></a>安全区域适配</h5><p>经过实验，如果你的app之前未用LaunchScreen.Storyboard作为启动页面、需要使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小，但是个人感觉还有别的解决方案，找到之后会在此更新。</p>
+<h5 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a>UITableView</h5><h4 id="API适配"><a href="#API适配" class="headerlink" title="API适配"></a>API适配</h4><h5 id="LocalAuthentication-本地认证"><a href="#LocalAuthentication-本地认证" class="headerlink" title="LocalAuthentication 本地认证"></a>LocalAuthentication 本地认证</h5><p>本地认证框架提供了从具有指定安全策略(密码或生物学特征)的用户请求身份验证的功能。例如，要求用户仅使用Face ID或Touch ID进行身份验证，可使用以下代码：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">let myContext = LAContext()</div><div class="line">let myLocalizedReasonString = &lt;#String explaining why app needs authentication#&gt;</div><div class="line"></div><div class="line">var authError: NSError?</div><div class="line">if #available(iOS 8.0, macOS 10.12.1, *) &#123;</div><div class="line">    if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;authError) &#123;</div><div class="line">        myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) &#123; success, evaluateError in</div><div class="line">            if success &#123;</div><div class="line">                // 用户验证通过</div><div class="line">            &#125; else &#123;</div><div class="line">                // 用户验证失败，处理失败信息</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        // 不能执行策略验证，处理验证错误信息</div><div class="line">    &#125;</div><div class="line">&#125; else &#123;</div><div class="line">    // Fallback on earlier versions</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LAContext新增API如下：  </p>
+<ol>
+<li>biometryType属性返回当前设备支持的生物学特征验证方式，他的值可以分别为typeFaceID、typeTouchID或者none。  </li>
+<li>localizedReason需要验证时展示在弹框上的提示信息</li>
 </ol>
+<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
+<li><a href="https://developer.apple.com/videos/fall2017/" target="_blank" rel="external">https://developer.apple.com/videos/fall2017/</a></li>
+<li><a href="https://developer.apple.com/iphone/" target="_blank" rel="external">https://developer.apple.com/iphone/</a></li>
+</ol>
+<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><p>iPhone X 侧边按钮的使用方式：  </p>
+<ul>
+<li>按一下锁屏；</li>
+<li>按两下 Apple Pay；</li>
+<li>按三下辅助功能快捷键（比如 VoiceOver）；</li>
+<li>按五下 SOS；</li>
+<li>短按 Siri；</li>
+<li>长按关机；</li>
+<li>按一下+Volume Up 截屏。</li>
+</ul>
 
       
     </div>
@@ -427,15 +422,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/09/13/ARKit-Face/" rel="next" title="ARKit-基于Face的AR体验">
+                <i class="fa fa-chevron-left"></i> ARKit-基于Face的AR体验
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/01/iOS-code-obfuscate/" rel="prev" title="iOS代码加固">
-                iOS代码加固 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -584,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建站"><span class="nav-number">2.</span> <span class="nav-text">建站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一篇文章"><span class="nav-number">3.</span> <span class="nav-text">新建一篇文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">4.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">5.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">6.</span> <span class="nav-text">Deploy to remote sites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加标签"><span class="nav-number">7.</span> <span class="nav-text">添加标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">7.0.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本判断"><span class="nav-number">1.</span> <span class="nav-text">版本判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI适配"><span class="nav-number">2.</span> <span class="nav-text">UI适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全区域适配"><span class="nav-number">2.1.</span> <span class="nav-text">安全区域适配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UITableView"><span class="nav-number">2.2.</span> <span class="nav-text">UITableView</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API适配"><span class="nav-number">3.</span> <span class="nav-text">API适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LocalAuthentication-本地认证"><span class="nav-number">3.1.</span> <span class="nav-text">LocalAuthentication 本地认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.2.</span> <span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">3.3.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -734,9 +729,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://dragonfly.com/2017/03/28/hello-world/';
-          this.page.identifier = '2017/03/28/hello-world/';
-          this.page.title = 'Hello World 之 Hexo的使用';
+          this.page.url = 'http://dragonfly.com/2017/09/14/iOS11-UI-adjust/';
+          this.page.identifier = '2017/09/14/iOS11-UI-adjust/';
+          this.page.title = 'iOS11最新适配指南';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dragonfly-1.disqus.com/embed.js';
