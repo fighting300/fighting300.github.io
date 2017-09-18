@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS 11," />
+  <meta name="keywords" content="安全," />
 
 
 
@@ -95,18 +95,23 @@
 
 
 
-<meta name="description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123456if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125;// 或者#ifdef __IPHONE_11_0   #endif iPhoneX机型判断 12">
-<meta name="keywords" content="iOS 11">
+<meta name="description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta name="keywords" content="安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS11最新适配指南">
-<meta property="og:url" content="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/index.html">
+<meta property="og:title" content="iOS混淆-ollvm中添加对String的混淆">
+<meta property="og:url" content="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
-<meta property="og:description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123456if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125;// 或者#ifdef __IPHONE_11_0   #endif iPhoneX机型判断 12">
+<meta property="og:description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-18T09:17:56.000Z">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-h.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-seed.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-use.png">
+<meta property="og:updated_time" content="2017-09-18T09:17:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS11最新适配指南">
-<meta name="twitter:description" content="新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。 版本判断123456if (@available(iOS 11.0, *)) &amp;#123;  // 版本适配&amp;#125;// 或者#ifdef __IPHONE_11_0   #endif iPhoneX机型判断 12">
+<meta name="twitter:title" content="iOS混淆-ollvm中添加对String的混淆">
+<meta name="twitter:description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png">
 
 
 
@@ -136,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/"/>
+  <link rel="canonical" href="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/"/>
 
 
 
 
 
-  <title>iOS11最新适配指南 | DragonFly的博客</title>
+  <title>iOS混淆-ollvm中添加对String的混淆 | DragonFly的博客</title>
   
 
 
@@ -268,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DragonFly">
@@ -285,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS11最新适配指南</h1>
+          <h1 class="post-title" itemprop="name headline">iOS混淆-ollvm中添加对String的混淆</h1>
         
 
         <div class="post-meta">
@@ -297,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T11:47:19+08:00">
-                2017-09-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T15:58:09+08:00">
+                2017-09-18
               </time>
             
 
@@ -316,9 +321,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/14/iOS11-UI-adjust/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/18/ollvm-with-StringObfuscate/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/09/14/iOS11-UI-adjust/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/18/ollvm-with-StringObfuscate/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -346,46 +351,26 @@
       
 
       
-        <p>新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。<br>适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。</p>
-<h4 id="版本判断"><a href="#版本判断" class="headerlink" title="版本判断"></a>版本判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div><div class="line">// 或者</div><div class="line">#ifdef __IPHONE_11_0   </div><div class="line">#endif</div></pre></td></tr></table></figure>
-<p>iPhoneX机型判断</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (UIScreen.mainScreen.bounds.size.height == 812) &#123;</div><div class="line">    NSLog(@&quot;this is iPhone X&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="UI适配"><a href="#UI适配" class="headerlink" title="UI适配"></a>UI适配</h4><h5 id="安全区域适配"><a href="#安全区域适配" class="headerlink" title="安全区域适配"></a>安全区域适配</h5><p>经过试验，如果你的app之前未用LaunchScreen.Storyboard作为启动页面、需要使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小，但是个人感觉还有别的解决方案，找到之后会在此更新。</p>
-<p>如果你的app用了自定义的NavigationBar，则可以直接设置additionalSafeAreaInsets来适配界面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//self.automaticallyAdjustsScrollViewInsets = true;</div><div class="line">self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, -20, 0);</div></pre></td></tr></table></figure>
-<p>iPhone X由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。<br><a id="more"></a><br>可能有部分APP使用了RN来实现页面，则需要在RN中修改相应NaviBar和TabBar的宽度。</p>
-<h5 id="UIScrollView-amp-UITableView"><a href="#UIScrollView-amp-UITableView" class="headerlink" title="UIScrollView &amp; UITableView"></a>UIScrollView &amp; UITableView</h5><p>由于iOS 11废弃了UIViewController的automaticallyAdjustsScrollViewInsets属性，所以当超出安全区域时系统自动调整了SafeAreaInsets，进而影响了adjustedContentInset，在iOS 11中决定tableView 内容与边缘距离的是adjustedContentInset.<br>所以需要设置UIScrollView的contentInsetAdjustmentBehavior属性。</p>
-<ol>
-<li><p>UIScrollViewContentInsetAdjustmentAutomatic：如果scrollview在一个automaticallyAdjustsScrollViewContentInset = YES的controller上，并且这个Controller包含在一个navigation controller中，这种情况下会设置在top &amp; bottom上 adjustedContentInset = safeAreaInset + contentInset不管是否滚动。其他情况下与UIScrollViewContentInsetAdjustmentScrollableAxes相同</p>
-</li>
-<li><p>UIScrollViewContentInsetAdjustmentScrollableAxes: 在可滚动方向上adjustedContentInset = safeAreaInset + contentInset，在不可滚动方向上adjustedContentInset = contentInset；依赖于scrollEnabled和alwaysBounceHorizontal / vertical = YES，scrollEnabled默认为yes，所以大多数情况下，计算方式还是adjustedContentInset = safeAreaInset + contentInset</p>
-</li>
-<li><p>UIScrollViewContentInsetAdjustmentNever: adjustedContentInset = contentInset</p>
-</li>
-<li><p>UIScrollViewContentInsetAdjustmentAlways: adjustedContentInset = safeAreaInset + contentInset</p>
-</li>
-</ol>
-<h4 id="API适配"><a href="#API适配" class="headerlink" title="API适配"></a>API适配</h4><h5 id="LocalAuthentication-本地认证"><a href="#LocalAuthentication-本地认证" class="headerlink" title="LocalAuthentication 本地认证"></a>LocalAuthentication 本地认证</h5><p>本地认证框架提供了从具有指定安全策略(密码或生物学特征)的用户请求身份验证的功能。例如，要求用户仅使用Face ID或Touch ID进行身份验证，可使用以下代码：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">let myContext = LAContext()</div><div class="line">let myLocalizedReasonString = &lt;#String explaining why app needs authentication#&gt;</div><div class="line"></div><div class="line">var authError: NSError?</div><div class="line">if #available(iOS 8.0, macOS 10.12.1, *) &#123;</div><div class="line">    if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;authError) &#123;</div><div class="line">        myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) &#123; success, evaluateError in</div><div class="line">            if success &#123;</div><div class="line">                // 用户验证通过</div><div class="line">            &#125; else &#123;</div><div class="line">                // 用户验证失败，处理失败信息</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        // 不能执行策略验证，处理验证错误信息</div><div class="line">    &#125;</div><div class="line">&#125; else &#123;</div><div class="line">    // Fallback on earlier versions</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LAContext新增API如下：  </p>
-<ol>
-<li>biometryType属性返回当前设备支持的生物学特征验证方式，他的值可以分别为typeFaceID、typeTouchID或者none。  </li>
-<li>localizedReason需要验证时展示在弹框上的提示信息</li>
-</ol>
+        <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="external">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="external">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">专栏的文章</a>。</p>
+<h4 id="Pass集成"><a href="#Pass集成" class="headerlink" title="Pass集成"></a>Pass集成</h4><p>首先提取字符串加密文件对应pass文件，该文件所在目录为lib/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png" alt="pass文件目录"></p>
+<a id="more"></a>
+<p>提取后放在ollvm相同目录下，并把头文件也复制到对应目录下，该文件所在目录为include/llvm/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-h.png" alt="头文件目录"></p>
+<p>修改lib/Transform/Obfuscation目录下的CMakeLists.txt文件，将StringObfuscation.cpp添加到编译库中。然后修改Transform/IPO下的PassManagerBuilder.cpp文件，添加字符串加密的编译代码。具体代码如下:</p>
+<h5 id="1-添加引用"><a href="#1-添加引用" class="headerlink" title="1.添加引用"></a>1.添加引用</h5><p><code>#include &quot;llvm/Transforms/Obfuscation/StringObfuscation.h&quot;</code></p>
+<h5 id="2-插入函数声明，即编译时的编译参数-mllvm-sobf"><a href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf" class="headerlink" title="2.插入函数声明，即编译时的编译参数-mllvm -sobf"></a>2.插入函数声明，即编译时的编译参数<code>-mllvm -sobf</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static cl::opt&lt;std::string&gt; Seed(&quot;seed&quot;, cl::init(&quot;&quot;),</div><div class="line">                           cl::desc(&quot;seed for the random&quot;));</div><div class="line"></div><div class="line">static cl::opt&lt;bool&gt; StringObf(&quot;sobf&quot;, cl::init(false),</div><div class="line">                           cl::desc(&quot;Enable the string obfuscation&quot;));</div></pre></td></tr></table></figure>
+<h5 id="3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><a href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化" class="headerlink" title="3.在PassManagerBuilder()构造函数中添加随机数因子的初始化"></a>3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(!Seed.empty()) &#123;</div><div class="line">  llvm::cryptoutils-&gt;prng_seed(Seed.c_str());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-seed.png" alt="插入随机因子初始化"></p>
+<h5 id="4-添加pss到-PassManagerBuilder-populateModulePassManager中"><a href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中" class="headerlink" title="4.添加pss到 PassManagerBuilder::populateModulePassManager中"></a>4.添加pss到 PassManagerBuilder::populateModulePassManager中</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MPM.add(createStringObfuscation(StringObf));</div></pre></td></tr></table></figure>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-use.png" alt="添加Pass"></p>
+<h5 id="5-在主路径下运行编译命令"><a href="#5-在主路径下运行编译命令" class="headerlink" title="5.在主路径下运行编译命令"></a>5.在主路径下运行编译命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir build</div><div class="line">cd build</div><div class="line">cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/   // 代码所在路径</div><div class="line">make -j7</div></pre></td></tr></table></figure>
+<p>即可生成build最终文件，用于项目编译。我在github上也新建了一个添加了字符串混淆功能的<a href="https://github.com/fighting300/obfuscator" target="_blank" rel="external">ollvm版本</a>，想要直接使用的小伙伴可以下载使用。</p>
+<h4 id="问题及解决方案"><a href="#问题及解决方案" class="headerlink" title="问题及解决方案"></a>问题及解决方案</h4><p>编译成功后，则可按照<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">上篇文章</a>所述，在XCode中编译项目。   </p>
+<h5 id="1-bcf不支持Invoke指令"><a href="#1-bcf不支持Invoke指令" class="headerlink" title="1. bcf不支持Invoke指令"></a>1. bcf不支持Invoke指令</h5><p>在实际使用过程中，发现ollvm目前不支持@synchronized、try…catch等少数语法，然后导致bcf报错。<a href="https://llvm.org/docs/LangRef.html#invoke-instruction" target="_blank" rel="external">这些语法</a>会生成invoke指令，目前可以在bcf前过滤包含InvokeInst的方法，具体代码可以参考<a href="https://github.com/fighting300/obfuscator/commit/ae0e5acd873cd9a8c839a013a635422022fd0d6b" target="_blank" rel="external">该Github地址</a>。</p>
+<h5 id="2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><a href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。" class="headerlink" title="2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"></a>2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。<a href="https://qtfreet.com/?p=313" target="_blank" rel="external">该bug</a>未经过验证。</h5><p>若有其他问题，可以联系，或者comment(翻墙才能评论哈。。。)</p>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
-<li><a href="https://developer.apple.com/videos/fall2017/" target="_blank" rel="external">https://developer.apple.com/videos/fall2017/</a></li>
-<li><a href="https://developer.apple.com/iphone/" target="_blank" rel="external">https://developer.apple.com/iphone/</a></li>
+<li><a href="http://bobao.360.cn/learning/detail/4069.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/4069.html</a></li>
+<li><a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">http://www.nagain.com/activity/article/14/</a></li>
 </ol>
-<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><p>iPhone X 侧边按钮的使用方式：  </p>
-<ul>
-<li>按一下锁屏；</li>
-<li>按两下 Apple Pay；</li>
-<li>按三下辅助功能快捷键（比如 VoiceOver）；</li>
-<li>按五下 SOS；</li>
-<li>短按 Siri；</li>
-<li>长按关机；</li>
-<li>按一下+Volume Up 截屏。</li>
-</ul>
 
       
     </div>
@@ -432,7 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS-11/" rel="tag"># iOS 11</a>
+            <a href="/tags/安全/" rel="tag"># 安全</a>
           
         </div>
       
@@ -445,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/13/ARKit-Face/" rel="next" title="ARKit-基于Face的AR体验">
-                <i class="fa fa-chevron-left"></i> ARKit-基于Face的AR体验
+              <a href="/2017/09/14/iOS11-UI-adjust/" rel="next" title="iOS11最新适配指南">
+                <i class="fa fa-chevron-left"></i> iOS11最新适配指南
               </a>
             
           </div>
@@ -454,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/18/ollvm-with-StringObfuscate/" rel="prev" title="iOS混淆-ollvm中添加对String的混淆">
-                iOS混淆-ollvm中添加对String的混淆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本判断"><span class="nav-number">1.</span> <span class="nav-text">版本判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI适配"><span class="nav-number">2.</span> <span class="nav-text">UI适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全区域适配"><span class="nav-number">2.1.</span> <span class="nav-text">安全区域适配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UIScrollView-amp-UITableView"><span class="nav-number">2.2.</span> <span class="nav-text">UIScrollView & UITableView</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API适配"><span class="nav-number">3.</span> <span class="nav-text">API适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LocalAuthentication-本地认证"><span class="nav-number">3.1.</span> <span class="nav-text">LocalAuthentication 本地认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.2.</span> <span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">3.3.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pass集成"><span class="nav-number">1.</span> <span class="nav-text">Pass集成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-添加引用"><span class="nav-number">1.1.</span> <span class="nav-text">1.添加引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf"><span class="nav-number">1.2.</span> <span class="nav-text">2.插入函数声明，即编译时的编译参数-mllvm -sobf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><span class="nav-number">1.3.</span> <span class="nav-text">3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中"><span class="nav-number">1.4.</span> <span class="nav-text">4.添加pss到 PassManagerBuilder::populateModulePassManager中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-在主路径下运行编译命令"><span class="nav-number">1.5.</span> <span class="nav-text">5.在主路径下运行编译命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题及解决方案"><span class="nav-number">2.</span> <span class="nav-text">问题及解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-bcf不支持Invoke指令"><span class="nav-number">2.1.</span> <span class="nav-text">1. bcf不支持Invoke指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><span class="nav-number">2.2.</span> <span class="nav-text">2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">2.3.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -756,9 +737,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://dragonfly.com/2017/09/14/iOS11-UI-adjust/';
-          this.page.identifier = '2017/09/14/iOS11-UI-adjust/';
-          this.page.title = 'iOS11最新适配指南';
+          this.page.url = 'http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/';
+          this.page.identifier = '2017/09/18/ollvm-with-StringObfuscate/';
+          this.page.title = 'iOS混淆-ollvm中添加对String的混淆';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dragonfly-1.disqus.com/embed.js';
