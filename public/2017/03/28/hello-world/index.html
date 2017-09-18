@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="DragonFly的博客">
 <meta property="og:description" content="Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文将持续记录一些hexo使用方法和常见错误的解决方式。 Quick Start安装Hexo前，首先需要在电脑上安装git和Node.js。 Node安装：最佳方式是使用nvm1$ curl https://raw.github.com/creationix/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-08T07:10:32.000Z">
+<meta property="og:updated_time" content="2017-09-18T09:42:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello World 之 Hexo的使用">
 <meta name="twitter:description" content="Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文将持续记录一些hexo使用方法和常见错误的解决方式。 Quick Start安装Hexo前，首先需要在电脑上安装git和Node.js。 Node安装：最佳方式是使用nvm1$ curl https://raw.github.com/creationix/">
@@ -368,6 +368,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
 <p>然后在菜单中添加链接，编辑主题配置文件，添加tags到menu中，如下：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">  home: /</div><div class="line">  archives: /archives</div><div class="line">  tags: /tags</div></pre></td></tr></table></figure>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="1-首页文章显示部分"><a href="#1-首页文章显示部分" class="headerlink" title="1.首页文章显示部分"></a>1.首页文章显示部分</h5><p>最简单的方案是在文章中添加以下标签内容：<br><code>&lt;!--more--&gt;</code></p>
+<h5 id="2-评论系统支持"><a href="#2-评论系统支持" class="headerlink" title="2.评论系统支持"></a>2.评论系统支持</h5><p>试了几种评论服务，感觉还是<a href="https://disqus.com/" target="_blank" rel="external">Disqus</a>的服务比较好，比较麻烦的一点是需要翻墙才能评论。不过为了良好的体验，目前还是使用Disqus吧，最主要它是免费的。接入很简单，现在<a href="https://disqus.com/admin/create/" target="_blank" rel="external">网站注册</a>,然后在主题配置文件下填写以下内容即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Disqus</div><div class="line">disqus:</div><div class="line">  enable: true</div><div class="line">  shortname: ***** //这儿填写相应的服务名  </div><div class="line">  count: true</div></pre></td></tr></table></figure>
+<p>注意使用过程中，要配置Guest Commenting,这样就可以允许所有人在页面评论了。<br>注意，在标签需要关闭评论,添加以下标签即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure></p>
+<h5 id="3-统计支持"><a href="#3-统计支持" class="headerlink" title="3.统计支持"></a>3.统计支持</h5><p>目前发现GoogleAnalysis</p>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
 <li><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>!</li>
 <li><a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a></li>
@@ -522,7 +527,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -535,7 +540,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -584,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建站"><span class="nav-number">2.</span> <span class="nav-text">建站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一篇文章"><span class="nav-number">3.</span> <span class="nav-text">新建一篇文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">4.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">5.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">6.</span> <span class="nav-text">Deploy to remote sites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加标签"><span class="nav-number">7.</span> <span class="nav-text">添加标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">7.0.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建站"><span class="nav-number">2.</span> <span class="nav-text">建站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一篇文章"><span class="nav-number">3.</span> <span class="nav-text">新建一篇文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">4.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">5.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">6.</span> <span class="nav-text">Deploy to remote sites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加标签"><span class="nav-number">7.</span> <span class="nav-text">添加标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">7.1.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-首页文章显示部分"><span class="nav-number">7.1.1.</span> <span class="nav-text">1.首页文章显示部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-评论系统支持"><span class="nav-number">7.1.2.</span> <span class="nav-text">2.评论系统支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-统计支持"><span class="nav-number">7.1.3.</span> <span class="nav-text">3.统计支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">7.1.4.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

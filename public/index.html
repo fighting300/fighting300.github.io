@@ -267,6 +267,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/ollvm-with-StringObfuscate/" itemprop="url">iOS混淆-ollvm中添加对String的混淆</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T15:58:09+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/18/ollvm-with-StringObfuscate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/18/ollvm-with-StringObfuscate/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="external">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="external">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">专栏的文章</a>。</p>
+<h4 id="Pass集成"><a href="#Pass集成" class="headerlink" title="Pass集成"></a>Pass集成</h4><p>首先提取字符串加密文件对应pass文件，该文件所在目录为lib/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png" alt="pass文件目录"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/18/ollvm-with-StringObfuscate/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/14/iOS11-UI-adjust/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1447,7 +1583,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1460,7 +1596,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="安全," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta name="keywords" content="安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS混淆-ollvm中添加对String的混淆">
+<meta property="og:url" content="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-h.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-seed.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-use.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-before.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-after.png">
+<meta property="og:updated_time" content="2017-09-18T11:14:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS混淆-ollvm中添加对String的混淆">
+<meta name="twitter:description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/"/>
+
+
+
+
+
+  <title>iOS混淆-ollvm中添加对String的混淆 | DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS混淆-ollvm中添加对String的混淆</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T15:58:09+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/18/ollvm-with-StringObfuscate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/18/ollvm-with-StringObfuscate/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="external">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="external">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">专栏的文章</a>。</p>
+<h4 id="Pass集成"><a href="#Pass集成" class="headerlink" title="Pass集成"></a>Pass集成</h4><p>首先提取字符串加密文件对应pass文件，该文件所在目录为lib/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png" alt="pass文件目录"></p>
+<a id="more"></a>
+<p>提取后放在ollvm相同目录下，并把头文件也复制到对应目录下，该文件所在目录为include/llvm/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-h.png" alt="头文件目录"></p>
+<p>修改lib/Transform/Obfuscation目录下的CMakeLists.txt文件，将StringObfuscation.cpp添加到编译库中。然后修改Transform/IPO下的PassManagerBuilder.cpp文件，添加字符串加密的编译代码。具体代码如下:</p>
+<h5 id="1-添加引用"><a href="#1-添加引用" class="headerlink" title="1.添加引用"></a>1.添加引用</h5><p><code>#include &quot;llvm/Transforms/Obfuscation/StringObfuscation.h&quot;</code></p>
+<h5 id="2-插入函数声明，即编译时的编译参数-mllvm-sobf"><a href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf" class="headerlink" title="2.插入函数声明，即编译时的编译参数-mllvm -sobf"></a>2.插入函数声明，即编译时的编译参数<code>-mllvm -sobf</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static cl::opt&lt;std::string&gt; Seed(&quot;seed&quot;, cl::init(&quot;&quot;),</div><div class="line">                           cl::desc(&quot;seed for the random&quot;));</div><div class="line"></div><div class="line">static cl::opt&lt;bool&gt; StringObf(&quot;sobf&quot;, cl::init(false),</div><div class="line">                           cl::desc(&quot;Enable the string obfuscation&quot;));</div></pre></td></tr></table></figure>
+<h5 id="3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><a href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化" class="headerlink" title="3.在PassManagerBuilder()构造函数中添加随机数因子的初始化"></a>3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(!Seed.empty()) &#123;</div><div class="line">  llvm::cryptoutils-&gt;prng_seed(Seed.c_str());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-seed.png" alt="插入随机因子初始化"></p>
+<h5 id="4-添加pss到-PassManagerBuilder-populateModulePassManager中"><a href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中" class="headerlink" title="4.添加pss到 PassManagerBuilder::populateModulePassManager中"></a>4.添加pss到 PassManagerBuilder::populateModulePassManager中</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MPM.add(createStringObfuscation(StringObf));</div></pre></td></tr></table></figure>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-use.png" alt="添加Pass"></p>
+<h5 id="5-在主路径下运行编译命令"><a href="#5-在主路径下运行编译命令" class="headerlink" title="5.在主路径下运行编译命令"></a>5.在主路径下运行编译命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir build</div><div class="line">cd build</div><div class="line">cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/   // 代码所在路径</div><div class="line">make -j7</div></pre></td></tr></table></figure>
+<p>即可生成build最终文件，用于项目编译。我在github上也新建了一个添加了字符串混淆功能的<a href="https://github.com/fighting300/obfuscator" target="_blank" rel="external">ollvm版本</a>，想要直接使用的小伙伴可以下载使用。</p>
+<h5 id="6-使用效果"><a href="#6-使用效果" class="headerlink" title="6.使用效果"></a>6.使用效果</h5><p>在OC代码中添加了简单的字符串、混淆后的效果如下图：  </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-before.png" alt="字符串混淆前"></p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-after.png" alt="字符串混淆后"></p>
+<h4 id="问题及解决方案"><a href="#问题及解决方案" class="headerlink" title="问题及解决方案"></a>问题及解决方案</h4><p>编译成功后，则可按照<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">上篇文章</a>所述，在XCode中编译项目。   </p>
+<h5 id="1-bcf不支持Invoke指令"><a href="#1-bcf不支持Invoke指令" class="headerlink" title="1. bcf不支持Invoke指令"></a>1. bcf不支持Invoke指令</h5><p>在实际使用过程中，发现ollvm目前不支持@synchronized、try…catch等少数语法，然后导致bcf报错。<a href="https://llvm.org/docs/LangRef.html#invoke-instruction" target="_blank" rel="external">这些语法</a>会生成invoke指令，目前可以在bcf前过滤包含InvokeInst的方法，具体代码可以参考<a href="https://github.com/fighting300/obfuscator/commit/ae0e5acd873cd9a8c839a013a635422022fd0d6b" target="_blank" rel="external">该Github地址</a>。</p>
+<h5 id="2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><a href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。" class="headerlink" title="2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"></a>2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。<a href="https://qtfreet.com/?p=313" target="_blank" rel="external">该bug</a>未经过验证。</h5><p>若有其他问题，可以联系，或者comment(翻墙才能评论哈。。。)</p>
+<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
+<li><a href="http://bobao.360.cn/learning/detail/4069.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/4069.html</a></li>
+<li><a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">http://www.nagain.com/activity/article/14/</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechat-reward.jpg" alt="DragonFly 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay-reward.jpg" alt="DragonFly 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/14/iOS11-UI-adjust/" rel="next" title="iOS11最新适配指南">
+                <i class="fa fa-chevron-left"></i> iOS11最新适配指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pass集成"><span class="nav-number">1.</span> <span class="nav-text">Pass集成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-添加引用"><span class="nav-number">1.1.</span> <span class="nav-text">1.添加引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf"><span class="nav-number">1.2.</span> <span class="nav-text">2.插入函数声明，即编译时的编译参数-mllvm -sobf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><span class="nav-number">1.3.</span> <span class="nav-text">3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中"><span class="nav-number">1.4.</span> <span class="nav-text">4.添加pss到 PassManagerBuilder::populateModulePassManager中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-在主路径下运行编译命令"><span class="nav-number">1.5.</span> <span class="nav-text">5.在主路径下运行编译命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-使用效果"><span class="nav-number">1.6.</span> <span class="nav-text">6.使用效果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题及解决方案"><span class="nav-number">2.</span> <span class="nav-text">问题及解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-bcf不支持Invoke指令"><span class="nav-number">2.1.</span> <span class="nav-text">1. bcf不支持Invoke指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><span class="nav-number">2.2.</span> <span class="nav-text">2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">2.3.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://dragonfly.com/2017/09/18/ollvm-with-StringObfuscate/';
+          this.page.identifier = '2017/09/18/ollvm-with-StringObfuscate/';
+          this.page.title = 'iOS混淆-ollvm中添加对String的混淆';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dragonfly-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
