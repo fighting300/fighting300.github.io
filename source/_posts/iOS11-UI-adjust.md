@@ -1,15 +1,14 @@
 ---
-title: iOS11最新适配指南
+title: iOS11/iPhoneX最新适配指南
 date: 2017-09-14 11:47:19
 tags: iOS 11
 ---
 
-新版iPhone X发布前，就隐隐感觉到一大波工作要袭来的赶脚，果然不出所料，下面简单分享下在工作中发现的适配注意点。  
-适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中。
+新版iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料，下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)
 
+#### 版本判断API
 
-#### 版本判断
-
+iOS11 版本判断  
 ```
   if (@available(iOS 11.0, *)) {
     // 版本适配
@@ -19,42 +18,54 @@ tags: iOS 11
   #endif
 ```
 
-iPhoneX机型判断
+目前没发现有iPhoneX的机型判断API，目前可以使用size来做代替判断。  
 
 ```
   if (UIScreen.mainScreen.bounds.size.height == 812) {
       NSLog(@"this is iPhone X");
   }
-```
+```  
+
 #### UI适配  
+
+如果之前的APP在iPhoneX屏幕没填充满，上下有黑色区域，应该是你的app之前未用LaunchScreen.Storyboard作为启动页面，可以使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小。或者修改Assets中的LaunchImage，添加iPhoneX的尺寸图如下(1125*2436)。
+
+![LuanchImage适配](http://ojca2gwha.bkt.clouddn.com/iOS11-adjust-launch.png)  
+
+##### 导航栏适配  
+
+iPhoneX由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。
+iOS11前导航栏的高度是64，其中statusBar的高度为20，而iPhoneX的statusBar高度变为了44，如果是自定义的NaviBar，这部分需要做相应的适配。
+可能有部分APP使用了RN来实现页面，不要忘了在RN中修改相应NaviBar的高度。
+
+<!--more-->
+
 ##### 安全区域适配
 
-经过试验，如果你的app之前未用LaunchScreen.Storyboard作为启动页面、需要使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小，但是个人感觉还有别的解决方案，找到之后会在此更新。
-
-如果你的app用了自定义的NavigationBar，则可以直接设置additionalSafeAreaInsets来适配界面。
-
+iPhoneX的底部由于安全区域的原因tabBar的高度由49变为83，所以自定义的底部TabBar也需要需改其适配方案。
+如果你的app用了系统的NavigationBar，则可以直接设置additionalSafeAreaInsets来适配界面。
 ```
-  //self.automaticallyAdjustsScrollViewInsets = true;
-  self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, -20, 0);
+  self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, -34, 0);
 ```
-
-iPhone X由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。
-<!--more-->
-可能有部分APP使用了RN来实现页面，则需要在RN中修改相应NaviBar和TabBar的宽度。
 
 ##### UIScrollView & UITableView
 
-由于iOS 11废弃了UIViewController的automaticallyAdjustsScrollViewInsets属性，所以当超出安全区域时系统自动调整了SafeAreaInsets，进而影响了adjustedContentInset，在iOS 11中决定tableView 内容与边缘距离的是adjustedContentInset.
-所以需要设置UIScrollView的contentInsetAdjustmentBehavior属性。
+测试过程中发现tableView会有20pt/64pt的偏移，其原因是由于iOS 11废弃了UIViewController的automaticallyAdjustsScrollViewInsets属性，新增了contentInsetAdjustmentBehavior属性，所以当超出安全区域时系统自动调整了SafeAreaInsets，进而影响了adjustedContentInset，在iOS11中决定tableView内容与边缘距离的是adjustedContentInset，所以需要设置UIScrollView的contentInsetAdjustmentBehavior属性。
+可以直接使用以下代码做适配：
 
-1. UIScrollViewContentInsetAdjustmentAutomatic：如果scrollview在一个automaticallyAdjustsScrollViewContentInset = YES的controller上，并且这个Controller包含在一个navigation controller中，这种情况下会设置在top & bottom上 adjustedContentInset = safeAreaInset + contentInset不管是否滚动。其他情况下与UIScrollViewContentInsetAdjustmentScrollableAxes相同
+```
+  #ifdef __IPHONE_11_0   
+  if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+  }
+  #endif
+```
 
-2. UIScrollViewContentInsetAdjustmentScrollableAxes: 在可滚动方向上adjustedContentInset = safeAreaInset + contentInset，在不可滚动方向上adjustedContentInset = contentInset；依赖于scrollEnabled和alwaysBounceHorizontal / vertical = YES，scrollEnabled默认为yes，所以大多数情况下，计算方式还是adjustedContentInset = safeAreaInset + contentInset
+在适配过程中发现UITableView会在Header／Footer返回size为负值的情况下会(之前遗漏的bug)崩溃，这块可以自查下，而iOS11之前的版本不会。
 
-3. UIScrollViewContentInsetAdjustmentNever: adjustedContentInset = contentInset
+![iPhoneX尺寸](http://ojca2gwha.bkt.clouddn.com/iOS11-iPhoneX.png)
 
-4. UIScrollViewContentInsetAdjustmentAlways: adjustedContentInset = safeAreaInset + contentInset
-
+另外有人对iPhoneX整个UIWindow做了内容的调整，只是UI还是有点丑，感兴趣的同学可以去看看[该GitHub](https://github.com/HarshilShah/NotchKit);
 
 #### API适配
 
