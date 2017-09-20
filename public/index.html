@@ -484,38 +484,23 @@
 
       
         
-          
-            <p>新版iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料，下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)</p>
-<h4 id="版本判断API"><a href="#版本判断API" class="headerlink" title="版本判断API"></a>版本判断API</h4><p>iOS11 版本判断<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div><div class="line">// 或者</div><div class="line">#ifdef __IPHONE_11_0   </div><div class="line">#endif</div></pre></td></tr></table></figure></p>
-<p>目前没发现有iPhoneX的机型判断API，目前可以使用size来做代替判断。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">  if (UIScreen.mainScreen.bounds.size.height == 812) &#123;</div><div class="line">      NSLog(@&quot;this is iPhone X&quot;);</div><div class="line">  &#125;</div><div class="line">```  </div><div class="line"></div><div class="line">#### UI适配  </div><div class="line"></div><div class="line">如果之前的APP在iPhoneX屏幕没填充满，上下有黑色区域，应该是你的app之前未用LaunchScreen.Storyboard作为启动页面，可以使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小。或者修改Assets中的LaunchImage，添加iPhoneX的尺寸图如下(1125*2436)。</div><div class="line"></div><div class="line">![LuanchImage适配](http://ojca2gwha.bkt.clouddn.com/iOS11-adjust-launch.png)  </div><div class="line"></div><div class="line">##### 导航栏适配  </div><div class="line"></div><div class="line">iPhoneX由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。</div><div class="line">iOS11前导航栏的高度是64，其中statusBar的高度为20，而iPhoneX的statusBar高度变为了44，如果是自定义的NaviBar，这部分需要做相应的适配。</div><div class="line">可能有部分APP使用了RN来实现页面，不要忘了在RN中修改相应NaviBar的高度。</div><div class="line"></div><div class="line">&lt;!--more--&gt;</div><div class="line"></div><div class="line">##### 安全区域适配</div><div class="line"></div><div class="line">iPhoneX的底部由于安全区域的原因tabBar的高度由49变为83，所以自定义的底部TabBar也需要需改其适配方案。</div><div class="line">如果你的app用了系统的NavigationBar，则可以直接设置additionalSafeAreaInsets来适配界面。</div></pre></td></tr></table></figure>
-<p>  self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, -34, 0);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### UIScrollView &amp; UITableView</div><div class="line"></div><div class="line">测试过程中发现tableView会有20pt/64pt的偏移，其原因是由于iOS 11废弃了UIViewController的automaticallyAdjustsScrollViewInsets属性，新增了contentInsetAdjustmentBehavior属性，所以当超出安全区域时系统自动调整了SafeAreaInsets，进而影响了adjustedContentInset，在iOS11中决定tableView内容与边缘距离的是adjustedContentInset，所以需要设置UIScrollView的contentInsetAdjustmentBehavior属性。</div><div class="line">可以直接使用以下代码做适配：</div></pre></td></tr></table></figure></p>
-<p>  #ifdef __IPHONE_11_0<br>  if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {<br>    tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;<br>  }</p>
-<p>  #endif<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在适配过程中发现UITableView会在Header／Footer返回size为负值的情况下会(之前遗漏的bug)崩溃，这块可以自查下，而iOS11之前的版本不会。</div><div class="line"></div><div class="line">![iPhoneX尺寸](http://ojca2gwha.bkt.clouddn.com/iOS11-iPhoneX.png)</div><div class="line"></div><div class="line">另外有人对iPhoneX整个UIWindow做了内容的调整，只是UI还是有点丑，感兴趣的同学可以去看看[该GitHub](https://github.com/HarshilShah/NotchKit);</div><div class="line"></div><div class="line">#### API适配</div><div class="line"></div><div class="line">##### LocalAuthentication 本地认证    </div><div class="line"></div><div class="line">本地认证框架提供了从具有指定安全策略(密码或生物学特征)的用户请求身份验证的功能。例如，要求用户仅使用Face ID或Touch ID进行身份验证，可使用以下代码：</div></pre></td></tr></table></figure></p>
-<p>  let myContext = LAContext()<br>  let myLocalizedReasonString = &lt;#String explaining why app needs authentication#&gt;</p>
-<p>  var authError: NSError?<br>  if #available(iOS 8.0, macOS 10.12.1, *) {<br>      if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;authError) {<br>          myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) { success, evaluateError in<br>              if success {<br>                  // 用户验证通过<br>              } else {<br>                  // 用户验证失败，处理失败信息<br>              }<br>          }<br>      } else {<br>          // 不能执行策略验证，处理验证错误信息<br>      }<br>  } else {<br>      // Fallback on earlier versions<br>  }</p>
-<p>```</p>
-<p>LAContext新增API如下：  </p>
-<ol>
-<li>biometryType属性返回当前设备支持的生物学特征验证方式，他的值可以分别为typeFaceID、typeTouchID或者none。  </li>
-<li>localizedReason需要验证时展示在弹框上的提示信息</li>
-</ol>
-<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
-<li><a href="https://developer.apple.com/videos/fall2017/" target="_blank" rel="external">https://developer.apple.com/videos/fall2017/</a></li>
-<li><a href="https://developer.apple.com/iphone/" target="_blank" rel="external">https://developer.apple.com/iphone/</a></li>
-</ol>
-<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><p>iPhone X 侧边按钮的使用方式：  </p>
-<ul>
-<li>按一下锁屏；</li>
-<li>按两下 Apple Pay；</li>
-<li>按三下辅助功能快捷键（比如 VoiceOver）；</li>
-<li>按五下 SOS；</li>
-<li>短按 Siri；</li>
-<li>长按关机；</li>
-<li>按一下+Volume Up 截屏。</li>
-</ul>
-
-          
+          <p>iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。<br>新版iPhone的适配工作主要集中在iPhoneX上，相信大家已经对iPhoneX的刘海记忆深刻了，除了吐槽，留给我们的还有比较麻烦的适配工作。下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)  </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iPhoneX-Screen.png" alt="iPhoneX 375x812尺寸图">  </p>
+<h4 id="上下黑边问题"><a href="#上下黑边问题" class="headerlink" title="上下黑边问题"></a>上下黑边问题</h4><p>运行新版Xcode的iPhoneX模拟器，你可能发现之前的APP在iPhoneX屏幕没填充满，上下有黑色区域，应该是你的app之前未用LaunchScreen.Storyboard作为启动页面，可以使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小。或者修改Assets中的LaunchImage，添加iPhoneX的Launch图如下(1125*2436)。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS11-adjust-launch.png" alt="LaunchImage适配">  </p>
+<h4 id="iOS11新增版本判断API"><a href="#iOS11新增版本判断API" class="headerlink" title="iOS11新增版本判断API"></a>iOS11新增版本判断API</h4><p>iOS11版本现在有了简单的API，不用再手写iOS版本判断了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div><div class="line">// 或者</div><div class="line">#ifdef __IPHONE_11_0   </div><div class="line">#endif</div></pre></td></tr></table></figure></p>
+<p>目前没发现有iPhoneX的机型判断API，暂时可以使用size来做代替判断。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if (UIScreen.mainScreen.bounds.size.height == 812) &#123;</div><div class="line">    NSLog(@&quot;this is iPhone X&quot;);</div><div class="line">&#125;</div><div class="line">#define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)</div></pre></td></tr></table></figure>
+<h4 id="UI适配"><a href="#UI适配" class="headerlink" title="UI适配"></a>UI适配</h4><h5 id="导航栏适配"><a href="#导航栏适配" class="headerlink" title="导航栏适配"></a>导航栏适配</h5><p>iPhoneX由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。<br>iOS11前导航栏的高度是64，其中statusBar的高度为20，而iPhoneX的statusBar高度变为了44，如果是自定义的NaviBar，这部分需要做相应的适配。  </p>
+<p>iPhoneX的底部增加了虚拟Home区，由于安全区域的原因默认tabBar的高度由49变为83，增高了34，所以自定义的底部TabBar也需要需改其适配方案。<br>可能有部分APP使用了RN来实现页面，不要忘了在RN中修改相应NaviBar/TabBar的高度。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iPhoneX-Area.png" alt="iPhoneX尺寸">  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/14/iOS11-UI-adjust/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1636,6 +1621,12 @@
                 <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
                   
                     <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
               </span>
             
           
