@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ARKit," />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -95,24 +95,18 @@
 
 
 
-<meta name="description" content="ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。 开发环境 Xcode版本： Xcode9以上Xcode 9 Beta：https://developer.apple.com/download/下载最新的beta版本就可">
-<meta name="keywords" content="ARKit">
+<meta name="description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour架构bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单点说,就是某个组织发明了一套解决方案,这套协议能">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARKit上手指南 01 添加3D物体">
-<meta property="og:url" content="http://dragonfly.com/2017/09/08/ARKit-Add-3d-Content/index.html">
+<meta property="og:title" content="iOS-Bonjour">
+<meta property="og:url" content="http://dragonfly.com/2017/07/21/iOS-bonjour/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
-<meta property="og:description" content="ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。 开发环境 Xcode版本： Xcode9以上Xcode 9 Beta：https://developer.apple.com/download/下载最新的beta版本就可">
+<meta property="og:description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour架构bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单点说,就是某个组织发明了一套解决方案,这套协议能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit_1Project.png">
-<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/AR-Plane.jpg">
-<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-class.png">
-<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/AR-Session.png">
-<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/AR-flow.png">
-<meta property="og:updated_time" content="2017-09-08T06:36:16.000Z">
+<meta property="og:updated_time" content="2017-09-21T12:36:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARKit上手指南 01 添加3D物体">
-<meta name="twitter:description" content="ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。 开发环境 Xcode版本： Xcode9以上Xcode 9 Beta：https://developer.apple.com/download/下载最新的beta版本就可">
-<meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit_1Project.png">
+<meta name="twitter:title" content="iOS-Bonjour">
+<meta name="twitter:description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour架构bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单点说,就是某个组织发明了一套解决方案,这套协议能">
 
 
 
@@ -142,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://dragonfly.com/2017/09/08/ARKit-Add-3d-Content/"/>
+  <link rel="canonical" href="http://dragonfly.com/2017/07/21/iOS-bonjour/"/>
 
 
 
 
 
-  <title>ARKit上手指南 01 添加3D物体 | DragonFly的博客</title>
+  <title>iOS-Bonjour | DragonFly的博客</title>
   
 
 
@@ -274,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/08/ARKit-Add-3d-Content/">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/07/21/iOS-bonjour/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DragonFly">
@@ -291,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ARKit上手指南 01 添加3D物体</h1>
+          <h1 class="post-title" itemprop="name headline">iOS-Bonjour</h1>
         
 
         <div class="post-meta">
@@ -303,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T12:56:22+08:00">
-                2017-09-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T18:34:41+08:00">
+                2017-07-21
               </time>
             
 
@@ -322,9 +316,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/08/ARKit-Add-3d-Content/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/21/iOS-bonjour/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/09/08/ARKit-Add-3d-Content/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/21/iOS-bonjour/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,46 +346,19 @@
       
 
       
-        <p>ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。</p>
-<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><ol>
-<li>Xcode版本： Xcode9以上<br>Xcode 9 Beta：<a href="https://developer.apple.com/download/" target="_blank" rel="external">https://developer.apple.com/download/</a><br>下载最新的beta版本就可以了，不过Xcode需要Mac 10.12.4及以上的版本。  </li>
-<li>iOS系统： iOS11以上</li>
-<li>iOS设备： A9/A10处理器的iOS设备，即iPhone6s、iPad2017及以上的设备</li>
-</ol>
-<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>首先打开Xcode，选择ARKit模板，如下所示：  </p>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit_1Project.png" alt="AR项目创建"></p>
-<p>之后，填写完项目信息后，选择Content Technology为SceneKit，当然也可以选择SpriteKit，不过在3D空间中就不是那么立体了。<br>开发语言选择Swift，Swift天然亲和ARKit，很多网上的Demo都是用Swift写的，这样也方便移植和借鉴。<br><a id="more"></a><br>然后连接你的测试设备并运行，app就可以运行了。该模版APP会在实施摄像头镜头中展示一架飞机的3D模型。如下图所示：  </p>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/AR-Plane.jpg" alt="3D飞机"></p>
-<p>实际项目中，你也可以不使用该模版来创建项目，直接引入相关库也可以进行开发。</p>
-<p>在项目中可以看到<code>viewWillAppear</code>方法中已经初始化了ARWorldTrackingConfiguration实例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">override func viewWillAppear(_ animated: Bool) &#123;</div><div class="line">      super.viewWillAppear(animated)  </div><div class="line"></div><div class="line">      // Create a session configuration</div><div class="line">      let configuration = ARWorldTrackingConfiguration()</div><div class="line"></div><div class="line">      // Run the view&apos;s session</div><div class="line">      sceneView.session.run(configuration)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="放置3D物体"><a href="#放置3D物体" class="headerlink" title="放置3D物体"></a>放置3D物体</h4><p>SceneKit有一些基础类，SCNScene是所有3D内容的容器，可以在其中添加多个3D物体。<br>要向scene中添加内容，要创建SCNGeometry，然后将其包装为SCNNode并添加到SCNScene中。</p>
-<p>首先注释掉<code>let scene = SCNScene(named: &quot;art.scnassets/ship.scn&quot;)! sceneView.scene = scene</code>，然后添加代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line">	super.viewDidLoad()</div><div class="line">	// 存放所有3D几何体的容器</div><div class="line">	let scene = SCNScene()</div><div class="line"></div><div class="line">	// 想要绘制的 3D 立方体</div><div class="line">	let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.0)</div><div class="line"></div><div class="line">	// 将几何体包装为node以便添加到scene</div><div class="line">	let boxNode = SCNNode(geometry: boxGeometry)</div><div class="line"></div><div class="line">	// 把box放在摄像头正前方</div><div class="line">	boxNode.position = SCNVector3Make(0, 0, -0.5)</div><div class="line"></div><div class="line">	// rootNode是一个特殊的node，它是所有node的起始点</div><div class="line">	scene.rootNode.addChildNode(boxNode)</div><div class="line"></div><div class="line">	// 将 scene 赋给 view</div><div class="line">	sceneView.scene = scene</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在运行该项目，就会看到有3D立方体悬浮在空中，并且全方位无死角。</p>
-<p>此外还可以增加一些调试信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// ARKit统计信息例如fps等</div><div class="line">sceneView.showsStatistics = YES;</div><div class="line"></div><div class="line">sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints];</div><div class="line">// 调整摄像头属性 当前摄像头有效直径在10m范围内</div><div class="line">if let camera = sceneView.pointOfView?.camera &#123;</div><div class="line">	camera.wantsHDR = true</div><div class="line">      camera.wantsExposureAdaptation = true</div><div class="line">      camera.exposureOffset = -1</div><div class="line">      camera.minimumExposure = -1</div><div class="line">      camera.zFar = 10</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>之前简单体验了ARKit的功能，下面简单介绍ARKit的工作原理：   </p>
-<h4 id="ARKit工作原理"><a href="#ARKit工作原理" class="headerlink" title="ARKit工作原理"></a>ARKit工作原理</h4><p>在ARKit中，创建虚拟3D模型其实可以分为两个步骤：   </p>
-<ol>
-<li>相机捕捉现实世界图像–由ARKit实现   </li>
-<li>在图像中显示虚拟3D模型/2D模型–由SceneKit/SpriteKit实现     </li>
-</ol>
-<p>ARKit中ARSCNView用于显示3D虚拟AR的视图，它的作用是管理一个ARSession，一个ARSCNView实例默认持有一个ARSession。<br>在一个完整的AR体验中，ARKit框架只负责将真实世界画面转变为一个3D场景，这一个转变的过程主要分为两个环节：由ARCamera负责捕捉摄像头画面，由ARSession负责搭建3D场景，而将虚拟物体显示在3D场景中则是由SceneKit框架来完成，每个虚拟物体都是一个节点SCNNode，每个节点构成一个场景SCNScene。<br>ARCamera只负责捕捉图像，不参与数据的处理。它属于3D场景中的一个环节，每一个3D Scene都会有一个Camera，它决定了我们看物体的视野。<br>下图是ARKit与SceneKit的框架关系图:   </p>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-class.png" alt="ARKit class结构"></p>
-<p>ARSessionConfiguration的主要目的就是负责追踪相机在3D世界中的位置以及一些特征场景的捕捉（例如平面捕捉），这个类本身比较简单却作用巨大。ARSessionConfiguration是一个父类，为了更好的看到增强现实的效果，苹果官方建议我们使用它的子类ARWorldTrackingSessionConfiguration，该类只支持A9芯片之后的机型，也就是iPhone6s之后的机型。</p>
-<p>当ARWorldTrackingSessionConfiguration计算出相机在3D世界中的位置时，它本身并不持有这个位置数据，而是将其计算出的位置数据交给ARSession去管理，而相机的位置数据对应的类就是ARFrame。ARSession类一个属性叫做currentFrame，维护的就是ARFrame这个对象。  </p>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/AR-Session.png" alt="ARFrame"></p>
-<p>ARKit的完整运行流程可以参考下图：</p>
-<ol>
-<li>ARSCNView加载场景SCNScene  </li>
-<li>SCNScene启动ARCamera开始捕捉图像  </li>
-<li>ARSCNView开始将SCNScene的场景数据交给ARSession  </li>
-<li>ARSession通过管理ARSessionConfiguration实现场景的追踪并且返回一个ARFrame(添加3D物体模型时计算3D模型相对于相机的真实矩阵位置时需要使用)</li>
-<li>给ARSCNView的SCNScene添加一个子节点(SCNNode)</li>
-</ol>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/AR-flow.png" alt="ARKit工作流程"></p>
-<p>本文将会使用ARKit创建一个简单的app，结束时就可以在AR世界里放置3D物体，并且可以用iOS设备绕着它移动。虽然这是一个非常简单的app，我们会在之后的文章中继续为其编写更多功能，包括平面检测、3D物理效果等其他东西。   </p>
-
+        <p>之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Introduction.html" target="_blank" rel="external">Bonjour</a>。现在简单写一篇Bonjour的入门介绍。</p>
+<h4 id="Bonjour架构"><a href="#Bonjour架构" class="headerlink" title="Bonjour架构"></a>Bonjour架构</h4><p>bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单点说,就是某个组织发明了一套解决方案,这套协议能够不需要复杂的配置,即可互相发现彼此的解决方案。可以用它来轻松探测并连接到相同网络中的其他设备，并与别的智能硬件进行交互或者其他操作。典型的Bonjour应用有Remote、AirPrint等。</p>
+<p><img src="" alt=""></p>
+<p>为了实现简单配置网络，Bonjour做了以下三点：<br>1.寻址(分配IP地址给主机）<br>一个在网络中的设备需要有一个自己的IP。有了IP地址,我们才能基于IP协议进行通信。对于IPV6标准,IP协议已经包括了自动寻找IP地址的功能。但是目前仍然普遍使用的IPV4不包含本地链路寻址功能。而Bonjour会在本地网络选择一个随机的IP地址进行测试,如果已经被占用,则继续挑选另外一个地址，直到选到可用的IP地址。</p>
+<p>2.命名(使用名字而不是IP地址来代表主机）<br>Bonjour实现了命名和解析功能，保证了我们服务的名字在本地网络是唯一的,并且把别人对我们名字的查询指向正确的IP地址和端口，而不是已IP地址这样不易读的方式来作为服务的标志。<br>而且Bonjour在系统级别上添加了一个mDNSResponder服务来处理请求和发送回复,从系统级层面上处理,我们就无需在应用内自己监听和返回IP地址,只需到系统内注册服务即可。减少了我们应用的工作量和提高了稳定性。</p>
+<p>3.服务搜索（自动在网络搜索服务）<br>Bonjour可以只需指定所需服务的类型，即可收到本地网络上可用的设备列表。设备在本地网络发出请求,说我需要”XXX”类型的服务,例如：我要打印机服务。所有打印机服务的设备回应自己的名字。</p>
+<h4 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h4><p>简单来说，建立Bonjour连接一般需要三个步骤，即服务端发布服务、客户端浏览服务、客户端/服务端交互。</p>
+<h5 id="客户端发布服务"><a href="#客户端发布服务" class="headerlink" title="客户端发布服务"></a>客户端发布服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func setupService()&#123;</div><div class="line">    let service = NetService.init(domain: &quot;local.&quot;, type: &quot;_dragon._tcp&quot;, name: &quot;dragon&quot;, port: 2333)</div><div class="line">    service.delegate = self</div><div class="line">    let dictData = &quot;http://fighting300.github.io&quot;.data(using: String.Encoding.utf8)</div><div class="line">    let data = NetService.data(fromTXTRecord: [&quot;node&quot;:dictData!])</div><div class="line">    service.setTXTRecord(data)</div><div class="line">    service.publish()</div><div class="line">    self.service = service</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">func netServiceWillPublish(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netServiceWillPublish&quot;)</div><div class="line">&#125;</div><div class="line">func netService(_ sender: NetService, didNotPublish errorDict: [String : NSNumber]) &#123;</div><div class="line">    print(&quot;----netService didNotPublish&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="客户端发布服务-1"><a href="#客户端发布服务-1" class="headerlink" title="客户端发布服务"></a>客户端发布服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func netServiceWillPublish(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netServiceWillPublish&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceDidPublish(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService didPublish&quot;)</div><div class="line">    let browser = NetServiceBrowser()</div><div class="line">    browser.delegate = self</div><div class="line">    browser.searchForServices(ofType: &quot;_WE._tcp&quot;, inDomain: &quot;local.&quot;)</div><div class="line">    browser.schedule(in: RunLoop.current, forMode: .commonModes)</div><div class="line">    RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 300))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) &#123;</div><div class="line">        print(&quot;----netServiceBrowser didFind&quot;, service.domain, service.type, service.name, service.port,service)</div><div class="line">        self.service = service</div><div class="line">        service.delegate = self</div><div class="line">        service.resolve(withTimeout: 5)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func netServiceBrowser(_ browser: NetServiceBrowser, didRemove service: NetService, moreComing: Bool) &#123;</div><div class="line">        print(&quot;----netServiceBrowser didRemove&quot;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func netServiceWillResolve(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService willResolve&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceDidResolveAddress(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService didResolveAddress&quot;, sender.name, sender.addresses, sender.hostName, sender.addresses?.first)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) &#123;</div><div class="line">    print(&quot;----netService didNotResolve &quot;, errorDict)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceDidStop(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netServiceDidStop&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didUpdateTXTRecord data: Data) &#123;</div><div class="line">    print(&quot;----netService didUpdateTXTRecord&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didAcceptConnectionWith inputStream: InputStream, outputStream: OutputStream) &#123;</div><div class="line">    print(&quot;----netService didAcceptConnectionWith&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// MARK: util</div><div class="line">func IPFrom(data: Data) -&gt; String &#123;</div><div class="line"></div><div class="line">    return &quot;&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="客户端-服务端交互"><a href="#客户端-服务端交互" class="headerlink" title="客户端/服务端交互"></a>客户端/服务端交互</h5><pre><code>
+</code></pre>
       
     </div>
     
@@ -437,7 +404,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ARKit/" rel="tag"># ARKit</a>
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
           
         </div>
       
@@ -450,8 +417,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/07/ollvm-in-iOS/" rel="next" title="iOS混淆--OLLVM在iOS中的实践">
-                <i class="fa fa-chevron-left"></i> iOS混淆--OLLVM在iOS中的实践
+              <a href="/2017/06/28/ARKit-startup/" rel="next" title="ARKit入坑指南--技术实现分析">
+                <i class="fa fa-chevron-left"></i> ARKit入坑指南--技术实现分析
               </a>
             
           </div>
@@ -460,8 +427,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/12/ARKit-Plane-Detector/" rel="prev" title="ARKit 上手指南 02 平面检测">
-                ARKit 上手指南 02 平面检测 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/07/ollvm-in-iOS/" rel="prev" title="iOS混淆--OLLVM在iOS中的实践">
+                iOS混淆--OLLVM在iOS中的实践 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -617,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开发环境"><span class="nav-number">1.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建项目"><span class="nav-number">2.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#放置3D物体"><span class="nav-number">3.</span> <span class="nav-text">放置3D物体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARKit工作原理"><span class="nav-number">4.</span> <span class="nav-text">ARKit工作原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour架构"><span class="nav-number">1.</span> <span class="nav-text">Bonjour架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立连接"><span class="nav-number">2.</span> <span class="nav-text">建立连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端发布服务"><span class="nav-number">2.1.</span> <span class="nav-text">客户端发布服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端发布服务-1"><span class="nav-number">2.2.</span> <span class="nav-text">客户端发布服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端-服务端交互"><span class="nav-number">2.3.</span> <span class="nav-text">客户端/服务端交互</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -767,9 +734,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://dragonfly.com/2017/09/08/ARKit-Add-3d-Content/';
-          this.page.identifier = '2017/09/08/ARKit-Add-3d-Content/';
-          this.page.title = 'ARKit上手指南 01 添加3D物体';
+          this.page.url = 'http://dragonfly.com/2017/07/21/iOS-bonjour/';
+          this.page.identifier = '2017/07/21/iOS-bonjour/';
+          this.page.title = 'iOS-Bonjour';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dragonfly-1.disqus.com/embed.js';
