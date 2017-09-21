@@ -17,7 +17,7 @@ iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，�
 
 #### iOS11新增版本判断API
 
-iOS11版本现在有了简单的API，不用再手写iOS版本判断了。      
+iOS11版本现在有了简单的API，OC也开始支持swfit的@available语法，不用再手写iOS版本判断了。      
 ```
   if (@available(iOS 11.0, *)) {
     // 版本适配
@@ -30,10 +30,11 @@ iOS11版本现在有了简单的API，不用再手写iOS版本判断了。
 目前没发现有iPhoneX的机型判断API，暂时可以使用size来做代替判断。  
 
 ```
+  #define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)
+  // 或者
   if (UIScreen.mainScreen.bounds.size.height == 812) {
       NSLog(@"this is iPhone X");
   }
-  #define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)
 ```
 
 #### UI适配  
@@ -52,45 +53,63 @@ iPhoneX的底部增加了虚拟Home区，由于安全区域的原因默认tabBar
 
 ##### 安全区域
 
-安全区域定义了view中可视区域的部分，帮助我们将view放置在整个屏幕的可视的部分。即使把navigationbar设置为透明的，系统也认为安全区域是从navigationbar的bottom开始的。
-这样保证不被系统的状态栏、或父视图提供的view如导航栏覆盖。
+安全区域定义了view中可视区域的部分，帮助我们将view放置在整个屏幕的可视的部分。即使把navigationbar设置为透明的，系统也认为安全区域是从navigationbar的bottom开始的。这样保证不被系统的状态栏、或父视图提供的view如导航栏覆盖。
 
 ![安全区域](http://ojca2gwha.bkt.clouddn.com/iOS11-safeArea.png)
 
-iOS11的UIViewController和UIView新加了`(void)viewSafeAreaInsetsDidChange`方法，当安全区域改变后该方法会被调用。然后在该方法中根据safeAreaInses属性更新子视图中控件的布局位置。
-当然如果你要改变一个UIViewController的safeAreaInsets值, 可以通过设置addtionalSafeAreaInsets属性来实现, 例如你要自定义一些特殊的样式时。
-需要注意的是(void)viewSafeAreaInsetsDidChange在UIViewController中第一次调用的时间是在`-(void)viewWillAppear:(BOOL)animated`调用之后, 在`- (void)viewWillLayoutSubviews`调用之前。所以可以在viewWillAppear里设置受影响的页面的addtionalSafeAreaInsets属性。
+iOS11的UIViewController和UIView新加了`-(void)viewSafeAreaInsetsDidChange`方法，当安全区域改变后该方法会被调用。然后在该方法中根据safeAreaInses属性更新子视图中控件的布局位置。
+当然如果你要改变一个UIViewController的safeAreaInsets值, 可以通过设置`addtionalSafeAreaInsets`属性来实现, 例如你要自定义一些特殊的样式时。
+需要注意的是viewSafeAreaInsetsDidChange在UIViewController中第一次调用的时间是在`-(void)viewWillAppear:(BOOL)animated`调用之后, 在`- (void)viewWillLayoutSubviews`调用之前。所以可以在viewWillAppear里设置受影响的页面的addtionalSafeAreaInsets属性。
+
+```
+- (void)viewSafeAreaInsetsDidChange{
+    [super viewSafeAreaInsetsDidChange];
+    if (@available(iOS 11.0, *)) {
+        NSLog(@"safeAreaInset list= %@",NSStringFromUIEdgeInsets(self.view.safeAreaInsets));
+        NSLog(@"safeAreaLayout list= %@",self.view.safeAreaLayoutGuide);
+    }
+}
+```
 
 ##### UIScrollView & UITableView
 
 测试过程中发现tableView会有20pt/64pt的偏移，其原因是由于iOS 11废弃了UIViewController的`automaticallyAdjustsScrollViewInsets`属性，新增了contentInsetAdjustmentBehavior属性，所以当超出安全区域时系统自动调整了SafeAreaInsets，进而影响了adjustedContentInset，在iOS11中决定tableView内容与边缘距离的是adjustedContentInset，所以需要设置UIScrollView的contentInsetAdjustmentBehavior属性。  
 
 1.手动适配    
-如果你使用了UITableView、UIScrollView，可以直接使用以下代码做适配，这样系统就不会主动为你设置边缘距离。  
+如果你使用了UITableView、UIScrollView，可以直接使用以下代码做适配，这样系统就不会主动为你设置边缘距离，但是你可能需要手动适配UITableView的contenteInset。   
+
 ```
-  #ifdef __IPHONE_11_0   
+  #ifdef __IPHONE_11_0  
+  // 单独作用与某个tableView
   if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
     tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
   }
+  // 作用与所有的UIScrollView
   UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
   // 设置view的宽高
-  tableView.contentInset = UIEdgeInsetsMake(0, 0, 34, 0);//iPhoneX这里是88
-
+  tableView.contentInset = UIEdgeInsetsMake(0, 0, 34, 0);
   #endif
 ```
 
-2.另一种方案是设置安全区域addtionalSafeAreaInset
-如果你的SafeAreaInset值为(20,0,0,0)，则需要设置相应的additionalSafeAreaInsets值为(-20,0,0,0)，以防止非安全区域的内容被遮挡。
+2.自动适配  
+设置`contentInsetAdjustmentBehavior`属性为UIScrollViewContentInsetAdjustmentAutomatic，则系统会自动计算contentView的偏移量。
+
+3.设置安全区域的addtionalSafeAreaInset  
+某些情况下，你需要顶部区域，比如广告区域覆盖Status，则可以设置相应页面的addtionalSafeAreaInset属性，这样系统不会将safeArea上调到从status开始。这样可以提供更好的用户体验。
+例如如果你的SafeAreaInset值为(44,0,0,0)，则需要设置相应的additionalSafeAreaInsets值为(-44,0,0,0)。
+
 ```
   if (@available(iOS 11.0, *)) {
-      self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, 34, 0);
+      self.additionalSafeAreaInsets = UIEdgeInsetsMake(-44, 0, 0, 0);
   } else {
       // Fallback on earlier versions
   }
 ```
 
-3.iOS11开始UITableView开启了自动估算行高，estimatedRowHeight estimatedSectionHeaderHeight estimatedSectionFooterHeight三个高度估算属性由默认的0变成了UITableViewAutomaticDimension，所以heightForHeaderInSection和viewForHeaderInSection应该一起使用，不然tableView顶部滑动的时候会有空白。
-而且在适配过程中发现UITableView会在Header/Footer返回size为负值的情况下会(之前遗漏的bug)崩溃，这块可以自查下，而iOS11之前的版本不会。
+4.iOS11开始UITableView开启了自动估算行高，estimatedRowHeight estimatedSectionHeaderHeight estimatedSectionFooterHeight三个高度估算属性由默认的0变成了UITableViewAutomaticDimension，所以heightForHeaderInSection和viewForHeaderInSection应该一起使用，不然tableView顶部滑动的时候会有空白。
+在适配过程中发现UITableView会在Header/Footer返回size为负值的情况下会(之前遗漏的bug)崩溃，这块可以自查下，而iOS11之前的版本不会。
+
+##### 其他方案......
 
 另外有人对iPhoneX整个UIWindow做了内容的调整，只是UI还是有点丑，感兴趣的同学可以去看看[该GitHub](https://github.com/HarshilShah/NotchKit)，不过可能这样的设计方案不会通过APPLE的审核。
 
