@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iOS11-adjust-launch.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iPhoneX-Area.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iOS11-safeArea.png">
-<meta property="og:updated_time" content="2017-09-21T10:16:31.000Z">
+<meta property="og:updated_time" content="2017-09-22T08:01:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS11&#x2F;iPhoneX最新适配指南">
 <meta name="twitter:description" content="iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。新版iPhone的适配工作主要集中在iPhoneX上，相信大家已经对iPhoneX的刘海记忆深刻了，除了吐槽，留给我们的还有比较麻烦的适配工作。下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)      上下黑边问题运行新版Xcode的iPhoneX模拟器，你可能发">
@@ -358,10 +358,10 @@
 <h4 id="iOS11新增版本判断API"><a href="#iOS11新增版本判断API" class="headerlink" title="iOS11新增版本判断API"></a>iOS11新增版本判断API</h4><p>iOS11版本现在有了简单的API，OC也开始支持swfit的@available语法，不用再手写iOS版本判断了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div><div class="line">// 或者</div><div class="line">#ifdef __IPHONE_11_0   </div><div class="line">#endif</div></pre></td></tr></table></figure></p>
 <p>目前没发现有iPhoneX的机型判断API，暂时可以使用size来做代替判断。  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)</div><div class="line">// 或者</div><div class="line">if (UIScreen.mainScreen.bounds.size.height == 812) &#123;</div><div class="line">    NSLog(@&quot;this is iPhone X&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h4 id="UI适配"><a href="#UI适配" class="headerlink" title="UI适配"></a>UI适配</h4><h5 id="导航栏适配"><a href="#导航栏适配" class="headerlink" title="导航栏适配"></a>导航栏适配</h5><p>iPhoneX由于多了大圆角、传感器(齐刘海)以及底部访问主屏幕的指示遮挡，所以需要注意原有这部分内容的设计。<br>iOS11前导航栏的高度是64，其中statusBar的高度为20，而iPhoneX的statusBar高度变为了44，如果是自定义的NaviBar，这部分需要做相应的适配。  </p>
 <p>iPhoneX的底部增加了虚拟Home区，由于安全区域的原因默认tabBar的高度由49变为83，增高了34，所以自定义的底部TabBar也需要需改其适配方案。<br>可能有部分APP使用了RN来实现页面，不要忘了在RN中修改相应NaviBar/TabBar的高度。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/iPhoneX-Area.png" alt="iPhoneX尺寸">  </p>
-<a id="more"></a>
 <h5 id="安全区域"><a href="#安全区域" class="headerlink" title="安全区域"></a>安全区域</h5><p>安全区域定义了view中可视区域的部分，帮助我们将view放置在整个屏幕的可视的部分。即使把navigationbar设置为透明的，系统也认为安全区域是从navigationbar的bottom开始的。这样保证不被系统的状态栏、或父视图提供的view如导航栏覆盖。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/iOS11-safeArea.png" alt="安全区域"></p>
 <p>iOS11的UIViewController和UIView新加了<code>-(void)viewSafeAreaInsetsDidChange</code>方法，当安全区域改变后该方法会被调用。然后在该方法中根据safeAreaInses属性更新子视图中控件的布局位置。<br>当然如果你要改变一个UIViewController的safeAreaInsets值, 可以通过设置<code>addtionalSafeAreaInsets</code>属性来实现, 例如你要自定义一些特殊的样式时。<br>需要注意的是viewSafeAreaInsetsDidChange在UIViewController中第一次调用的时间是在<code>-(void)viewWillAppear:(BOOL)animated</code>调用之后, 在<code>- (void)viewWillLayoutSubviews</code>调用之前。所以可以在viewWillAppear里设置受影响的页面的addtionalSafeAreaInsets属性。</p>
@@ -554,7 +554,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
