@@ -134,12 +134,23 @@ Bonjour操作也需要异步进行，以免长时间阻碍主线程，所以我�
         print("----netService didAcceptConnectionWith")
     }
 
-    // MARK: util
+    // MARK: util 获取ip地址
     func IPFrom(data: Data) -> String {
-
-        return ""
+      let dataIn: NSData = data as NSData
+      var storage = sockaddr_storage()
+      dataIn.getBytes(&storage, length: MemoryLayout<sockaddr_storage>.size)
+      if Int32(storage.ss_family) == AF_INET {
+          let addr4 = withUnsafePointer(to: &storage) {
+              $0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) {
+                  $0.pointee
+              }
+          }
+          let ipString =  String(cString: inet_ntoa(addr4.sin_addr), encoding: .ascii)
+          print("ip", ipString)
+          return ipString
+      }
+      return ""
     }
-
 ```
 
 之后依靠以上获取的信息，需要通过Socket/Streams建立连接来进行通信，本篇文章不对这部分做更多的介绍，后续有时间再补充完整。

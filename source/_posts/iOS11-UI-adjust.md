@@ -37,6 +37,8 @@ iOS11版本现在有了简单的API，OC也开始支持swfit的@available语法�
   }
 ```
 
+<!--more-->
+
 #### UI适配  
 
 ##### 导航栏适配  
@@ -49,7 +51,7 @@ iPhoneX的底部增加了虚拟Home区，由于安全区域的原因默认tabBar
 
 ![iPhoneX尺寸](http://ojca2gwha.bkt.clouddn.com/iPhoneX-Area.png)  
 
-<!--more-->
+
 
 ##### 安全区域
 

@@ -21,8 +21,9 @@ ARFaceAnchor的transform属性描述了面部在世界坐标系中的所在位�
 
 该坐标系为右手坐标系，x轴只想观察者的右边(即face自己的左边)，y轴指向上边(与face绑定)，z轴指向了观察者。
 
-ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画，
+ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画。
 
+<!--more--> 
 #### 开始面部跟踪
 
 和ARKit的其他用法一样，面部追踪需要ARSessionConfiguration并运行一个ARSession来渲染相机屏幕，这部分可以参考[之前分享的文章](httpbai.ducom)，流程一致，只是这部分需要使用到新加的API。
