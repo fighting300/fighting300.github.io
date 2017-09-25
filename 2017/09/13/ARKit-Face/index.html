@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-iPhoneX.jpg">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-face-Coordinate.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-Jobs.jpg">
-<meta property="og:updated_time" content="2017-09-22T09:15:57.000Z">
+<meta property="og:updated_time" content="2017-09-25T12:08:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARKit-基于Face的AR体验">
 <meta name="twitter:description" content="Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。之前的版本中前置摄像头是不支持AKKit模块的，幸而新发布的版本中添加了对Face识别的支持，然而新的API需要原前置深感摄像头(TrueDepth Camera)的支持，所以看来还得入手一台iPhone X呐。    新增API首先新增了ARFaceTracki">
@@ -230,6 +230,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -312,6 +322,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -358,7 +390,7 @@
 <p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-face-Coordinate.png" alt="ARKit Face coordinate"></p>
 <p>该坐标系为右手坐标系，x轴只想观察者的右边(即face自己的左边)，y轴指向上边(与face绑定)，z轴指向了观察者。</p>
 <p>ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画。</p>
-<a id="more"></a> 
+<a id="more"></a>
 <h4 id="开始面部跟踪"><a href="#开始面部跟踪" class="headerlink" title="开始面部跟踪"></a>开始面部跟踪</h4><p>和ARKit的其他用法一样，面部追踪需要ARSessionConfiguration并运行一个ARSession来渲染相机屏幕，这部分可以参考<a href="httpbai.ducom">之前分享的文章</a>，流程一致，只是这部分需要使用到新加的API。<br>如前面所说，面部检测只支持配置了原前置深感摄像头(TrueDepth Camera)的iPhone，所以首先需要判断当前设备是否支持ARFaceTrackingConfiguration。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 如果设备支持的判断通过 然后配置Session Configuration</div><div class="line">guard ARFaceTrackingConfiguration.isSupported else &#123; return &#125;</div><div class="line">let configuration = ARFaceTrackingConfiguration()</div><div class="line">configuration.isLightEstimationEnabled = true</div><div class="line">session.run(configuration, options: [.resetTracking, .removeExistingAnchors])</div></pre></td></tr></table></figure>
 <h4 id="跟踪脸部位置和方向"><a href="#跟踪脸部位置和方向" class="headerlink" title="跟踪脸部位置和方向"></a>跟踪脸部位置和方向</h4><p>当面部跟踪启用后，ARKit会自动的添加ARFaceAnchor到ARSession中，包括其位置和方向。  </p>
@@ -549,10 +581,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -560,10 +592,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
+              
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
