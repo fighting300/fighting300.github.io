@@ -3,6 +3,7 @@ title: ARKit上手指南 01 添加3D物体
 date: 2017-09-08 12:56:22
 tags:
    ARKit
+categories: iOS
 ---
 
 ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。

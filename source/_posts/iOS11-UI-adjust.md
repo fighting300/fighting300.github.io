@@ -2,6 +2,7 @@
 title: iOS11/iPhoneX最新适配指南
 date: 2017-09-14 11:47:19
 tags: iOS 11
+categories: iOS
 ---
 
 iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。  

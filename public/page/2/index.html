@@ -225,6 +225,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -286,7 +296,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/28/hello-world/" itemprop="url">Hello World 之 Hexo的使用</a></h1>
+                <a class="post-title-link" href="/2017/03/28/hello-world/" itemprop="url">如何搭建我的博客 - Hexo之Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -308,6 +318,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index">
+                    <span itemprop="name">tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -348,15 +380,16 @@
 
       
         
-          <p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>本文将持续记录一些hexo使用方法和常见错误的解决方式。</p>
-<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>安装Hexo前，首先需要在电脑上安装git和Node.js。</p>
-<p>Node安装：<br>最佳方式是使用nvm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure></p>
-<p>安装完nvm后，执行一下命令安装Node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install stable</div></pre></td></tr></table></figure></p>
-<p>Hexo安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
-<h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><p>安装 Hexo 完成后执行下列命令，Hexo将会在指定文件夹中新建所需要的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init &lt;folder&gt;</div><div class="line">$ cd &lt;folder&gt;</div><div class="line">$ npm install</div></pre></td></tr></table></figure></p>
-<h3 id="新建一篇文章"><a href="#新建一篇文章" class="headerlink" title="新建一篇文章"></a>新建一篇文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server //hexo s</div></pre></td></tr></table></figure>
+          <p>其实很久以前就搭建完博客的基础部分，只是懒癌发作，迟迟没有补上文章来总结，但是记录自己的心得还是必要的。下面描述下搭建博客的整个流程和一些问题的解决方案。搭建博客其实有很多种框架，比如可能大家熟悉的<a href="https://cn.wordpress.org/" target="_blank" rel="external">WordPress</a>、<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">Hexo</a>等，这里我们将使用很火很流程的Hexo来作为博客基础框架。</p>
+<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>搭建博客的大体流程主要分为：<code>GitHub配置</code>、<code>Hexo管理</code>、<code>域名绑定</code>三个步骤，非常简单。</p>
+<h3 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h3><p>首先需要在<a href="https://github.com/" target="_blank" rel="external">GitHub</a>上注册一个账号(当然估计你们都有了)。然后创建一个仓库，命名为<code>xxx.github.io</code>，xxx会是你注册时的用户名，所以注册账号时认真想个不错的名字吧，因为这个地址会是你的域名(假如你不单独申请域名的话)。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-github.png" alt="新建GitHub仓库">  </p>
+<h3 id="Hexo管理"><a href="#Hexo管理" class="headerlink" title="Hexo管理"></a>Hexo管理</h3><h4 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h4><p>在进行下一步前，你需要在你的Mac上安装好git(没安装过的，直接去官网找吧，顺便面壁思过下)和Node.js。</p>
+<p>Node安装的最佳方式是使用nvm，这是Node.js的版本管理器，安装方式很简单。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 1. Homebrew 安装方式，此安装方式无需重启</div><div class="line">$ brew install nvm  </div><div class="line">$ mkdir ~/.nvm</div><div class="line">$ export NVM_DIR=~/.nvm</div><div class="line">$ . $(brew --prefix nvm)/nvm.sh</div><div class="line">// 2. curl安装</div><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure>
+<p>安装完nvm后，执行以下命令即可安装Node。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install stable</div></pre></td></tr></table></figure></p>
+<p>Hexo安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
+<p>所有的工具已经安装完成，下面可以创建博客内容，并上传到我们的github仓库了。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/28/hello-world/#more" rel="contents">
@@ -460,10 +493,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -471,10 +504,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+              
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 

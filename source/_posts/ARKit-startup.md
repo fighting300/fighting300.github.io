@@ -4,6 +4,7 @@ date: 2017-06-28 01:16:11
 type: ARKit
 tags:
   ARKit
+categories: iOS
 ---
 
 ### ARKit简介

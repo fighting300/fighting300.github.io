@@ -2,6 +2,7 @@
 title: iOS混淆-ollvm中添加对String的混淆
 date: 2017-09-18 15:58:09
 tags: 安全
+categories: LLVM
 ---
 
 之前[研究ollvm](http://fighting300.github.io/2017/09/07/ollvm-in-iOS/)的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的[混淆框架](https://github.com/GoSSIP-SJTU/Armariris),功能包含常量字符串混淆以及ollvm原有的一些功能。[该页面](https://zhuanlan.zhihu.com/p/27617441)有关于他们项目的简介👍。      

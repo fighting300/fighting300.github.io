@@ -3,6 +3,7 @@ title: ARKit-基于Face的AR体验
 date: 2017-09-13 11:58:19
 tags:
   ARKit
+categories: iOS
 ---
 
 Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。
@@ -23,7 +24,7 @@ ARFaceAnchor的transform属性描述了面部在世界坐标系中的所在位�
 
 ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画。
 
-<!--more--> 
+<!--more-->
 #### 开始面部跟踪
 
 和ARKit的其他用法一样，面部追踪需要ARSessionConfiguration并运行一个ARSession来渲染相机屏幕，这部分可以参考[之前分享的文章](httpbai.ducom)，流程一致，只是这部分需要使用到新加的API。

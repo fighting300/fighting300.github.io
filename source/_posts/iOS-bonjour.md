@@ -2,6 +2,7 @@
 title: iOS Bonjour的使用-本地通信/智能交互
 date: 2017-07-21 18:34:41
 tags: iOS
+categories: iOS
 ---
 
 之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的[Bonjour](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Introduction.html)。现在简单写一篇Bonjour的入门介绍。
