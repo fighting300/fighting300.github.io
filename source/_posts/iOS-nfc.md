@@ -20,7 +20,7 @@ Apple的Core NFC可以用于检测NFC(近场通讯)标签和读取包含NDEF(NFC
 
 <!--more-->
 
-#### 集成开发
+#### iOS集成开发
 
 ##### 项目配置
 
@@ -62,6 +62,15 @@ class MessagesTableViewController: UITableViewController, NFCNDEFReaderSessionDe
   }
   func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages:[NFCNDEFMessage]) {
      // Process read NFCNDEFMessage objects.
+     for message in messages {
+         print(" - \(message.records.count) Records:")
+         for record in message.records {
+             print("\t- TNF (TypeNameFormat): \(record.typeNameFormat)")
+             print("\t- Payload: \(String(data: record.payload, encoding: .utf8)!)")
+             print("\t- Type: \(record.type)")
+             print("\t- Identifier: \(record.identifier)\n")
+         }
+      }
   }
 
   // MARK: - Actions
