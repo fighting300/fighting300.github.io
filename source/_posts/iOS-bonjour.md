@@ -1,7 +1,7 @@
 ---
 title: iOS Bonjour的使用-本地通信/智能交互
 date: 2017-07-21 18:34:41
-tags: iOS
+tags: [iOS, Bonjour]
 categories: iOS
 ---
 
