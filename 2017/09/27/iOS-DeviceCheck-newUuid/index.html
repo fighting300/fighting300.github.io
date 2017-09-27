@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ARKit," />
+  <meta name="keywords" content="iOS 11," />
 
 
 
@@ -95,18 +95,22 @@
 
 
 
-<meta name="description" content="上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。 检测平面如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。">
-<meta name="keywords" content="ARKit">
+<meta name="description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
+<meta name="keywords" content="iOS 11">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARKit 上手指南 02 平面检测">
-<meta property="og:url" content="http://dragonfly.com/2017/09/12/ARKit-Plane-Detector/index.html">
+<meta property="og:title" content="iOS DeviceCheck-苹果的微型云服务?">
+<meta property="og:url" content="http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
-<meta property="og:description" content="上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。 检测平面如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。">
+<meta property="og:description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-25T12:08:03.000Z">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-flow.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-payload.png">
+<meta property="og:updated_time" content="2017-09-27T08:11:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARKit 上手指南 02 平面检测">
-<meta name="twitter:description" content="上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。 检测平面如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。">
+<meta name="twitter:title" content="iOS DeviceCheck-苹果的微型云服务?">
+<meta name="twitter:description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
+<meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png">
 
 
 
@@ -136,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://dragonfly.com/2017/09/12/ARKit-Plane-Detector/"/>
+  <link rel="canonical" href="http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/"/>
 
 
 
 
 
-  <title>ARKit 上手指南 02 平面检测 | DragonFly的博客</title>
+  <title>iOS DeviceCheck-苹果的微型云服务? | DragonFly的博客</title>
   
 
 
@@ -278,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/12/ARKit-Plane-Detector/">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DragonFly">
@@ -295,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ARKit 上手指南 02 平面检测</h1>
+          <h1 class="post-title" itemprop="name headline">iOS DeviceCheck-苹果的微型云服务?</h1>
         
 
         <div class="post-meta">
@@ -307,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T20:53:07+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T11:20:47+08:00">
+                2017-09-27
               </time>
             
 
@@ -348,9 +352,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/12/ARKit-Plane-Detector/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/27/iOS-DeviceCheck-newUuid/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/09/12/ARKit-Plane-Detector/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/27/iOS-DeviceCheck-newUuid/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,18 +382,22 @@
       
 
       
-        <p>上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。</p>
-<h4 id="检测平面"><a href="#检测平面" class="headerlink" title="检测平面"></a>检测平面</h4><p>如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">            self.addPlane(node: node, anchor: planeAnchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p>每次ARKit认为检测到平面时都会调用该方法，并且返回一个ARAnchor对象，包含当前检测平面锚点，其真正类型是ARPlaneAnchor，拥有extent(范围)、center(中心)等属性信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">open class ARPlaneAnchor : ARAnchor &#123;</div><div class="line">    // The alignment of the plane.</div><div class="line">    open var alignment: ARPlaneAnchor.Alignment &#123; get &#125;</div><div class="line"></div><div class="line">    // The center of the plane in the anchor’s coordinate space.</div><div class="line">    open var center: vector_float3 &#123; get &#125;</div><div class="line"></div><div class="line">	 // The extent of the plane in the anchor’s coordinate space.</div><div class="line">    open var extent: vector_float3 &#123; get &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="渲染平面"><a href="#渲染平面" class="headerlink" title="渲染平面"></a>渲染平面</h4><p>根据第一步得到的锚点信息，我们可以在ARKit的空间中绘制一个3D平面。创建一个Plance类，继承自SCNNode来管理需要渲染的平面，然后创建SCNGeometry子类SCNPlane的对象，可以用该对象创建平面对应的SCNNode。在构造方法中创建平面并调整其大小：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">init(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	...</div><div class="line">	// 用ARPlaneAnchor的尺寸来创建3D平面几何体</div><div class="line">	let plane = SCNPlane(width: CGFloat(anchor.extent.x - 0.05), height: CGFloat(anchor.extent.z - 0.05))</div><div class="line">	let material = SCNMaterial()</div><div class="line">	material.colorBufferWriteMask = []</div><div class="line">	material.isDoubleSided = true</div><div class="line">	plane.materials = [material]</div><div class="line"></div><div class="line">	planeNode = SCNNode()</div><div class="line">	planeNode!.geometry = plane</div><div class="line">	// SceneKit 里的平面默认是垂直的，所以需要旋转90度来匹配 ARKit 中的平面</div><div class="line">	planeNode!.transform = SCNMatrix4MakeRotation(-Float.pi / 2.0, 1, 0, 0)</div><div class="line">	// 将平面plane移动到ARKit对应的位置</div><div class="line">	planeNode!.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后在ARSCNViewDelegate的回调方法中，每次扫描到新的ARAnchor时都可以创建新的平面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">          let plane = Plane(anchor)</div><div class="line">      node.addChildNode(plane)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="更新平面"><a href="#更新平面" class="headerlink" title="更新平面"></a>更新平面</h4><p>上述创建渲染的平面只会保持创建时的大小，然后现实世界的平面可能比创建初始化的大很多，若需要更新平面的大小，需要更新平面的extent(范围)值。</p>
-<p>可以从ARSCNViewDelegate的代理方法中获取到更新的信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">         plane.update(anchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后在Plane类的update方法里，更新plane的宽高：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">func update(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	plane.width = CGFloat(anchor.extent.x - 0.05)</div><div class="line">	plane.height = CGFloat(anchor.extent.z - 0.05)</div><div class="line">	// 更新位置</div><div class="line">	plane.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。</p>
+<p>不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer)两个bit的数据(bit是计算机表示信息的最小单元，吐槽下真的很小，相当于只能保存两个bool值)。该framework为追踪用户提供了更好的选择，不过目前看来只能存储类似用户是否使用过优惠码的信息，或者当前设备是否涉嫌刷单等欺诈行为。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png" alt="DeviceCheck 2bits">    </p>
+<h4 id="iOS集成介绍"><a href="#iOS集成介绍" class="headerlink" title="iOS集成介绍"></a>iOS集成介绍</h4><p>DeviceCheck使用的基本流程如下：<br>1.在App内使用DeviceCheck APIs获取一个临时的token来标志该设备(很快会失效)<br>2.将token传递给后端服务器，随后后端服务器使用该token和认证后的key值(来自Apple的证书请求模块)请求Apple服务器，来更新或查询该设备的值<br>3.Apple服务器返回后端服务器信息，获取该设备之前存储的信息，包含bits信息和最后一次修改的时间戳   </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-flow.png" alt="DeviceCheck 流程">  </p>
+<p>在服务端，需要使用Http Post请求来查询和更新信息，每个请求对应的header应该包含认证后的来自Apple的key值(JWT，JSON web token)。要获取该token，可以使用类似Apple推送服务(APNs)的类似流程来操作，具体流程可以参考<a href="https://help.apple.com/xcode/mac/current/#/dev54d690a66" target="_blank" rel="external">Communicate with APNs using authentication tokens</a>。</p>
+<p>服务端请求的API请参照<a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">Accessing and modifying Per-Device Data</a>，数据payload的格式如下图示例：</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-payload.png" alt="服务端请求payLoad"></p>
+<p>Apple API地址：<br>开发环境：  <a href="https://api.development.devicecheck.apple.com" target="_blank" rel="external">https://api.development.devicecheck.apple.com</a><br>线上环境：  <a href="https://api.devicecheck.apple.com" target="_blank" rel="external">https://api.devicecheck.apple.com</a>.</p>
+<p>请求完整后就可以获取/更新最新的设备信息了，之后可以使用该信息进行业务操作。</p>
+<h4 id="API使用"><a href="#API使用" class="headerlink" title="API使用"></a>API使用</h4><p>目前发现该API在Swift中无法使用，可能是目前的一个bug。不过可以通过桥oc代码的方式运行在Swift项目中。代码示例如下：     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [[NSString alloc] initWithData:token encoding:NSUTF8StringEncoding];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ol>
+<li><a href="https://developer.apple.com/documentation/devicecheck" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck</a></li>
+<li><a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor</a></li>
+</ol>
 
       
     </div>
@@ -436,7 +444,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ARKit/" rel="tag"># ARKit</a>
+            <a href="/tags/iOS-11/" rel="tag"># iOS 11</a>
           
         </div>
       
@@ -449,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/08/ARKit-Add-3d-Content/" rel="next" title="ARKit上手指南 01 添加3D物体">
-                <i class="fa fa-chevron-left"></i> ARKit上手指南 01 添加3D物体
+              <a href="/2017/09/18/ollvm-with-StringObfuscate/" rel="next" title="iOS混淆-ollvm中添加对String的混淆">
+                <i class="fa fa-chevron-left"></i> iOS混淆-ollvm中添加对String的混淆
               </a>
             
           </div>
@@ -458,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/13/ARKit-Face/" rel="prev" title="ARKit-基于Face的AR体验">
-                ARKit-基于Face的AR体验 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -637,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测平面"><span class="nav-number">1.</span> <span class="nav-text">检测平面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渲染平面"><span class="nav-number">2.</span> <span class="nav-text">渲染平面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新平面"><span class="nav-number">3.</span> <span class="nav-text">更新平面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS集成介绍"><span class="nav-number">1.</span> <span class="nav-text">iOS集成介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API使用"><span class="nav-number">2.</span> <span class="nav-text">API使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">2.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -787,9 +791,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://dragonfly.com/2017/09/12/ARKit-Plane-Detector/';
-          this.page.identifier = '2017/09/12/ARKit-Plane-Detector/';
-          this.page.title = 'ARKit 上手指南 02 平面检测';
+          this.page.url = 'http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/';
+          this.page.identifier = '2017/09/27/iOS-DeviceCheck-newUuid/';
+          this.page.title = 'iOS DeviceCheck-苹果的微型云服务?';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dragonfly-1.disqus.com/embed.js';
