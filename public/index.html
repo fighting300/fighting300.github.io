@@ -296,7 +296,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/27/iOS-DeviceCheck-newUuid/" itemprop="url">iOS DeviceCheck-苹果的微型云服务?</a></h1>
+                <a class="post-title-link" href="/2017/09/27/iOS-DeviceCheck-newUuid/" itemprop="url">iOS11 DeviceCheck-苹果的微型云服务?</a></h1>
         
 
         <div class="post-meta">
@@ -392,7 +392,7 @@
 <p>Apple API地址：<br>开发环境：  <a href="https://api.development.devicecheck.apple.com" target="_blank" rel="external">https://api.development.devicecheck.apple.com</a><br>线上环境：  <a href="https://api.devicecheck.apple.com" target="_blank" rel="external">https://api.devicecheck.apple.com</a>.</p>
 <p>请求完整后就可以获取/更新最新的设备信息了，之后可以使用该信息进行业务操作。</p>
 <h4 id="API使用"><a href="#API使用" class="headerlink" title="API使用"></a>API使用</h4><p>目前发现该API在Swift中无法使用，可能是目前的一个bug。不过可以通过桥oc代码的方式运行在Swift项目中。代码示例如下：     </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [[NSString alloc] initWithData:token encoding:NSUTF8StringEncoding];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ol>
 <li><a href="https://developer.apple.com/documentation/devicecheck" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck</a></li>
 <li><a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor</a></li>
@@ -557,6 +557,158 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/17/ARKit-coordinate-transfer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/17/ARKit-coordinate-transfer/" itemprop="url">ARKit中的坐标转化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T19:55:19+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/17/ARKit-coordinate-transfer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/17/ARKit-coordinate-transfer/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
         
       
     </div>
@@ -1738,166 +1890,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-ARKit" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/06/28/ARKit-startup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="DragonFly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DragonFly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/28/ARKit-startup/" itemprop="url">ARKit入坑指南--技术实现分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-28T01:16:11+08:00">
-                2017-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/28/ARKit-startup/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/28/ARKit-startup/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="ARKit简介"><a href="#ARKit简介" class="headerlink" title="ARKit简介"></a>ARKit简介</h3><p>  iOS11发布了ARKit之后，iPhone瞬间变成了最大的AR平台。一直以来对这块都比较感兴趣，最近简单做了些研究，下面介绍下ARKit基础的一些概念，算是当作入坑路径吧。<br>  ARKit是一种为iOS构建增强现实（AR，augmented reality）App的框架，意在实现将虚拟内容精确且真实地浸入真实世界场景上。ARKit的核心是为一些基本的关键功能提供支持，包括运动跟踪、水平面检测，以及尺度和环境光预测。<br>  有些人认为ARKit是一种SLAM实现，也有人认为是VIO。下面分别简单介绍下对ARKit的技术实现方式的不同理解。</p>
-<h4 id="1-Slam的概念"><a href="#1-Slam的概念" class="headerlink" title="1.Slam的概念"></a>1.Slam的概念</h4><p>  SLAM，全称叫做Simultaneous Localization and Mapping，中文叫做同时定位与建图。就是通过传感器获取环境的有限信息，比如视觉信息、深度信息、自身的加速度和角速度等来确定自己的相对或者绝对位置，并完成对于地图的构建。简单点可以说是一个传感器在不停的运动，还在实时的扫描着周围的地形。<br>  与其说SLAM是一种技术，不如说是一种概念，SLAM可通过多种方法实现。</p>
-<p>  要实现SLAM，最基础就是传感器，目前传感器分为激光和VSLAM两大类。激光雷达由于精度高、速度快，能方便地实现SLAM功能而被研究得最多，主要用于机器人及无人车（机）领域，但缺点就是价格昂贵。<br>  而VSLAM则主要用摄像头来实现，摄像头品种繁多，主要分为单目、双目（或多目）、RGBD。实现难度正序：单目视觉&gt;双目视觉&gt;RGBD。  单目视觉因为基于一个摄像头，在深度感知上存在问题，无法得到机器人的运动轨迹及地图的真实大小，但这也使得单目SLAM不受环境大小的影响，既可用于室内，又可用于室外。</p>
-<p>  目前，SLAM技术的实现途径主要包括VSLAM、Wifi-SLAM与Lidar SLAM。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/28/ARKit-startup/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1951,7 +1943,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

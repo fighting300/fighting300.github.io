@@ -1,5 +1,5 @@
 ---
-title: iOS DeviceCheck-苹果的微型云服务?     
+title: iOS11 DeviceCheck-苹果的微型云服务?     
 date: 2017-09-27 11:20:47
 tags: iOS 11
 categories: iOS
@@ -44,7 +44,7 @@ Apple API地址：
                 NSLog(@"%@", error.description);
             } else {
                 // upload token to APP server
-                NSString *deviceToken = [[NSString alloc] initWithData:token encoding:NSUTF8StringEncoding];
+                NSString *deviceToken = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
                 NSLog(@"%lu %@", token.length, deviceToken);
             }
         }];
