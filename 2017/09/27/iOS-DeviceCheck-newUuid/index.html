@@ -98,7 +98,7 @@
 <meta name="description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
 <meta name="keywords" content="iOS 11">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS DeviceCheck-苹果的微型云服务?">
+<meta property="og:title" content="iOS11 DeviceCheck-苹果的微型云服务?">
 <meta property="og:url" content="http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
 <meta property="og:description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
@@ -106,9 +106,9 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-flow.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-payload.png">
-<meta property="og:updated_time" content="2017-09-27T08:11:40.000Z">
+<meta property="og:updated_time" content="2017-09-27T08:21:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS DeviceCheck-苹果的微型云服务?">
+<meta name="twitter:title" content="iOS11 DeviceCheck-苹果的微型云服务?">
 <meta name="twitter:description" content="iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。 不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer">
 <meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png">
 
@@ -146,7 +146,7 @@
 
 
 
-  <title>iOS DeviceCheck-苹果的微型云服务? | DragonFly的博客</title>
+  <title>iOS11 DeviceCheck-苹果的微型云服务? | DragonFly的博客</title>
   
 
 
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS DeviceCheck-苹果的微型云服务?</h1>
+          <h1 class="post-title" itemprop="name headline">iOS11 DeviceCheck-苹果的微型云服务?</h1>
         
 
         <div class="post-meta">
@@ -393,7 +393,7 @@
 <p>Apple API地址：<br>开发环境：  <a href="https://api.development.devicecheck.apple.com" target="_blank" rel="external">https://api.development.devicecheck.apple.com</a><br>线上环境：  <a href="https://api.devicecheck.apple.com" target="_blank" rel="external">https://api.devicecheck.apple.com</a>.</p>
 <p>请求完整后就可以获取/更新最新的设备信息了，之后可以使用该信息进行业务操作。</p>
 <h4 id="API使用"><a href="#API使用" class="headerlink" title="API使用"></a>API使用</h4><p>目前发现该API在Swift中无法使用，可能是目前的一个bug。不过可以通过桥oc代码的方式运行在Swift项目中。代码示例如下：     </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [[NSString alloc] initWithData:token encoding:NSUTF8StringEncoding];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ol>
 <li><a href="https://developer.apple.com/documentation/devicecheck" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck</a></li>
 <li><a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor</a></li>
@@ -793,7 +793,7 @@
         var disqus_config = function () {
           this.page.url = 'http://dragonfly.com/2017/09/27/iOS-DeviceCheck-newUuid/';
           this.page.identifier = '2017/09/27/iOS-DeviceCheck-newUuid/';
-          this.page.title = 'iOS DeviceCheck-苹果的微型云服务?';
+          this.page.title = 'iOS11 DeviceCheck-苹果的微型云服务?';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dragonfly-1.disqus.com/embed.js';
