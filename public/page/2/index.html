@@ -272,6 +272,174 @@
   
   
 
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/07/21/iOS-bonjour/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/21/iOS-bonjour/" itemprop="url">iOS Bonjour的使用-本地通信/智能交互</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T18:34:41+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/21/iOS-bonjour/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/21/iOS-bonjour/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Introduction.html" target="_blank" rel="external">Bonjour</a>。现在简单写一篇Bonjour的入门介绍。</p>
+<h4 id="Bonjour介绍"><a href="#Bonjour介绍" class="headerlink" title="Bonjour介绍"></a>Bonjour介绍</h4><p>bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即可互相发现彼此的解决方案。可以用它来轻松探测并连接到相同网络中的其他设备，并与别的智能硬件进行交互或者其他操作。典型的Bonjour应用有Remote、AirPrint等。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-Overview.png" alt="Bonjour-overview"></p>
+<p>为了实现简单配置网络，Bonjour做了以下三点：   </p>
+<ol>
+<li><p>寻址(分配IP地址给主机）<br>一个在网络中的设备需要有一个自己的IP。有了IP地址,我们才能基于IP协议进行通信。对于IPV6标准,IP协议已经包括了自动寻找IP地址的功能。但是目前仍然普遍使用的IPV4不包含本地链路寻址功能。而Bonjour会在本地网络选择一个随机的IP地址进行测试,如果已经被占用,则继续挑选另外一个地址，直到选到可用的IP地址。</p>
+</li>
+<li><p>命名(使用名字而不是IP地址来代表主机）<br>Bonjour还实现了命名和解析功能，保证了我们服务的名字在本地网络是唯一的,并且把别人对我们名字的查询指向正确的IP地址和端口，而不是以IP地址这样不易读的方式来作为服务的标志。<br>而且Bonjour在系统级别上添加了一个mDNSResponder服务来处理请求和发送回复,从系统级层面上处理,我们就无需在应用内自己监听和返回IP地址,只需到系统内注册服务即可。减少了我们应用的工作量和提高了稳定性。</p>
+</li>
+<li><p>服务搜索（自动在网络搜索服务）<br>Bonjour可以只需指定所需服务的类型，即可收到本地网络上可用的设备列表。设备在本地网络发出请求,说我需要”XXX”类型的服务,例如：我要打印机服务。所有打印机服务的设备回应自己的名字。</p>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/21/iOS-bonjour/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
   <article class="post post-type-ARKit" itemscope itemtype="http://schema.org/Article">
   
   
@@ -802,7 +970,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -813,7 +981,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -824,7 +992,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1069,6 +1237,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
