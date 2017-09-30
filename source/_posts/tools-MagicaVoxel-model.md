@@ -1,17 +1,18 @@
 ---
-title: 使用MagicaVoxel创建3D模型    
+title: 快速创建ARKit模型-使用MagicaVoxel创建3D模型    
 date: 2017-09-30 13:55:31
 tags: [tools, ARKit]
 categories: Tool
 ---
 
 iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费大量的时间来创建，然而我们开发者开没有那么长时间。  
-最近发现一款及其简单的模型创建工具-MagicaVoxel，而且它还是免费的，虽然他只能创建`体素(Voxel)`模型。下面我们介绍下该软件。
+最近发现一款及其简单的模型创建工具-MagicaVoxel，虽然他只能创建`体素(Voxel)`模型，但是生成的模型可以在ARKit中使用，而且它还是免费的。
+下面我们介绍下该软件。
 
 ![Voxel模型](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example4.png)
 
-#### 开始使用
-可能你会疑惑体素是什么意思，其实体素类似与像素，像素英文为Pixel，是图片pictures(pix)与元素element(el)俩词组合而来，而体素Voxel则由体积Volumes(vox)与元素element(el)组成。尤其是当你玩过`我的世界`的话，很快就能理解，体素模型其实由一个个方块构成，它是一种极其简单、快速创建3D模型的方式。而MagicaVoxel就是一种创建Voxel模型的工具。
+#### 开始使用  
+可能你会疑惑体素是什么意思，其实体素类似与像素，像素英文为Pixel，是图片pictures(pix)与元素element(el)俩词组合而来，而体素Voxel则由体积Volumes(vox)与元素element(el)组成。尤其是当你玩过`我的世界`的话，很快就能理解，里面的模型其实由一个个体素构成，它是一种极其简单、快速创建3D模型的方式。而MagicaVoxel就是一种创建Voxel模型的工具。
 
 你可以从该地址下载MagicaVoxel： https://ephtracy.github.io，然后解压它。  
 当你在Mac上运行APP发现黑屏时，你需要把`MagicaVoxel-mac.app`文件移出当前目录，再移动回来，就可以解决黑屏问题。  
@@ -71,11 +72,37 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 ![Magic渲染效果图](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-render.png)  
 
 在最新的版本MagicaVoxel-0.98中还增加了动画帧的效果，可以给每帧增减一些体素，然后制作gif，比较酷炫。
-最后生成的模型为VOX格式，最后可以选择导出为不同格式的文件。
 
-附上：  MagicVoxel作者的微博: [gltracy的微博](http://weibo.com/gltracy)  
-资源/视频教程地址：[resource](https://ephtracy.github.io/index.html?page=mv_resource#)
+#### 生成ARKit可用模型  
 
-再上两张酷炫的图...
+上述步骤后，我们已经创建了MagicaVoxel原生格式.vox的模型，但是ARKit使用的SceneKit并不支持该格式，幸运的是该软件可以将模型输出为常见的`.obj`格式，该格式被很多其他3D创作工具所支持。
+
+**导出.obj文件**  
+在Export区域，选择`.obj`就可以导出所需的文件，该文件会保存在Application/MagicaVoxel/export目录下。
+
+![](导出obj模型文件)[]
+
+这时会输出3个文件，分别为：
+1.monu10.mtl(材料库文件，包含颜色定义、纹理和反射贴图)
+2.monu10.obj(.obj文件，包含体素模型的几何体信息)
+3.monu10.png(漫反射纹理贴图，包含了模型中所用到的颜色)
+现在可以将导出的模型，导入到Xcode中，然后转换为SceneKit场景文件了。
+
+**转换为.scn文件**
+
+在你项目的**art.scnassets**目录下，添加上述导出的.obj文件和.png文件。
+选中.obj然后在Xcode菜单中选择Editor下的`Convert to SceneKit file format (.scn)`，covert即可替换原来的.obj版本。
+这样monu10.obj文件已经转换为合适的monu10.scn文件了。
+
+![](转换scn模型文件)[]  
+之后就可以在材料检查器、节点检查器和物理检查器中调整相应的Lighting mode(光照模型)、Diffuse、物理形体等参数了。
+
+好了，以上这样就完成了一个新的模型，这样比别的工具是快了很多，只是不能够创建接近真实的模型。如有问题，请评论或微博私信～
+
+再上一张酷炫的图...
 
 ![City Voxel](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example1.jpg)
+
+参考：  
+MagicVoxel作者的微博: [gltracy的微博](http://weibo.com/gltracy)  
+资源/视频教程地址：[resource](https://ephtracy.github.io/index.html?page=mv_resource#)
