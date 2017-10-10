@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="DragonFly的博客">
 <meta property="og:description" content="最近在写swift的过程中，发现有很多特性使用的不太熟练，而且有些新特性看过之后很容易忘记，所以该文章记录一些Swift语法的新特性。(本文持续更新)   1. 初始化Designated initializers即最常用的初始化方法init()，默认不加修饰符的init方法都需要在方法中保证所有的非Optional实例变量被赋值初始化，其子类也会隐式或显式调用父类的designated初始化方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-10T13:14:27.000Z">
+<meta property="og:updated_time" content="2017-10-10T13:55:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift语法特性">
 <meta name="twitter:description" content="最近在写swift的过程中，发现有很多特性使用的不太熟练，而且有些新特性看过之后很容易忘记，所以该文章记录一些Swift语法的新特性。(本文持续更新)   1. 初始化Designated initializers即最常用的初始化方法init()，默认不加修饰符的init方法都需要在方法中保证所有的非Optional实例变量被赋值初始化，其子类也会隐式或显式调用父类的designated初始化方法">
@@ -386,6 +386,9 @@
 <p>  class House {<br>      let door: Int<br>      var window: Int?<br>      required init(door: Int) {<br>          self.door = door<br>      }<br>  }</p>
 <p>  class Room: House {<br>      var table: Int?<br>      required init(door: Int) {<br>          self.table = 1<br>          super.init(door: door)<br>      }<br>  }</p>
 <p>```</p>
+<h4 id="2-访问控制"><a href="#2-访问控制" class="headerlink" title="2. 访问控制"></a>2. 访问控制</h4><p>在Swift中，访问修饰符有以下5种，有点类似Java的访问控制符。其中fileprivate和open是swift3才支持的新特性，由于原有的private和public修饰符可能存在语义上不足，所以新加了两种新的访问控制权限，这样达到更安全的效果。</p>
+<p><strong>fileprivate</strong><br>所修饰的属性和方法在当前的swift源文件里可以访问，这样基于文件做了访问控制。<br><strong>open</strong><br>可以被任何人使用，包括重写和继承。<br><strong>private</strong><br>所修饰的属性或者方法只能在当前类中访问，这样做到了真正私有，离开当前类或结构体的作用域就无法访问。<br><strong>internal</strong><br>默认访问级别，可以忽略不写。其所修饰的属性/方法在源码所在的整个模块都可以访问。如果是框架/库代码，则框架/库内部可以访问，由外部引用是，则不可以访问。<br><strong>public</strong><br>可以被任何人访问，但是在其他module中不可以被重写(override)或继承，在module内可以被重写或者继承。<br><strong>final</strong><br>修饰的类或属性不应该被继承或修改。  </p>
+<p>这样当前访问权限的优先排序依次为：<br><code>open -&gt; public -&gt; internal -&gt; fileprivate -&gt; private</code></p>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><p>1.<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Initialization.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/…</a><br>2.<a href="https://www.pupboss.com/swift-init-modifiers/" target="_blank" rel="external">https://www.pupboss.com/swift-init-modifiers/</a></p>
 
       
@@ -634,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初始化"><span class="nav-number">1.</span> <span class="nav-text">1. 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">1.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初始化"><span class="nav-number">1.</span> <span class="nav-text">1. 初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-访问控制"><span class="nav-number">2.</span> <span class="nav-text">2. 访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">2.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
             
 
           </div>
