@@ -109,10 +109,10 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-brush.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-model.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-render.png">
-<meta property="og:image" content="http://dragonfly.com/2017/09/30/tools-MagicaVoxel-model/导出obj模型文件">
-<meta property="og:image" content="http://dragonfly.com/2017/09/30/tools-MagicaVoxel-model/转换scn模型文件">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-exportobj.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/ARKit-convertscn.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example1.jpg">
-<meta property="og:updated_time" content="2017-09-30T12:23:35.000Z">
+<meta property="og:updated_time" content="2017-10-10T10:00:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速创建ARKit模型-使用MagicaVoxel创建3D模型">
 <meta name="twitter:description" content="iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费大量的时间来创建，然而我们开发者开没有那么长时间。最近发现一款及其简单的模型创建工具-MagicaVoxel，虽然他只能创建体素(Voxel)模型，但是生成的模型可以在ARKit中使用，而且它还是免费的。下面我们介绍下该软件。  开始使用可能你会疑惑体素是什么意思，其实体素类似与像素，像素英文为Pixel，是图片pictu">
@@ -402,8 +402,10 @@
 <p>在画布中按住右键可以旋转视角，空格+右键可以拖动画布，滚轮缩放画布。<br>Mac中根据右键设置进行相应的操作，一般为两指轻触触控板。</p>
 </blockquote>
 <h4 id="开始创作"><a href="#开始创作" class="headerlink" title="开始创作"></a>开始创作</h4><p>打开APP后，会首先看到一个立方体，你需要先清空该内容，在Tool中选择Zreo，从0开始，然后改变画布大小，设置View区域size大小为最大即126.</p>
-<p>开始前介绍下Brush工具，其总共有六种模式，分别为单个模型(V)、面模型(F)、区域(B)、直线模型(L)、圆模型(C)、选择文件已有的模型(P),如名字所代表的意思，在相应模式下可以创建相应的模型。</p>
+<p>开始前介绍下Brush工具，其总共有六种模式，分别为体素(Voxel)、面模型(Face)、区域(Box)、直线模型(Line)、圆模型(Circle)、选择文件已有的模型(Pattern),如名字所代表的意思，在相应模式下可以创建相应的模型。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-brush.png" alt="Brush工具"></p>
+<p>ViewOption视图设置在Brush下方，可以设置不同的显示设置，如DG (Display Ground显示地面), SW (Display Shadow显示阴影),  FrameGrid Spacing, Grid (Display Grid显示网格), Edge (Display Edges显示边缘) and Frame (Display Frame显示框架-大网格)</p>
+<p>Edit Options编辑设置区域右边第二列，分别为Tool(Zero清空模型，Fill用相同颜色填充，Full设为完整状态)，Select选中模式，Rot旋转, Flip对称翻转，Loop沿坐标轴旋转，Scale放大缩小，Repeat重复。</p>
 <p>下面开始简单的创作MagicxVoxel的图标。</p>
 <p><strong>1.颜色选取</strong><br>在颜色面板选择最后一个，可以用默认配置的颜色面板、或者创建你自己的颜色面板，在下方的HSV中选择想要的颜色。<br>调色板中0、1是默认的不同颜色的排布，2是灰阶色的排布，3为自定义色板。左侧E/G可以修改视图里辅助线和地面的颜色。   </p>
 <p><strong>2.人物搭建</strong><br>在Brush中选择B模式，用Attach搭建模型，并且可以在Mirror镜像中选择X轴，这样你在左边画的东西会复制到右边。<br>创建的过程就像垒积木，最终垒成你想要的样子，注意每个体素都有6个面，可以在相应的面上垒其他体素。</p>
@@ -416,16 +418,17 @@
 <p>完成上述步骤后，就可以进入Render模式。<br>在左边的Light工具栏中，根据需求调整shadow(阴影)、I-sun(光照)、I-sky(天空)、Fog(雾气)等参数。<br>在Shape工具栏中，可以选择不同的形状，包括Lego、MC、RG、RE、Sphr、Cyli这6种性形状。<br>同理，还可以在右侧的Matter工具中(可以选择All(全部)或Sel(选中))，更改Diffuse、Metal、Glass、Emission等不同的材质配置。</p>
 <p>下图就是渲染完成后的模型效果，做的还是比较像的～</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-render.png" alt="Magic渲染效果图">  </p>
-<p>在最新的版本MagicaVoxel-0.98中还增加了动画帧的效果，可以给每帧增减一些体素，然后制作gif，比较酷炫。</p>
 <h4 id="生成ARKit可用模型"><a href="#生成ARKit可用模型" class="headerlink" title="生成ARKit可用模型"></a>生成ARKit可用模型</h4><p>上述步骤后，我们已经创建了MagicaVoxel原生格式.vox的模型，但是ARKit使用的SceneKit并不支持该格式，幸运的是该软件可以将模型输出为常见的<code>.obj</code>格式，该格式被很多其他3D创作工具所支持。</p>
 <p><strong>导出.obj文件</strong><br>在Export区域，选择<code>.obj</code>就可以导出所需的文件，该文件会保存在Application/MagicaVoxel/export目录下。</p>
-<p><img src="导出obj模型文件" alt="">[]</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-exportobj.png" alt="导出obj模型文件"></p>
 <p>这时会输出3个文件，分别为：<br>1.monu10.mtl(材料库文件，包含颜色定义、纹理和反射贴图)<br>2.monu10.obj(.obj文件，包含体素模型的几何体信息)<br>3.monu10.png(漫反射纹理贴图，包含了模型中所用到的颜色)<br>现在可以将导出的模型，导入到Xcode中，然后转换为SceneKit场景文件了。</p>
 <p><strong>转换为.scn文件</strong></p>
 <p>在你项目的<strong>art.scnassets</strong>目录下，添加上述导出的.obj文件和.png文件。<br>选中.obj然后在Xcode菜单中选择Editor下的<code>Convert to SceneKit file format (.scn)</code>，covert即可替换原来的.obj版本。<br>这样monu10.obj文件已经转换为合适的monu10.scn文件了。</p>
-<p><img src="转换scn模型文件" alt="">[]<br>之后就可以在材料检查器、节点检查器和物理检查器中调整相应的Lighting mode(光照模型)、Diffuse、物理形体等参数了。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-convertscn.png" alt="转换scn模型文件"></p>
+<p>之后就可以在材料检查器、节点检查器和物理检查器中调整相应的Lighting mode(光照模型)、Diffuse、物理形体等参数了。</p>
+<p>在最新的版本MagicaVoxel-0.98中还增加了动画帧的效果，可以给每帧增减一些体素，然后制作gif，比较酷炫。而且导出的模型可以再导如Unity3D等工具进行其他加工，比如制作Animation和建骨等操作。</p>
 <p>好了，以上这样就完成了一个新的模型，这样比别的工具是快了很多，只是不能够创建接近真实的模型。如有问题，请评论或微博私信～</p>
-<p>再上一张酷炫的图…</p>
+<p>最后再上一张酷炫的图…</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example1.jpg" alt="City Voxel"></p>
 <p>参考：<br>MagicVoxel作者的微博: <a href="http://weibo.com/gltracy" target="_blank" rel="external">gltracy的微博</a><br>资源/视频教程地址：<a href="https://ephtracy.github.io/index.html?page=mv_resource#" target="_blank" rel="external">resource</a></p>
 
@@ -498,6 +501,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/01/swift-Tip/" rel="prev" title="Swift语法特性">
+                Swift语法特性 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -584,7 +591,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -606,7 +613,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

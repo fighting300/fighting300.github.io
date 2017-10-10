@@ -277,6 +277,823 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/13/ARKit-Face/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/13/ARKit-Face/" itemprop="url">ARKit-基于Face的AR体验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T11:58:19+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/13/ARKit-Face/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/13/ARKit-Face/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。<br>之前的版本中前置摄像头是不支持AKKit模块的，幸而新发布的版本中添加了对Face识别的支持，然而新的API需要原前置深感摄像头(TrueDepth Camera)的支持，所以看来还得入手一台iPhone X呐。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-iPhoneX.jpg" alt="iPhoneX">  </p>
+<h4 id="新增API"><a href="#新增API" class="headerlink" title="新增API"></a>新增API</h4><p>首先新增了ARFaceTrackingConfiguration，以用于追踪用户脸部的运动和表情，并在界面中渲染虚拟内容。此外你还可以设置lightEstimationEnabled为true，来启用脸部扫描并提供预估的定向/环境光。</p>
+<p>其次还新增了ARFaceAnchor，这两个新API与之前的ARWorldTrackingConfiguration和ARPlaneAnchor类似，只是基于平面的检测改为了基于Face的检测，恶趣味下Apple会不会继续扩展他的检测API。。。当使用ARFaceTrackingConfiguration时，ARSession会检测用户面部并且用ARFaceAnchor保存面部信息，包括位置、方向、拓扑结构以及表情特征点。</p>
+<p>ARFaceAnchor的transform属性描述了面部在世界坐标系中的所在位置和方向，该世界坐标系可以在ARSessionConfiguration的wordlAlignment中设置。可以使用该transform在ARScene检测到的面部上添加虚拟物体。坐标系如下图所示：</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-face-Coordinate.png" alt="ARKit Face coordinate"></p>
+<p>该坐标系为右手坐标系，x轴只想观察者的右边(即face自己的左边)，y轴指向上边(与face绑定)，z轴指向了观察者。</p>
+<p>ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/13/ARKit-Face/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/12/ARKit-Plane-Detector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/12/ARKit-Plane-Detector/" itemprop="url">ARKit 上手指南 02 平面检测</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T20:53:07+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/12/ARKit-Plane-Detector/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/12/ARKit-Plane-Detector/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。</p>
+<h4 id="检测平面"><a href="#检测平面" class="headerlink" title="检测平面"></a>检测平面</h4><p>如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">            self.addPlane(node: node, anchor: planeAnchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>每次ARKit认为检测到平面时都会调用该方法，并且返回一个ARAnchor对象，包含当前检测平面锚点，其真正类型是ARPlaneAnchor，拥有extent(范围)、center(中心)等属性信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">open class ARPlaneAnchor : ARAnchor &#123;</div><div class="line">    // The alignment of the plane.</div><div class="line">    open var alignment: ARPlaneAnchor.Alignment &#123; get &#125;</div><div class="line"></div><div class="line">    // The center of the plane in the anchor’s coordinate space.</div><div class="line">    open var center: vector_float3 &#123; get &#125;</div><div class="line"></div><div class="line">	 // The extent of the plane in the anchor’s coordinate space.</div><div class="line">    open var extent: vector_float3 &#123; get &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="渲染平面"><a href="#渲染平面" class="headerlink" title="渲染平面"></a>渲染平面</h4><p>根据第一步得到的锚点信息，我们可以在ARKit的空间中绘制一个3D平面。创建一个Plance类，继承自SCNNode来管理需要渲染的平面，然后创建SCNGeometry子类SCNPlane的对象，可以用该对象创建平面对应的SCNNode。在构造方法中创建平面并调整其大小：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">init(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	...</div><div class="line">	// 用ARPlaneAnchor的尺寸来创建3D平面几何体</div><div class="line">	let plane = SCNPlane(width: CGFloat(anchor.extent.x - 0.05), height: CGFloat(anchor.extent.z - 0.05))</div><div class="line">	let material = SCNMaterial()</div><div class="line">	material.colorBufferWriteMask = []</div><div class="line">	material.isDoubleSided = true</div><div class="line">	plane.materials = [material]</div><div class="line"></div><div class="line">	planeNode = SCNNode()</div><div class="line">	planeNode!.geometry = plane</div><div class="line">	// SceneKit 里的平面默认是垂直的，所以需要旋转90度来匹配 ARKit 中的平面</div><div class="line">	planeNode!.transform = SCNMatrix4MakeRotation(-Float.pi / 2.0, 1, 0, 0)</div><div class="line">	// 将平面plane移动到ARKit对应的位置</div><div class="line">	planeNode!.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在ARSCNViewDelegate的回调方法中，每次扫描到新的ARAnchor时都可以创建新的平面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">          let plane = Plane(anchor)</div><div class="line">      node.addChildNode(plane)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="更新平面"><a href="#更新平面" class="headerlink" title="更新平面"></a>更新平面</h4><p>上述创建渲染的平面只会保持创建时的大小，然后现实世界的平面可能比创建初始化的大很多，若需要更新平面的大小，需要更新平面的extent(范围)值。</p>
+<p>可以从ARSCNViewDelegate的代理方法中获取到更新的信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">         plane.update(anchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在Plane类的update方法里，更新plane的宽高：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">func update(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	plane.width = CGFloat(anchor.extent.x - 0.05)</div><div class="line">	plane.height = CGFloat(anchor.extent.z - 0.05)</div><div class="line">	// 更新位置</div><div class="line">	plane.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/08/ARKit-Add-3d-Content/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/08/ARKit-Add-3d-Content/" itemprop="url">ARKit上手指南 01 添加3D物体</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T12:56:22+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/08/ARKit-Add-3d-Content/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/08/ARKit-Add-3d-Content/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。</p>
+<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><ol>
+<li>Xcode版本： Xcode9以上<br>Xcode 9 Beta：<a href="https://developer.apple.com/download/" target="_blank" rel="external">https://developer.apple.com/download/</a><br>下载最新的beta版本就可以了，不过Xcode需要Mac 10.12.4及以上的版本。  </li>
+<li>iOS系统： iOS11以上</li>
+<li>iOS设备： A9/A10处理器的iOS设备，即iPhone6s、iPad2017及以上的设备</li>
+</ol>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>首先打开Xcode，选择ARKit模板，如下所示：  </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit_1Project.png" alt="AR项目创建"></p>
+<p>之后，填写完项目信息后，选择Content Technology为SceneKit，当然也可以选择SpriteKit，不过在3D空间中就不是那么立体了。<br>开发语言选择Swift，Swift天然亲和ARKit，很多网上的Demo都是用Swift写的，这样也方便移植和借鉴。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/08/ARKit-Add-3d-Content/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/07/ollvm-in-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/07/ollvm-in-iOS/" itemprop="url">iOS混淆--OLLVM在iOS中的实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T12:15:18+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/07/ollvm-in-iOS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/07/ollvm-in-iOS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="external">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
+<p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/07/ollvm-in-iOS/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/08/22/iOS-nfc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/22/iOS-nfc/" itemprop="url">iOS Core NFC指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T19:41:17+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/22/iOS-nfc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/22/iOS-nfc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>大家可能听过NFC这项功能，或者有可能你每天都在使用这个功能，比如当你在进出地铁时闸机扫描地铁卡就用到了NFC技术。<br>简单来说NFC就是可以让智能手机的NFC模块，可以像读卡器一般，读取电子标签的相关信息，实现NFC手机之间的数据交互或是读取其他IC卡内的数据。NFC(机场通讯)，其实由非接触式射频识别（RFID）演变而来，是一种短距高频的无线电技术，在13.56MHz频率运行于20厘米距离内。它的传输速度有106 Kbit/秒、212 Kbit/秒或者424 Kbit/秒三种。目前NFC已通过成为ISO/IEC IS 18092国际标准、ECMA-340标准与ETSI TS 102 190标准。NFC可以采用主动和被动两种读取模式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-b31bb992a4bbb9f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="NFC使用场景">  </p>
+<h4 id="Core-NFC介绍"><a href="#Core-NFC介绍" class="headerlink" title="Core NFC介绍"></a>Core NFC介绍</h4><p>或者你可能还吐槽过Apple怎么还不支持NFC呢，其实iPhone6已经有NFC硬件了，已支持Apple Pay支付系统，只是接口没开放，终于在今年的WWDC，苹果在iOS11系统上对开发者开放了NFC接口框架Core NFC，虽然目前权限只有只读模式。<br>Apple的Core NFC可以用于检测NFC(近场通讯)标签和读取包含NDEF(NFC Data Exchange Format)数据1到5类型的标签信息，只是该功能只支持iPhone 7和iPhone 7P及以上的机型。目前Core NFC其实同时有NFC和RFID的API存在，但是RFID可能没有很高的安全性，所以苹果没有推广使用(或者还在开发中)。</p>
+<blockquote>
+<p>NFC Data Exchange Format : NFC数据交换格式，NFC组织约定的NFC tag中的数据格式。NDEF是轻量级的紧凑的二进制格式，可带有URL、vCard和NFC定义的各种数据类型。NDEF的由各种数据记录组成，而各个记录由报头(Header)和有效载荷(Payload)组成，其中NDEF记录的数据类型和大小由记录载荷的报头注明，这里的报头包含3部分，分别为Length、Type和Identifier。</p>
+</blockquote>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/CoreNFC-tags.png" alt="NFC标签图例"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/22/iOS-nfc/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/07/21/iOS-bonjour/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -970,7 +1787,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -992,7 +1809,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
