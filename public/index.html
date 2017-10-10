@@ -277,171 +277,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/10/01/swift-Tip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="DragonFly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DragonFly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/01/swift-Tip/" itemprop="url">Swift语法特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T16:32:01+08:00">
-                2017-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/01/swift-Tip/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/01/swift-Tip/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近在写swift的过程中，发现有很多特性使用的不太熟练，而且有些新特性看过之后很容易忘记，所以该文章记录一些Swift语法的新特性。<br>本文持续更新</p>
-<h4 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h4><p><strong>Designated initializers</strong><br>即最常用的初始化方法init()，默认不加修饰的init方法都需要在方法中保证所有的非Optional实例变量被赋值初始化，而且在其子类中也需要强制调用父类的designated初始化，每个子类必须有一个Designated初始化方法。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class House &#123;</div><div class="line">  let door: Int</div><div class="line">  init(door: Int) &#123;</div><div class="line">      self.door = door</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Room: House &#123;</div><div class="line">  let table: Int</div><div class="line">  override init(door: Int) &#123;</div><div class="line">      self.table = 0</div><div class="line">      super.init(door: door)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这儿注意如果子类有新增的属性的话，必须调用override重写父类init方法。如果没有的话，则可以不重写，直接使用父类的Designated初始化方法。<br>目前推荐在init使用self给变量赋值。</p>
-<p><strong>Convenience initializers</strong><br>即补充的初始化方法，可有可无。需要在init前加convenience关键字，必须调用同一类中的<code>Designated initializers</code>初始化来完成设置，另外该初始化方法不能被子类重写或者从子类中以super的方式被调用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class House &#123;</div><div class="line">  let door: Int</div><div class="line">  var window: Int?</div><div class="line">  init(door: Int) &#123;</div><div class="line">      self.door = door</div><div class="line">  &#125;</div><div class="line">  convenience init(window: Int) &#123;</div><div class="line">      self.init(door: 0)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Room: House &#123;</div><div class="line">  let table: Int</div><div class="line">  override init(door: Int) &#123;</div><div class="line">      self.table = 0</div><div class="line">      super.init(door: door)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>而且如果在子类中实现了父类Conveniences所调用的init方法的话，子类可以直接使用父类的Convenience方法。如：<code>let room = Room(window: 1)</code>   </p>
-<p><strong>required</strong><br>required关键词可以强制限制子类必须重写Designated初始化方法，这样可以保证相关依赖的convenience方法在子类中可以使用。如果子类中没有init方法，Designated依旧会被隐式调用，并不会报错。如果想要在子类中使用父类的Convenience或者init方法，最后给init方法加上required关键字。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class House &#123;</div><div class="line">    let door: Int</div><div class="line">    var window: Int?</div><div class="line">    required init(door: Int) &#123;</div><div class="line">        self.door = door</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Room: House &#123;</div><div class="line">    var table: Int?</div><div class="line">    required init(door: Int) &#123;</div><div class="line">        self.table = 1</div><div class="line">        super.init(door: door)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><p>1.<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Initialization.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/…</a>  </p>
-<ol>
-<li><a href="https://www.pupboss.com/swift-init-modifiers/" target="_blank" rel="external">https://www.pupboss.com/swift-init-modifiers/</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/09/30/tools-MagicaVoxel-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1848,6 +1683,169 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/07/ollvm-in-iOS/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/08/22/iOS-nfc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/22/iOS-nfc/" itemprop="url">iOS Core NFC指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T19:41:17+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/22/iOS-nfc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/22/iOS-nfc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>大家可能听过NFC这项功能，或者有可能你每天都在使用这个功能，比如当你在进出地铁时闸机扫描地铁卡就用到了NFC技术。<br>简单来说NFC就是可以让智能手机的NFC模块，可以像读卡器一般，读取电子标签的相关信息，实现NFC手机之间的数据交互或是读取其他IC卡内的数据。NFC(机场通讯)，其实由非接触式射频识别（RFID）演变而来，是一种短距高频的无线电技术，在13.56MHz频率运行于20厘米距离内。它的传输速度有106 Kbit/秒、212 Kbit/秒或者424 Kbit/秒三种。目前NFC已通过成为ISO/IEC IS 18092国际标准、ECMA-340标准与ETSI TS 102 190标准。NFC可以采用主动和被动两种读取模式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-b31bb992a4bbb9f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="NFC使用场景">  </p>
+<h4 id="Core-NFC介绍"><a href="#Core-NFC介绍" class="headerlink" title="Core NFC介绍"></a>Core NFC介绍</h4><p>或者你可能还吐槽过Apple怎么还不支持NFC呢，其实iPhone6已经有NFC硬件了，已支持Apple Pay支付系统，只是接口没开放，终于在今年的WWDC，苹果在iOS11系统上对开发者开放了NFC接口框架Core NFC，虽然目前权限只有只读模式。<br>Apple的Core NFC可以用于检测NFC(近场通讯)标签和读取包含NDEF(NFC Data Exchange Format)数据1到5类型的标签信息，只是该功能只支持iPhone 7和iPhone 7P及以上的机型。目前Core NFC其实同时有NFC和RFID的API存在，但是RFID可能没有很高的安全性，所以苹果没有推广使用(或者还在开发中)。</p>
+<blockquote>
+<p>NFC Data Exchange Format : NFC数据交换格式，NFC组织约定的NFC tag中的数据格式。NDEF是轻量级的紧凑的二进制格式，可带有URL、vCard和NFC定义的各种数据类型。NDEF的由各种数据记录组成，而各个记录由报头(Header)和有效载荷(Payload)组成，其中NDEF记录的数据类型和大小由记录载荷的报头注明，这里的报头包含3部分，分别为Length、Type和Identifier。</p>
+</blockquote>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/CoreNFC-tags.png" alt="NFC标签图例"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/22/iOS-nfc/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
