@@ -36,9 +36,13 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 
 打开APP后，会首先看到一个立方体，你需要先清空该内容，在Tool中选择Zreo，从0开始，然后改变画布大小，设置View区域size大小为最大即126.
 
-开始前介绍下Brush工具，其总共有六种模式，分别为单个模型(V)、面模型(F)、区域(B)、直线模型(L)、圆模型(C)、选择文件已有的模型(P),如名字所代表的意思，在相应模式下可以创建相应的模型。
+开始前介绍下Brush工具，其总共有六种模式，分别为体素(Voxel)、面模型(Face)、区域(Box)、直线模型(Line)、圆模型(Circle)、选择文件已有的模型(Pattern),如名字所代表的意思，在相应模式下可以创建相应的模型。
 
 ![Brush工具](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-brush.png)
+
+ViewOption视图设置在Brush下方，可以设置不同的显示设置，如DG (Display Ground显示地面), SW (Display Shadow显示阴影),  FrameGrid Spacing, Grid (Display Grid显示网格), Edge (Display Edges显示边缘) and Frame (Display Frame显示框架-大网格)
+
+Edit Options编辑设置区域右边第二列，分别为Tool(Zero清空模型，Fill用相同颜色填充，Full设为完整状态)，Select选中模式，Rot旋转, Flip对称翻转，Loop沿坐标轴旋转，Scale放大缩小，Repeat重复。
 
 下面开始简单的创作MagicxVoxel的图标。
 
@@ -46,9 +50,10 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 在颜色面板选择最后一个，可以用默认配置的颜色面板、或者创建你自己的颜色面板，在下方的HSV中选择想要的颜色。
 调色板中0、1是默认的不同颜色的排布，2是灰阶色的排布，3为自定义色板。左侧E/G可以修改视图里辅助线和地面的颜色。   
 
-**2.人物搭建**
+**2.人物搭建**  
 在Brush中选择B模式，用Attach搭建模型，并且可以在Mirror镜像中选择X轴，这样你在左边画的东西会复制到右边。  
 创建的过程就像垒积木，最终垒成你想要的样子，注意每个体素都有6个面，可以在相应的面上垒其他体素。
+
 
 **3.Paint上色**
 
@@ -71,8 +76,6 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 
 ![Magic渲染效果图](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-render.png)  
 
-在最新的版本MagicaVoxel-0.98中还增加了动画帧的效果，可以给每帧增减一些体素，然后制作gif，比较酷炫。
-
 #### 生成ARKit可用模型  
 
 上述步骤后，我们已经创建了MagicaVoxel原生格式.vox的模型，但是ARKit使用的SceneKit并不支持该格式，幸运的是该软件可以将模型输出为常见的`.obj`格式，该格式被很多其他3D创作工具所支持。
@@ -80,7 +83,7 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 **导出.obj文件**  
 在Export区域，选择`.obj`就可以导出所需的文件，该文件会保存在Application/MagicaVoxel/export目录下。
 
-![](导出obj模型文件)[]
+![导出obj模型文件](http://ojca2gwha.bkt.clouddn.com/ARKit-exportobj.png)
 
 这时会输出3个文件，分别为：
 1.monu10.mtl(材料库文件，包含颜色定义、纹理和反射贴图)
@@ -94,12 +97,15 @@ iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费
 选中.obj然后在Xcode菜单中选择Editor下的`Convert to SceneKit file format (.scn)`，covert即可替换原来的.obj版本。
 这样monu10.obj文件已经转换为合适的monu10.scn文件了。
 
-![](转换scn模型文件)[]  
+![转换scn模型文件](http://ojca2gwha.bkt.clouddn.com/ARKit-convertscn.png)
+
 之后就可以在材料检查器、节点检查器和物理检查器中调整相应的Lighting mode(光照模型)、Diffuse、物理形体等参数了。
+
+在最新的版本MagicaVoxel-0.98中还增加了动画帧的效果，可以给每帧增减一些体素，然后制作gif，比较酷炫。而且导出的模型可以再导如Unity3D等工具进行其他加工，比如制作Animation和建骨等操作。
 
 好了，以上这样就完成了一个新的模型，这样比别的工具是快了很多，只是不能够创建接近真实的模型。如有问题，请评论或微博私信～
 
-再上一张酷炫的图...
+最后再上一张酷炫的图...
 
 ![City Voxel](http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example1.jpg)
 
