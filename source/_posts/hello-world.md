@@ -1,6 +1,6 @@
 ---
 title: 如何搭建我的博客 - Hexo之Hello World
-date: 2017-03-28 01:16:11
+date: 2016-03-28 01:16:11
 tags: blog
 categories: tools
 ---
@@ -215,6 +215,24 @@ menu:
   tags: /tags
 ```
 
+##### 5.草稿箱
+在很多时候我们并不想直接发布一篇文章，可能只想写一个草稿或idea，这时候我们可以使用hexo的草稿(draft)模式来新建文章。
+
+```
+$ hexo new draft swift-draft
+```
+
+这样会在`source/_drafts`目录下生成一个草稿，调试或者发布的时候该文章并不会直接显示在页面上。如果要想预览草稿，可以以如下方式启动server：
+
+```
+$ hexo server --drafts
+```
+或者更改配置文件： `render_drafts: true`，这种方式会让草稿中的文件也发布到页面上，要谨慎使用。
+另外如果你想要把草稿中的文件变为可以发布的文章，则可以使用下列命令来让把文件移动到`source/_posts`目录下：
+
+```
+$ hexo publish swfit-draft
+```
 
 
 ##### 参考文档
