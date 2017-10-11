@@ -11,7 +11,6 @@ date: 2017-06-01 16:32:01
 
 **Designated initializers**
 即最常用的初始化方法init()，默认不加修饰符的init方法都需要在方法中保证所有的非Optional实例变量被赋值初始化，其子类也会隐式或显式调用父类的designated初始化方法。  
-
 ```
   class House {
     let door: Int
@@ -19,22 +18,20 @@ date: 2017-06-01 16:32:01
         self.door = door
     }
   }
-
   class Room: House {
     let table: Int
     override init(door: Int) {
         self.table = 0
         super.init(door: door)
     }
-  }
-```   
+  }  
+```
 
 这儿注意如果子类有新增的属性的话，必须调用override重写父类init方法。如果没有的话，则可以不重写，直接使用父类的Designated初始化方法创建子类对象。推荐在init使用self给变量赋值。
-
 <!--more-->  
 
-**Convenience initializers**
-即补充的初始化方法，可有可无。需要在init前加convenience关键字，必须调用同一类中的`Designated initializers`初始化来完成设置，另外该初始化方法不能被子类重写或者从子类中以super的方式被调用。
+**Convenience initializers**  
+即补充的初始化方法，可有可无。需要在init前加convenience关键字，必须调用同一类中的`Designated initializers`初始化来完成设置，另外该初始化方法不能被子类重写或者从子类中以super的方式被调用。  
 
 ```
   class House {
@@ -47,7 +44,6 @@ date: 2017-06-01 16:32:01
         self.init(door: 0)
     }
   }
-
   class Room: House {
     let table: Int
     override init(door: Int) {
@@ -70,7 +66,6 @@ required关键词可以强制限制子类必须重写Designated初始化方法�
           self.door = door
       }
   }
-
   class Room: House {
       var table: Int?
       required init(door: Int) {
@@ -78,7 +73,6 @@ required关键词可以强制限制子类必须重写Designated初始化方法�
           super.init(door: door)
       }
   }
-
 ```
 
 #### 2. 访问控制
@@ -90,7 +84,7 @@ required关键词可以强制限制子类必须重写Designated初始化方法�
 **open**  
 可以被任何人使用，包括重写和继承。  
 **private**
-所修饰的属性或者方法只能在当前类中访问，这样做到了真正私有，离开当前类或结构体的作用域就无法访问。  
+所修饰的属性或者方法只能在当前类中访问，这样做到了真正私有，离开当前类或结构体的作用域就无法访问。Swift4中private的变量在其extension中可以可被读取。
 **internal**
 默认访问级别，可以忽略不写。其所修饰的属性/方法在源码所在的整个模块都可以访问。如果是框架/库代码，则框架/库内部可以访问，由外部引用是，则不可以访问。
 **public**
