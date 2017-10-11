@@ -99,7 +99,7 @@
 <meta name="keywords" content="blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何搭建我的博客 - Hexo之Hello World">
-<meta property="og:url" content="http://dragonfly.com/2017/03/28/hello-world/index.html">
+<meta property="og:url" content="http://dragonfly.com/2016/03/28/hello-world/index.html">
 <meta property="og:site_name" content="DragonFly的博客">
 <meta property="og:description" content="其实很久以前就搭建完博客的基础部分，只是懒癌发作，迟迟没有补上文章来总结，但是记录自己的心得还是必要的。下面描述下搭建博客的整个流程和一些问题的解决方案。搭建博客其实有很多种框架，比如可能大家熟悉的WordPress、Hexo等，这里我们将使用很火很流程的Hexo来作为博客基础框架。 Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利">
 <meta property="og:locale" content="zh-Hans">
@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-aliyun.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-dnspod.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-review.png">
-<meta property="og:updated_time" content="2017-09-25T12:15:29.000Z">
+<meta property="og:updated_time" content="2017-10-11T07:26:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何搭建我的博客 - Hexo之Hello World">
 <meta name="twitter:description" content="其实很久以前就搭建完博客的基础部分，只是懒癌发作，迟迟没有补上文章来总结，但是记录自己的心得还是必要的。下面描述下搭建博客的整个流程和一些问题的解决方案。搭建博客其实有很多种框架，比如可能大家熟悉的WordPress、Hexo等，这里我们将使用很火很流程的Hexo来作为博客基础框架。 Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利">
@@ -143,7 +143,7 @@
 
 
 
-  <link rel="canonical" href="http://dragonfly.com/2017/03/28/hello-world/"/>
+  <link rel="canonical" href="http://dragonfly.com/2016/03/28/hello-world/"/>
 
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/03/28/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2016/03/28/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DragonFly">
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T01:16:11+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-28T01:16:11+08:00">
+                2016-03-28
               </time>
             
 
@@ -355,9 +355,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/28/hello-world/#comments" itemprop="discussionUrl">
+                <a href="/2016/03/28/hello-world/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/03/28/hello-world/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/03/28/hello-world/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -436,6 +436,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
 <p>然后在菜单中添加链接，编辑主题配置文件，添加tags到menu中，如下：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">  home: /</div><div class="line">  archives: /archives</div><div class="line">  tags: /tags</div></pre></td></tr></table></figure>
+<h5 id="5-草稿箱"><a href="#5-草稿箱" class="headerlink" title="5.草稿箱"></a>5.草稿箱</h5><p>在很多时候我们并不想直接发布一篇文章，可能只想写一个草稿或idea，这时候我们可以使用hexo的草稿(draft)模式来新建文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new draft swift-draft</div></pre></td></tr></table></figure>
+<p>这样会在<code>source/_drafts</code>目录下生成一个草稿，调试或者发布的时候该文章并不会直接显示在页面上。如果要想预览草稿，可以以如下方式启动server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server --drafts</div></pre></td></tr></table></figure>
+<p>或者更改配置文件： <code>render_drafts: true</code>，这种方式会让草稿中的文件也发布到页面上，要谨慎使用。<br>另外如果你想要把草稿中的文件变为可以发布的文章，则可以使用下列命令来让把文件移动到<code>source/_posts</code>目录下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo publish swfit-draft</div></pre></td></tr></table></figure>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
 <li><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>!</li>
 <li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">NexT</a></li>
@@ -685,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub配置"><span class="nav-number">1.</span> <span class="nav-text">GitHub配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo管理"><span class="nav-number">2.</span> <span class="nav-text">Hexo管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境安装"><span class="nav-number">2.1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建博客"><span class="nav-number">2.2.</span> <span class="nav-text">创建博客</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化博客"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化博客</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新配置"><span class="nav-number">2.2.2.</span> <span class="nav-text">更新配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新建一篇文章"><span class="nav-number">2.2.3.</span> <span class="nav-text">新建一篇文章</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启用本地服务"><span class="nav-number">2.2.4.</span> <span class="nav-text">启用本地服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发布内容"><span class="nav-number">2.2.5.</span> <span class="nav-text">发布内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名绑定"><span class="nav-number">3.</span> <span class="nav-text">域名绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建CNAME文件"><span class="nav-number">3.1.</span> <span class="nav-text">创建CNAME文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加DNS解析"><span class="nav-number">3.2.</span> <span class="nav-text">添加DNS解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">3.3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-首页文章显示部分"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.首页文章显示部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-评论系统支持"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.评论系统支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-统计支持"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.统计支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-添加标签"><span class="nav-number">3.3.4.</span> <span class="nav-text">4.添加标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.3.5.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub配置"><span class="nav-number">1.</span> <span class="nav-text">GitHub配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo管理"><span class="nav-number">2.</span> <span class="nav-text">Hexo管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境安装"><span class="nav-number">2.1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建博客"><span class="nav-number">2.2.</span> <span class="nav-text">创建博客</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化博客"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化博客</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新配置"><span class="nav-number">2.2.2.</span> <span class="nav-text">更新配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新建一篇文章"><span class="nav-number">2.2.3.</span> <span class="nav-text">新建一篇文章</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启用本地服务"><span class="nav-number">2.2.4.</span> <span class="nav-text">启用本地服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发布内容"><span class="nav-number">2.2.5.</span> <span class="nav-text">发布内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名绑定"><span class="nav-number">3.</span> <span class="nav-text">域名绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建CNAME文件"><span class="nav-number">3.1.</span> <span class="nav-text">创建CNAME文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加DNS解析"><span class="nav-number">3.2.</span> <span class="nav-text">添加DNS解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">3.3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-首页文章显示部分"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.首页文章显示部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-评论系统支持"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.评论系统支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-统计支持"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.统计支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-添加标签"><span class="nav-number">3.3.4.</span> <span class="nav-text">4.添加标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-草稿箱"><span class="nav-number">3.3.5.</span> <span class="nav-text">5.草稿箱</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.3.6.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -849,8 +855,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://dragonfly.com/2017/03/28/hello-world/';
-          this.page.identifier = '2017/03/28/hello-world/';
+          this.page.url = 'http://dragonfly.com/2016/03/28/hello-world/';
+          this.page.identifier = '2016/03/28/hello-world/';
           this.page.title = '如何搭建我的博客 - Hexo之Hello World';
         };
         var d = document, s = d.createElement('script');
