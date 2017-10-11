@@ -27,7 +27,8 @@ date: 2017-06-01 16:32:01
         super.init(door: door)
     }
   }
-```  
+```   
+
 这儿注意如果子类有新增的属性的话，必须调用override重写父类init方法。如果没有的话，则可以不重写，直接使用父类的Designated初始化方法创建子类对象。推荐在init使用self给变量赋值。
 
 <!--more-->  
