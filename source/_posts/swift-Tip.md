@@ -95,8 +95,80 @@ required关键词可以强制限制子类必须重写Designated初始化方法�
 这样当前访问权限的优先排序依次为：  
 `open -> public -> internal -> fileprivate -> private`
 
+#### 3. inout 传址调用
+inout关键词用来将一个值类型以引用方式传递，这样通过函数可以改变函数外面的值，Swift的数据类型中Int、Float、Bool、Character、Array、Set、enum、struct全是值类型，只有class是引用类型。在调用函数时，变量名字前面用&符号修饰表示，具体使用方法如下：
 
+```
+var value = 50
+func increment(_ value: inout Int, length: Int = 10) {
+    value += length
+}
+func getResult() {
+    increment(&value)
+    print(value)
+}
+```
+
+另外inout参数不能有默认值，且可变参数不能用inout标记。一个参数一旦被inout修饰，就不能再被var和let修饰了。
+
+#### 4. 错误处理 -- guard 提前退出
+guard和if类似，只是作用相反，表示如果条件不满足时退出当前block，并且强制在else中用return来退出函数、continue、throw或break退出循环，或者用一个类似fatalError()的@noreturn函数来退出，以离开当前上下文。
+guard可以快速检查当前可能出现的错误，并立即跳出当前流程。这样减少了if判断的嵌套，同时还可以转换一个optional值，之后该值可以直接使用。
+
+```
+guard let count = imageNamesList?.count, count > 0 else {
+    return
+}
+for imageName in imageNamesList {
+    guard let image = UIImage(named: imageName)
+        else { continue }
+    // do something with image
+}
+```
+
+guard的else语句中，除了简单的提前退出语句，或者一些诊断日志外，不应该有其他的逻辑。而一些未完成工作的清理或者资源释放应该使用defer来完成，通常else中的代码一般不要多余3行。
+通过guard的方式，可以确保程序在可知的情况下退出。如果判断条件仅是简单的布尔表达式的话，可以使用`precondition`，`precondition(internet.node == 100, "Not enough node in the internet")`。或者可以使用断言`assertionFailure`，这样在正式发布的时候，应用不会crash掉，开发和测试期间也能找到bug位置，如果判断条件仅是简单的布尔表达式的话，直接使用`assert(condition)`即可  
+
+```
+guard let node = internet.node else {
+    fatalError("OMG ran out of node!")
+    assertionFailure("Huh, no dogs")
+}
+```
+
+#### 5. 错误处理 -- defer 延迟执行
+
+声明一个block来包含一段代码块，将会在当前作用域结束的时候(一般指return时)被调用。通常用来对当前的代码进行清理工作，比如关闭打开的目录、文件等。语法为：`defer { ... }`
+defer的block执行顺序和书写顺序是相反的，即先进后出，先定义的后执行。如以下代码中，`defer 0`最后输出:
+
+```
+func doDeferPrint() {
+    print("first")
+
+    defer {
+        print("defer 0")
+    }
+    print("second")
+    defer {
+        print("defer 1")
+    }
+}
+```
+
+但是defer的使用不应该降低代码的可读性，应该严格遵循defer在整个程序最后运行以释放已申请资源的原则，其他类型的使用会让代码乱成一团。例如以下的代码不被推荐:
+```
+postfix func ++(x: inout Int) -> Int {
+    defer { x += 1 }
+    return x
+}
+```
+
+
+#### 6.precondition  discardableResult
+
+#### 7.协议
 
 ##### 参考文档
 1.[https://developer.apple.com/library/content/documentation/...](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Initialization.html)  
 2.https://www.pupboss.com/swift-init-modifiers/
+3.http://swift.gg

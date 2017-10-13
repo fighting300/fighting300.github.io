@@ -5,8 +5,7 @@ date: 2017-01-11 15:39:17
 categories: iOS
 ---
 
-
-iOS7以来苹果支持了AirDrop，可以通过蓝牙来在设备之间传输文件，而且一直推荐使用iClound Drive、Handoff或者AirDrop来共享文件，但是iOS其实还支持通过iTunes在电脑和APP间通过拖动来共享文件，只是这项功能不常用到。下面介绍下这项功能的使用流程。
+iOS7以来苹果支持了AirDrop，可以通过蓝牙来在设备之间传输文件，而且一直推荐使用iClound Drive、Handoff或者AirDrop来共享文件，但是iOS其实还支持通过iTunes在电脑和APP间通过拖动来共享文件，只是这项功能不常用到。下面介绍下iOS文件共享的集成流程。
 注意该功能只支持iTunes9.1及之后的版本。
 
 #### 1.开启iTunes File Sharing
@@ -15,7 +14,7 @@ iOS7以来苹果支持了AirDrop，可以通过蓝牙来在设备之间传输文
 
 ![FileShare Info.plist](http://ojca2gwha.bkt.clouddn.com/FileShare-infoplist.png)
 
-在之前的版本中可能需要在Info.plist中配置`CFBundleDisplayName`值为
+在之前的版本中可能需要在Info.plist中配置`CFBundleDisplayName`值为Bundle Display Name即`${PRODUCT_NAME}`。
 
 ![FileShare iTunes](http://ojca2gwha.bkt.clouddn.com/FileShare-itunes.png)
 
@@ -36,3 +35,5 @@ iOS7以来苹果支持了AirDrop，可以通过蓝牙来在设备之间传输文
 
 ##### 参考文档
 1. https://support.apple.com/en-us/HT201301  
+2. [https://developer.apple.com/library/content/documentation/...](https://developer.apple.com/library/content/documentation/Miscellaneous/Conceptual/iPhoneOSTechOverview/CoreServicesLayer/CoreServicesLayer.html#//apple_ref/doc/uid/TP40007898-CH10-SW30)
+3.
