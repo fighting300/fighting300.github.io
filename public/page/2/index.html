@@ -764,6 +764,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/02/25/swift-Tips2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/25/swift-Tips2/" itemprop="url">Swift语法特性2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-25T14:39:36+08:00">
+                2017-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/25/swift-Tips2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/02/25/swift-Tips2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ol>
+<li>inline</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/25/swift-Tips2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2017/01/11/iOS-FileSharing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -872,8 +1031,9 @@
 <h4 id="1-开启iTunes-File-Sharing"><a href="#1-开启iTunes-File-Sharing" class="headerlink" title="1.开启iTunes File Sharing"></a>1.开启iTunes File Sharing</h4><p>要让你的App支持文件共享，你需要在App的Info.plist中配置<code>UIFileSharingEnabled</code>值为true。配置完成后在Info.plist中展示为<code>Application supports iTunes file sharing</code>，如下图所示。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-infoplist.png" alt="FileShare Info.plist"></p>
 <p>在之前的版本中可能需要在Info.plist中配置<code>CFBundleDisplayName</code>值为Bundle Display Name即<code>${PRODUCT_NAME}</code>。</p>
+<p>之后，你就可以把你需要分享的文件放在Documents文件目录下。当你通过usb连接电脑与iPhone后，iTunes会展示<code>File Sharing</code>区域。这时候，你可以在电脑和app拖动来共享数据了。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-itunes.png" alt="FileShare iTunes"></p>
-<p>之后，你就可以把你需要分享的文件放在Documents文件目录下。当你通过usb连接电脑与iPhone后，iTunes会展示<code>File Sharing</code>区域。这时候，你可以在电脑和app拖动来共享数据了。<br>注意这时候你在iPhone设备上并无法访问其他App的这些共享数据。还有iTunes12.7开始无法在iTunes上查看当前iPhone安装的App了，小伙伴们千万别升级了。。。</p>
+<p>注意这时候你在iPhone设备上并无法访问其他App的这些共享数据。还有iTunes12.7开始无法在iTunes上查看当前iPhone安装的App了，小伙伴们千万别升级了。。。</p>
 <p>在iOS11中，还可以把App的可共享Documents文件展示在默认Files应用中，要开启这项功能，需要在Info.plist中添加<code>LSSupportsOpeningDocumentsInPlace</code>值为YES。配置完成后在Info.plist中展示为<code>Supports opening documents in place</code>。当然，当你的Documents下有文件才会在Files应用中展示。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-Files.png" alt="FileShare Files"></p>
 <h4 id="2-开启AirDrop"><a href="#2-开启AirDrop" class="headerlink" title="2.开启AirDrop"></a>2.开启AirDrop</h4><p>未完待续</p>
@@ -948,7 +1108,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/11/01/swift-Tip/" itemprop="url">Swift语法特性</a></h1>
+                <a class="post-title-link" href="/2016/11/01/swift-Tip/" itemprop="url">Swift语法特性1</a></h1>
         
 
         <div class="post-meta">
@@ -1294,7 +1454,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1316,7 +1476,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

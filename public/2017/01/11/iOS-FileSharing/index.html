@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/FileShare-infoplist.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/FileShare-itunes.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/FileShare-Files.png">
-<meta property="og:updated_time" content="2017-10-11T10:49:03.000Z">
+<meta property="og:updated_time" content="2017-10-26T06:40:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS文件共享">
 <meta name="twitter:description" content="iOS7以来苹果支持了AirDrop，可以通过蓝牙来在设备之间传输文件，而且一直推荐使用iClound Drive、Handoff或者AirDrop来共享文件，但是iOS其实还支持通过iTunes在电脑和APP间通过拖动来共享文件，只是这项功能不常用到。下面介绍下iOS文件共享的集成流程。注意该功能只支持iTunes9.1及之后的版本。 1.开启iTunes File Sharing要让你的App">
@@ -386,8 +386,9 @@
 <h4 id="1-开启iTunes-File-Sharing"><a href="#1-开启iTunes-File-Sharing" class="headerlink" title="1.开启iTunes File Sharing"></a>1.开启iTunes File Sharing</h4><p>要让你的App支持文件共享，你需要在App的Info.plist中配置<code>UIFileSharingEnabled</code>值为true。配置完成后在Info.plist中展示为<code>Application supports iTunes file sharing</code>，如下图所示。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-infoplist.png" alt="FileShare Info.plist"></p>
 <p>在之前的版本中可能需要在Info.plist中配置<code>CFBundleDisplayName</code>值为Bundle Display Name即<code>${PRODUCT_NAME}</code>。</p>
+<p>之后，你就可以把你需要分享的文件放在Documents文件目录下。当你通过usb连接电脑与iPhone后，iTunes会展示<code>File Sharing</code>区域。这时候，你可以在电脑和app拖动来共享数据了。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-itunes.png" alt="FileShare iTunes"></p>
-<p>之后，你就可以把你需要分享的文件放在Documents文件目录下。当你通过usb连接电脑与iPhone后，iTunes会展示<code>File Sharing</code>区域。这时候，你可以在电脑和app拖动来共享数据了。<br>注意这时候你在iPhone设备上并无法访问其他App的这些共享数据。还有iTunes12.7开始无法在iTunes上查看当前iPhone安装的App了，小伙伴们千万别升级了。。。</p>
+<p>注意这时候你在iPhone设备上并无法访问其他App的这些共享数据。还有iTunes12.7开始无法在iTunes上查看当前iPhone安装的App了，小伙伴们千万别升级了。。。</p>
 <p>在iOS11中，还可以把App的可共享Documents文件展示在默认Files应用中，要开启这项功能，需要在Info.plist中添加<code>LSSupportsOpeningDocumentsInPlace</code>值为YES。配置完成后在Info.plist中展示为<code>Supports opening documents in place</code>。当然，当你的Documents下有文件才会在Files应用中展示。</p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/FileShare-Files.png" alt="FileShare Files"></p>
 <h4 id="2-开启AirDrop"><a href="#2-开启AirDrop" class="headerlink" title="2.开启AirDrop"></a>2.开启AirDrop</h4><p>未完待续</p>
@@ -456,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/01/swift-Tip/" rel="next" title="Swift语法特性">
-                <i class="fa fa-chevron-left"></i> Swift语法特性
+              <a href="/2016/11/01/swift-Tip/" rel="next" title="Swift语法特性1">
+                <i class="fa fa-chevron-left"></i> Swift语法特性1
               </a>
             
           </div>
@@ -466,8 +467,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/01/iOS-code-obfuscate/" rel="prev" title="iOS代码加固">
-                iOS代码加固 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/25/swift-Tips2/" rel="prev" title="Swift语法特性2">
+                Swift语法特性2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -555,7 +556,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -577,7 +578,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
