@@ -1248,6 +1248,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2016/06/12/iOS-attribute/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/12/iOS-attribute/" itemprop="url">iOS中的attribute和宏</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-12T17:09:03+08:00">
+                2016-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/12/iOS-attribute/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/06/12/iOS-attribute/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在学习开源代码的时候，经常会遇到<code>__attribute__</code>的相关使用，但是在使用的时候又会忘记，所以用这篇文章总结下iOS开发中经常使用的attribute。<br><code>__attribute__</code>其实是GNU C的一种机制，本质是一个编译器的指令，在声明的时候可以提供一些属性，在编译阶段起作用，来做多样化的错误检查和高级优化。可以分别用于设置函数属性、变量属性和类型属性，语法一般为: <code>__attribute__(xx)</code>。下面分别介绍下这些属性。   </p>
+<h4 id="函数属性"><a href="#函数属性" class="headerlink" title="函数属性"></a>函数属性</h4><p>函数属性可以帮助开发者把一些特性添加到函数声明中，从而可以使编译器在错误检查方面的功能更强大。   </p>
+<p><strong>format</strong><br>语法为<code>__attribute__((format(__NSString__, F, A)))</code>，可以给被声明的函数加上类似printf或者scanf的特征，它可以使编译器检查函数声明和函数实际调用参数之间的格式化字符串是否匹配。<code>format (archetype, m, n)</code>，第一个参数传递archetype指定为哪种类型，string-index指定格式化字符串的位置，n指定可变参数检查开始的位置。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))  </div><div class="line">FOUNDATION_EXPORT void NSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);</div><div class="line">extern void myPrint(const char *format,...)__attribute__((format(printf,1,2)));</div></pre></td></tr></table></figure></p>
+<p><strong>objc_designated_initializer</strong><br>指定内部实现的初始化方法，系统宏<code>NS_DESIGNATED_INITIALIZER</code>展开即为该指令，语法为<code>__attribute__((objc_designated_initializer))</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (instancetype)initNoDesignated ;</div><div class="line">- (instancetype)initNoDesignated1 NS_DESIGNATED_INITIALIZER;</div></pre></td></tr></table></figure></p>
+<p>当一个类存在方法带有NS_DESIGNATED_INITIALIZER属性时，它的NS_DESIGNATED_INITIALIZER方法必须调用super的NS_DESIGNATED_INITIALIZER方法。它的其他方法（非NS_DESIGNATED_INITIALIZER）只能调用self的方法初始化。</p>
+<p><strong>objc_requires_super</strong><br>表示子类重写当前类的方法时，必须要调用super函数，否则会有警告。语法为<code>__attribute__((objc_requires_super))</code>，例如：<br><code>- (void)fatherMethod __attribute__((objc_requires_super));</code>   </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/12/iOS-attribute/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://dragonfly.com/2016/03/28/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1454,7 +1616,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1476,7 +1638,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
