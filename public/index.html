@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="iOS开发、ReactNative开发、AR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DragonFly的博客">
+<meta property="og:url" content="http://fighting300.com/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="iOS开发、ReactNative开发、AR">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DragonFly的博客">
+<meta name="twitter:description" content="iOS开发、ReactNative开发、AR">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fighting300.com/"/>
+
+
+
+
+
+  <title>DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/30/tools-MagicaVoxel-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/tools-MagicaVoxel-model/" itemprop="url">快速创建ARKit模型-使用MagicaVoxel创建3D模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T13:55:31+08:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index">
+                    <span itemprop="name">Tool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/30/tools-MagicaVoxel-model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/30/tools-MagicaVoxel-model/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>iOS APP尤其是游戏中，还有新发布的ARKit中，2D/3D模型需要花费大量的时间来创建，然而我们开发者开没有那么长时间。<br>最近发现一款及其简单的模型创建工具-MagicaVoxel，虽然他只能创建<code>体素(Voxel)</code>模型，但是生成的模型可以在ARKit中使用，而且它还是免费的。<br>下面我们介绍下该软件。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/MagicaVoxel-example4.png" alt="Voxel模型"></p>
+<h4 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h4><p>可能你会疑惑体素是什么意思，其实体素类似与像素，像素英文为Pixel，是图片pictures(pix)与元素element(el)俩词组合而来，而体素Voxel则由体积Volumes(vox)与元素element(el)组成。尤其是当你玩过<code>我的世界</code>的话，很快就能理解，里面的模型其实由一个个体素构成，它是一种极其简单、快速创建3D模型的方式。而MagicaVoxel就是一种创建Voxel模型的工具。</p>
+<p>你可以从该地址下载MagicaVoxel： <a href="https://ephtracy.github.io，然后解压它。" target="_blank" rel="external">https://ephtracy.github.io，然后解压它。</a><br>当你在Mac上运行APP发现黑屏时，你需要把<code>MagicaVoxel-mac.app</code>文件移出当前目录，再移动回来，就可以解决黑屏问题。  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/30/tools-MagicaVoxel-model/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/27/iOS-DeviceCheck-newUuid/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/27/iOS-DeviceCheck-newUuid/" itemprop="url">iOS11 DeviceCheck-苹果的微型云服务?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T11:20:47+08:00">
+                2017-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/27/iOS-DeviceCheck-newUuid/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/27/iOS-DeviceCheck-newUuid/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>iOS系统一致以来都致力于保护用户的隐私安全，从UUID到VenderId，再到Mac地址，每个开发者都在探索能跟踪用户和设备的唯一标志符，可惜自从UUID别限制使用以后，到现在还没有一个类似当初UUID的标志符。</p>
+<p>不过在iOS11中新增了DeviceCheck的framework，可以允许你通过自己的服务器与Apple服务器通讯，并为单个设备设置(per Device、per Developer)两个bit的数据(bit是计算机表示信息的最小单元，吐槽下真的很小，相当于只能保存两个bool值)。该framework为追踪用户提供了更好的选择，不过目前看来只能存储类似用户是否使用过优惠码的信息，或者当前设备是否涉嫌刷单等欺诈行为。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-bits.png" alt="DeviceCheck 2bits">    </p>
+<h4 id="iOS集成介绍"><a href="#iOS集成介绍" class="headerlink" title="iOS集成介绍"></a>iOS集成介绍</h4><p>DeviceCheck使用的基本流程如下：<br>1.在App内使用DeviceCheck APIs获取一个临时的token来标志该设备(很快会失效)<br>2.将token传递给后端服务器，随后后端服务器使用该token和认证后的key值(来自Apple的证书请求模块)请求Apple服务器，来更新或查询该设备的值<br>3.Apple服务器返回后端服务器信息，获取该设备之前存储的信息，包含bits信息和最后一次修改的时间戳   </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-flow.png" alt="DeviceCheck 流程">  </p>
+<p>在服务端，需要使用Http Post请求来查询和更新信息，每个请求对应的header应该包含认证后的来自Apple的key值(JWT，JSON web token)。要获取该token，可以使用类似Apple推送服务(APNs)的类似流程来操作，具体流程可以参考<a href="https://help.apple.com/xcode/mac/current/#/dev54d690a66" target="_blank" rel="external">Communicate with APNs using authentication tokens</a>。</p>
+<p>服务端请求的API请参照<a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">Accessing and modifying Per-Device Data</a>，数据payload的格式如下图示例：</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/DeviceCheck-payload.png" alt="服务端请求payLoad"></p>
+<p>Apple API地址：<br>开发环境：  <a href="https://api.development.devicecheck.apple.com" target="_blank" rel="external">https://api.development.devicecheck.apple.com</a><br>线上环境：  <a href="https://api.devicecheck.apple.com" target="_blank" rel="external">https://api.devicecheck.apple.com</a>.</p>
+<p>请求完整后就可以获取/更新最新的设备信息了，之后可以使用该信息进行业务操作。</p>
+<h4 id="API使用"><a href="#API使用" class="headerlink" title="API使用"></a>API使用</h4><p>目前发现该API在Swift中无法使用，可能是目前的一个bug。不过可以通过桥oc代码的方式运行在Swift项目中。代码示例如下：     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)getNewDeviceId &#123;</div><div class="line">    if ([DCDevice.currentDevice isSupported]) &#123;</div><div class="line">        [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">                NSLog(@&quot;%@&quot;, error.description);</div><div class="line">            &#125; else &#123;</div><div class="line">                // upload token to APP server</div><div class="line">                NSString *deviceToken = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];</div><div class="line">                NSLog(@&quot;%lu %@&quot;, token.length, deviceToken);</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return @&quot;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ol>
+<li><a href="https://developer.apple.com/documentation/devicecheck" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck</a></li>
+<li><a href="https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor" target="_blank" rel="external">https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per_device_data?changes=latest_minor</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/18/ollvm-with-StringObfuscate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/ollvm-with-StringObfuscate/" itemprop="url">iOS混淆-ollvm中添加对String的混淆</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T15:58:09+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/18/ollvm-with-StringObfuscate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/18/ollvm-with-StringObfuscate/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="external">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="external">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">专栏的文章</a>。</p>
+<h4 id="Pass集成"><a href="#Pass集成" class="headerlink" title="Pass集成"></a>Pass集成</h4><p>首先提取字符串加密文件对应pass文件，该文件所在目录为lib/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png" alt="pass文件目录"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/18/ollvm-with-StringObfuscate/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/17/ARKit-coordinate-transfer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/17/ARKit-coordinate-transfer/" itemprop="url">ARKit中的坐标转化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T19:55:19+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/17/ARKit-coordinate-transfer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/17/ARKit-coordinate-transfer/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>多年不摸，线性代数中的矩阵变换早已忘的一干二净，参考网上的资料，做个总结。下面先简单列下图形学的矩阵转化基础，再看它们在ARKit中的应用。</p>
+<h4 id="图形学矩阵变换基础"><a href="#图形学矩阵变换基础" class="headerlink" title="图形学矩阵变换基础"></a>图形学矩阵变换基础</h4><h4 id="ARKit坐标系"><a href="#ARKit坐标系" class="headerlink" title="ARKit坐标系"></a>ARKit坐标系</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/14/iOS11-UI-adjust/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/14/iOS11-UI-adjust/" itemprop="url">iOS11/iPhoneX最新适配指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T11:47:19+08:00">
+                2017-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/14/iOS11-UI-adjust/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/14/iOS11-UI-adjust/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。<br>新版iPhone的适配工作主要集中在iPhoneX上，相信大家已经对iPhoneX的刘海记忆深刻了，除了吐槽，留给我们的还有比较麻烦的适配工作。下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)  </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iPhoneX-Screen.png" alt="iPhoneX 375x812尺寸图">  </p>
+<h4 id="上下黑边问题"><a href="#上下黑边问题" class="headerlink" title="上下黑边问题"></a>上下黑边问题</h4><p>运行新版Xcode的iPhoneX模拟器，你可能发现之前的APP在iPhoneX屏幕没填充满，上下有黑色区域，应该是你的app之前未用LaunchScreen.Storyboard作为启动页面，可以使用LaunchScreen来当做入场页面，这样APP才会自动适配为iPhoneX的大小。或者修改Assets中的LaunchImage，添加iPhoneX的Launch图如下(1125*2436)。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS11-adjust-launch.png" alt="LaunchImage适配">  </p>
+<h4 id="iOS11新增版本判断API"><a href="#iOS11新增版本判断API" class="headerlink" title="iOS11新增版本判断API"></a>iOS11新增版本判断API</h4><p>iOS11版本现在有了简单的API，OC也开始支持swfit的@available语法，不用再手写iOS版本判断了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">  // 版本适配</div><div class="line">&#125;</div><div class="line">// 或者</div><div class="line">#ifdef __IPHONE_11_0   </div><div class="line">#endif</div></pre></td></tr></table></figure></p>
+<p>目前没发现有iPhoneX的机型判断API，暂时可以使用size来做代替判断。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)</div><div class="line">// 或者</div><div class="line">if (UIScreen.mainScreen.bounds.size.height == 812) &#123;</div><div class="line">    NSLog(@&quot;this is iPhone X&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/14/iOS11-UI-adjust/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/13/ARKit-Face/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/13/ARKit-Face/" itemprop="url">ARKit-基于Face的AR体验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T11:58:19+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/13/ARKit-Face/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/13/ARKit-Face/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。<br>之前的版本中前置摄像头是不支持AKKit模块的，幸而新发布的版本中添加了对Face识别的支持，然而新的API需要原前置深感摄像头(TrueDepth Camera)的支持，所以看来还得入手一台iPhone X呐。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-iPhoneX.jpg" alt="iPhoneX">  </p>
+<h4 id="新增API"><a href="#新增API" class="headerlink" title="新增API"></a>新增API</h4><p>首先新增了ARFaceTrackingConfiguration，以用于追踪用户脸部的运动和表情，并在界面中渲染虚拟内容。此外你还可以设置lightEstimationEnabled为true，来启用脸部扫描并提供预估的定向/环境光。</p>
+<p>其次还新增了ARFaceAnchor，这两个新API与之前的ARWorldTrackingConfiguration和ARPlaneAnchor类似，只是基于平面的检测改为了基于Face的检测，恶趣味下Apple会不会继续扩展他的检测API。。。当使用ARFaceTrackingConfiguration时，ARSession会检测用户面部并且用ARFaceAnchor保存面部信息，包括位置、方向、拓扑结构以及表情特征点。</p>
+<p>ARFaceAnchor的transform属性描述了面部在世界坐标系中的所在位置和方向，该世界坐标系可以在ARSessionConfiguration的wordlAlignment中设置。可以使用该transform在ARScene检测到的面部上添加虚拟物体。坐标系如下图所示：</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit-face-Coordinate.png" alt="ARKit Face coordinate"></p>
+<p>该坐标系为右手坐标系，x轴只想观察者的右边(即face自己的左边)，y轴指向上边(与face绑定)，z轴指向了观察者。</p>
+<p>ARFaceAnchor的blendShapes属性提供了当前面部表情的高级数据，通过一系列表示面部特征的系数来描述面部表情。你可以使用这些系数跟随用户的面部表情来做2D/3D动画。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/13/ARKit-Face/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/12/ARKit-Plane-Detector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/12/ARKit-Plane-Detector/" itemprop="url">ARKit 上手指南 02 平面检测</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T20:53:07+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/12/ARKit-Plane-Detector/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/12/ARKit-Plane-Detector/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上一小节中，我们在ARKit虚拟世界中添加了3D物体，接下来我们会使用ARKit检测现实世界的平面。这样我们才能在平面上放置物体以及进行其他操作。</p>
+<h4 id="检测平面"><a href="#检测平面" class="headerlink" title="检测平面"></a>检测平面</h4><p>如果要在ARKit空间里检测水平面，需要设置ARSessionConfiguration的planeDetection属性为ARPlaneDetectionHorizontal。设置完后，ARSceneView的delegate方法会收到回调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">            self.addPlane(node: node, anchor: planeAnchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>每次ARKit认为检测到平面时都会调用该方法，并且返回一个ARAnchor对象，包含当前检测平面锚点，其真正类型是ARPlaneAnchor，拥有extent(范围)、center(中心)等属性信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">open class ARPlaneAnchor : ARAnchor &#123;</div><div class="line">    // The alignment of the plane.</div><div class="line">    open var alignment: ARPlaneAnchor.Alignment &#123; get &#125;</div><div class="line"></div><div class="line">    // The center of the plane in the anchor’s coordinate space.</div><div class="line">    open var center: vector_float3 &#123; get &#125;</div><div class="line"></div><div class="line">	 // The extent of the plane in the anchor’s coordinate space.</div><div class="line">    open var extent: vector_float3 &#123; get &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="渲染平面"><a href="#渲染平面" class="headerlink" title="渲染平面"></a>渲染平面</h4><p>根据第一步得到的锚点信息，我们可以在ARKit的空间中绘制一个3D平面。创建一个Plance类，继承自SCNNode来管理需要渲染的平面，然后创建SCNGeometry子类SCNPlane的对象，可以用该对象创建平面对应的SCNNode。在构造方法中创建平面并调整其大小：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">init(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	...</div><div class="line">	// 用ARPlaneAnchor的尺寸来创建3D平面几何体</div><div class="line">	let plane = SCNPlane(width: CGFloat(anchor.extent.x - 0.05), height: CGFloat(anchor.extent.z - 0.05))</div><div class="line">	let material = SCNMaterial()</div><div class="line">	material.colorBufferWriteMask = []</div><div class="line">	material.isDoubleSided = true</div><div class="line">	plane.materials = [material]</div><div class="line"></div><div class="line">	planeNode = SCNNode()</div><div class="line">	planeNode!.geometry = plane</div><div class="line">	// SceneKit 里的平面默认是垂直的，所以需要旋转90度来匹配 ARKit 中的平面</div><div class="line">	planeNode!.transform = SCNMatrix4MakeRotation(-Float.pi / 2.0, 1, 0, 0)</div><div class="line">	// 将平面plane移动到ARKit对应的位置</div><div class="line">	planeNode!.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在ARSCNViewDelegate的回调方法中，每次扫描到新的ARAnchor时都可以创建新的平面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">          let plane = Plane(anchor)</div><div class="line">      node.addChildNode(plane)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="更新平面"><a href="#更新平面" class="headerlink" title="更新平面"></a>更新平面</h4><p>上述创建渲染的平面只会保持创建时的大小，然后现实世界的平面可能比创建初始化的大很多，若需要更新平面的大小，需要更新平面的extent(范围)值。</p>
+<p>可以从ARSCNViewDelegate的代理方法中获取到更新的信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) &#123;</div><div class="line">    DispatchQueue.main.async &#123;</div><div class="line">        if let planeAnchor = anchor as? ARPlaneAnchor &#123;</div><div class="line">         plane.update(anchor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在Plane类的update方法里，更新plane的宽高：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">func update(_ anchor: ARPlaneAnchor) &#123;</div><div class="line">	plane.width = CGFloat(anchor.extent.x - 0.05)</div><div class="line">	plane.height = CGFloat(anchor.extent.z - 0.05)</div><div class="line">	// 更新位置</div><div class="line">	plane.position = SCNVector3Make(anchor.center.x, -0.01, anchor.center.z)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/08/ARKit-Add-3d-Content/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/08/ARKit-Add-3d-Content/" itemprop="url">ARKit上手指南 01 添加3D物体</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T12:56:22+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/08/ARKit-Add-3d-Content/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/08/ARKit-Add-3d-Content/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。</p>
+<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><ol>
+<li>Xcode版本： Xcode9以上<br>Xcode 9 Beta：<a href="https://developer.apple.com/download/" target="_blank" rel="external">https://developer.apple.com/download/</a><br>下载最新的beta版本就可以了，不过Xcode需要Mac 10.12.4及以上的版本。  </li>
+<li>iOS系统： iOS11以上</li>
+<li>iOS设备： A9/A10处理器的iOS设备，即iPhone6s、iPad2017及以上的设备</li>
+</ol>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>首先打开Xcode，选择ARKit模板，如下所示：  </p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/ARKit_1Project.png" alt="AR项目创建"></p>
+<p>之后，填写完项目信息后，选择Content Technology为SceneKit，当然也可以选择SpriteKit，不过在3D空间中就不是那么立体了。<br>开发语言选择Swift，Swift天然亲和ARKit，很多网上的Demo都是用Swift写的，这样也方便移植和借鉴。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/08/ARKit-Add-3d-Content/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/07/ollvm-in-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/07/ollvm-in-iOS/" itemprop="url">iOS混淆--OLLVM在iOS中的实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T12:15:18+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/07/ollvm-in-iOS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/07/ollvm-in-iOS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="external">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
+<p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/07/ollvm-in-iOS/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/08/22/iOS-nfc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/22/iOS-nfc/" itemprop="url">iOS Core NFC指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T19:41:17+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/22/iOS-nfc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/22/iOS-nfc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>大家可能听过NFC这项功能，或者有可能你每天都在使用这个功能，比如当你在进出地铁时闸机扫描地铁卡就用到了NFC技术。<br>简单来说NFC就是可以让智能手机的NFC模块，可以像读卡器一般，读取电子标签的相关信息，实现NFC手机之间的数据交互或是读取其他IC卡内的数据。NFC(机场通讯)，其实由非接触式射频识别（RFID）演变而来，是一种短距高频的无线电技术，在13.56MHz频率运行于20厘米距离内。它的传输速度有106 Kbit/秒、212 Kbit/秒或者424 Kbit/秒三种。目前NFC已通过成为ISO/IEC IS 18092国际标准、ECMA-340标准与ETSI TS 102 190标准。NFC可以采用主动和被动两种读取模式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-b31bb992a4bbb9f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="NFC使用场景">  </p>
+<h4 id="Core-NFC介绍"><a href="#Core-NFC介绍" class="headerlink" title="Core NFC介绍"></a>Core NFC介绍</h4><p>或者你可能还吐槽过Apple怎么还不支持NFC呢，其实iPhone6已经有NFC硬件了，已支持Apple Pay支付系统，只是接口没开放，终于在今年的WWDC，苹果在iOS11系统上对开发者开放了NFC接口框架Core NFC，虽然目前权限只有只读模式。<br>Apple的Core NFC可以用于检测NFC(近场通讯)标签和读取包含NDEF(NFC Data Exchange Format)数据1到5类型的标签信息，只是该功能只支持iPhone 7和iPhone 7P及以上的机型。目前Core NFC其实同时有NFC和RFID的API存在，但是RFID可能没有很高的安全性，所以苹果没有推广使用(或者还在开发中)。</p>
+<blockquote>
+<p>NFC Data Exchange Format : NFC数据交换格式，NFC组织约定的NFC tag中的数据格式。NDEF是轻量级的紧凑的二进制格式，可带有URL、vCard和NFC定义的各种数据类型。NDEF的由各种数据记录组成，而各个记录由报头(Header)和有效载荷(Payload)组成，其中NDEF记录的数据类型和大小由记录载荷的报头注明，这里的报头包含3部分，分别为Length、Type和Identifier。</p>
+</blockquote>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/CoreNFC-tags.png" alt="NFC标签图例"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/22/iOS-nfc/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fighting300" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/fighting300" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

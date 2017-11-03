@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="安全," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以">
+<meta name="keywords" content="安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS混淆--OLLVM在iOS中的实践">
+<meta property="og:url" content="http://fighting300.com/2017/09/07/ollvm-in-iOS/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-a27167d3a47b3bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-76e1b58511f4a559.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-d3ef62eb9e13ae93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-a8aff8dc34d9a432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-4a84eba4712effb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1944396-47b61ea46b1eee67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-09-25T12:21:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS混淆--OLLVM在iOS中的实践">
+<meta name="twitter:description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fighting300.com/2017/09/07/ollvm-in-iOS/"/>
+
+
+
+
+
+  <title>iOS混淆--OLLVM在iOS中的实践 | DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/07/ollvm-in-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS混淆--OLLVM在iOS中的实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T12:15:18+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/07/ollvm-in-iOS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/07/ollvm-in-iOS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="external">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="external">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
+<p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br><a id="more"></a></p>
+<h4 id="OLLVM-iOS编译环境搭建"><a href="#OLLVM-iOS编译环境搭建" class="headerlink" title="OLLVM iOS编译环境搭建"></a>OLLVM iOS编译环境搭建</h4><p>以下，介绍OLLVM iOS环境的插件创建过程。<br>首先下载源码，编译OLLVM混淆器，这里采用LLVM的版本是4.0。下载编译过程如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git  </div><div class="line">$ mkdir build  </div><div class="line">$ cd build  </div><div class="line">$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/  </div><div class="line">$ make -j7</div></pre></td></tr></table></figure>
+<p>下载的源码里已经包含了LLVM和Clang，编译完成后，编译好的二进制程序都存在在build/bin目录下。</p>
+<p>依据github上的wiki，bin目录下编译好的工具链可以直接用来编译混淆linux下的程序，就像我们常用的gcc那样。若想使用OLLVM来混淆iOS程序，还需将bin目录下的工具链整合进Xcode插件中，具体步骤如下。</p>
+<p>配置Xcode–新建Obfuscator插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ cd /Applications/Xcode.app/Contents/PlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer/Library/Xcode/Plug-ins/  </div><div class="line">$ sudo cp -r Clang\ LLVM\ 1.0.xcplugin/ Obfuscator.xcplugin  </div><div class="line">$ cd Obfuscator.xcplugin/Contents/  </div><div class="line">$ sudo plutil -convert xml1 Info.plist  </div><div class="line">$ sudo vim Info.plist</div></pre></td></tr></table></figure>
+<p>修改Info.plist中的对应内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;string&gt;com.apple.compilers.clang&lt;/string&gt; -&gt; &lt;string&gt;com.apple.compilers.obfuscator&lt;/string&gt;  </div><div class="line">&lt;string&gt;Clang LLVM 1.0 Compiler Xcode Plug-in&lt;/string&gt; -&gt; &lt;string&gt;Obfuscator Xcode Plug-in&lt;/string&gt;</div></pre></td></tr></table></figure>
+<p>修改Obfuscator.xcspec文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo plutil -convert binary1 Info.plist  </div><div class="line">$ cd Resources/  </div><div class="line">$ sudo mv Clang\ LLVM\ 1.0.xcspec Obfuscator.xcspec  </div><div class="line">$ sudo vim Obfuscator.xcspec</div></pre></td></tr></table></figure>
+<p>修改ExecPath的地址为当前build/bin的地址(!重点)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Identifier = &quot;com.apple.compilers.llvm.clang.1_0&quot;; -&gt; Identifier = &quot;com.apple.compilers.llvm.obfuscator.4_0&quot;;  </div><div class="line">Name = &quot;Apple LLVM 8.0&quot;; -&gt; Name = &quot;Obfuscator 4.0&quot;;  </div><div class="line">Description = &quot;Apple LLVM 8.0 compiler&quot;; -&gt; Description = &quot;Obfuscator 4.0&quot;;  </div><div class="line">Vendor = Apple; -&gt; Vendor = HEIG-VD;  </div><div class="line">Version = &quot;7.0&quot;; -&gt; Version = &quot;4.0&quot;;  </div><div class="line">ExecPath = &quot;clang&quot;; -&gt; ExecPath = &quot;/path/to/obfuscator_bin/clang&quot;;</div></pre></td></tr></table></figure>
+<p>修改 Obfuscator 4.0 Strings</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cd English.lproj/  </div><div class="line">$ sudo mv Apple\ LLVM\ 8.0.strings &quot;Obfuscator 4.0.strings&quot;  </div><div class="line">$ sudo plutil -convert xml1 Obfuscator\ 4.0.strings  </div><div class="line">$ sudo vim Obfuscator\ 4.0.strings</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;Description&quot; = &quot;Apple LLVM 8.0 Compiler&quot;; -&gt; &quot;Description&quot; = &quot;Obfuscator 4.0&quot;;  </div><div class="line">&quot;Name&quot; = &quot;Apple LLVM 8.0&quot;; -&gt; &quot;Name&quot; = &quot;Obfuscator 4.0&quot;;  </div><div class="line">&quot;Vendor&quot; = &quot;Apple&quot;; -&gt; &quot;Vendor&quot; = &quot;HEIG-VD&quot;;  </div><div class="line">&quot;Version&quot; = &quot;8.0&quot;; -&gt; &quot;Version&quot; = &quot;4.0&quot;;</div></pre></td></tr></table></figure>
+<p><code>sudo plutil -convert binary1 Obfuscator\ 4.0.strings</code>  </p>
+<p>现在，你可以打开Xcode在项目配置里来选择新的编译器，并且可以在C Flags或C++ Flags下添加混淆标签。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-a27167d3a47b3bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择编译器"><br><img src="http://upload-images.jianshu.io/upload_images/1944396-76e1b58511f4a559.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加混淆标签"></p>
+<p>这样配置完成后，就可以编译项目生成混淆后的程序。</p>
+<h4 id="ollvm混淆使用"><a href="#ollvm混淆使用" class="headerlink" title="ollvm混淆使用"></a>ollvm混淆使用</h4><p>接下来使用以下demo介绍混淆功能的具体使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">int main()&#123;  </div><div class="line">    int a = 1;  </div><div class="line">    int b = 0;  </div><div class="line">    int c = 0;  </div><div class="line">    if(a &gt; b)&#123;  </div><div class="line">        a = 100;    </div><div class="line">        b = 50;    </div><div class="line">        c = a - b;    </div><div class="line">        int d = a + b;    </div><div class="line">        int e = a &amp; b;    </div><div class="line">        int f = a ^ b;    </div><div class="line">        printf(&quot;c = %d\n&quot;,c);    </div><div class="line">        printf(&quot;d = %d\n&quot;,d);    </div><div class="line">        printf(&quot;e = %d\n&quot;,e);    </div><div class="line">        printf(&quot;f = %d\n&quot;,f);    </div><div class="line">        printf(&quot;a &gt; b\n&quot;);    </div><div class="line">    &#125;else&#123;  </div><div class="line">        printf(&quot;a &lt; b\n&quot;);    </div><div class="line">    &#125;  </div><div class="line">    return 0;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>OLLVM默认支持-fla -sub -bcf 三个混淆参数，这三个参数可以单独使用，也可以配合着使用。-fla 参数表示使用控制流平展（Control Flow Flattening）模式， -sub 参数表示使用指令替换（Instructions Substitution）模式， -bcf 参数表示使用控制流伪造（Bogus Control Flow）模式。</p>
+<h5 id="Instructions-Substitution"><a href="#Instructions-Substitution" class="headerlink" title="Instructions Substitution"></a>Instructions Substitution</h5><p>指令替换模式主要是将正常的运算操作（+，-，&amp;，|等）替换成功能相等但表述更复杂的形式。比如，对于表达式 a = b + c，它的等价式可以有 a = – ( -b – c), a = b – (-c) 或 a = -(-b) + c 等，原表达式可以替换成任意相等式，或者通过随机数在多个相等式中做选择。SUB模式目前只支持整数运算操作，支持 + , – , &amp; , | 和 ^ 操作，还是比较局限的。编译时，使用 -mllvm -sub 参数即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-mllvm -sub: 启用instructions substitution  </div><div class="line">-mllvm -sub_loop=3: 对每个函数混淆3次，默认1词</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-d3ef62eb9e13ae93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1944396-a8aff8dc34d9a432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="Control-Flow-Flattening"><a href="#Control-Flow-Flattening" class="headerlink" title="Control Flow Flattening"></a>Control Flow Flattening</h5><p>控制流平展模式可以完全改变程序原本的控制流图。如下示例代码是简单的if-else分支语句，正常编译后其控制流图在IDA中下图所示，是正常的if-else分支，使用 -mllvm -fla参数混淆后，在IDA中显示的控制流图如下：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-4a84eba4712effb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1944396-47b61ea46b1eee67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>经FLA模式混淆后，程序的执行流程已经被打乱，出现许多代码分支。通过仔细对比程序混淆前后，可以发现上图着色区域是相对应的，也就是说，FLA模式只去更改代码分支，而不会对单个代码块做处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-mllvm -fla: 启用control flow flattening</div><div class="line">-mllvm -split: 启用block切分，提升平展程度</div><div class="line">-mllvm -split_num=3: 对每个block混淆3次，默认1词</div></pre></td></tr></table></figure>
+<h5 id="Bogus-Control-Flow"><a href="#Bogus-Control-Flow" class="headerlink" title="Bogus Control Flow"></a>Bogus Control Flow</h5><p>控制流伪造模式也是对程序的控制流做操作，不同的是，BCF模式会在原代码块的前后随机插入新的代码块，新插入的代码块不是确定的，然后新代码块再通过条件判断跳转到原代码块中。更要命地是，原代码块可能会被克隆并插入随机的垃圾指令。这么多不确定性，就导致对同一份代码多次做BCF模式的混淆时，得到的是不同的混淆效果。可见，BCF混淆模式还是很强大的，不同于FLA那种较确定的混淆模式。使用BCF模式编译时配置参数 -mllvm -bcf即可，此外，BCF模式还支持其它几个参数，下面参数与-mllvm -bcf参数配合使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-mllvm -bcf: 启用 bogus control flow</div><div class="line">-mllvm -bcf_loop=3: 对一个函数混淆3次，默认1次</div><div class="line">-mllvm -bcf_prob=40: 代码块被混淆的概率是40%，默认30%</div></pre></td></tr></table></figure></p>
+<p>如上图，下面两个着色的代码块就是有上面两个代码块克隆而来，而且其中被插入了一些垃圾指令，类似于这样：</p>
+<p>当然，上述介绍的三种混淆模式可以搭配使用，同时使用三个参数混淆后，原本简单的if-else分支代码将会变得异常复杂，这无疑给逆向分析增加巨大的难度。</p>
+<h5 id="Functions-annotations"><a href="#Functions-annotations" class="headerlink" title="Functions annotations"></a>Functions annotations</h5><p>有的时候，由于效率或其他原因的考虑，我们只想给指定的函数混淆或不混淆该函数，OLLVM也提供了对这一特性的支持，你只需要给对应的函数添加attributes即可。比如，想对函数foo()使用fla混淆，只需要给函数foo()增加fla属性即可。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int foo() __attribute((__annotate__((&quot;fla&quot;))));</div><div class="line">int foo() &#123;</div><div class="line">   return 2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你可以给函数添加一个或多个注释。如果你不想混淆某个函数，你可以使用否定标签。例如如果不想对func()函数使用bcf属性，那标记为“nobcf”即可。</p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>1.编译时报错，提示信息如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">clang-3.6: error: unknown argument: &apos;-gmodules&apos;</div><div class="line">clang-3.6: error: unknown argument: &apos;-fembed-bitcode-marker&apos;</div><div class="line">Command /Users/dream/ollvm/build/bin/clang failed with exit code 1</div></pre></td></tr></table></figure>
+<p>在Build Settings中搜索并修改：<br>-gmodules: Obfuscator 4.0 - Code Generation: Generate Debug Symbols: 原来yes，改成no<br>-fembed-bitcode-marker: Build Option: Enable Bitcode: 原来yes，改成no</p>
+<p>你可以在该<a href="">git地址</a>下找到最新的插件和build编译器文件，该编译器所使用的Xcode版本是8.3.3。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechat-reward.jpg" alt="DragonFly 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay-reward.jpg" alt="DragonFly 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/22/iOS-nfc/" rel="next" title="iOS Core NFC指南">
+                <i class="fa fa-chevron-left"></i> iOS Core NFC指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/08/ARKit-Add-3d-Content/" rel="prev" title="ARKit上手指南 01 添加3D物体">
+                ARKit上手指南 01 添加3D物体 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fighting300" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/fighting300" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OLLVM简介"><span class="nav-number">1.</span> <span class="nav-text">OLLVM简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OLLVM-iOS编译环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">OLLVM iOS编译环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ollvm混淆使用"><span class="nav-number">1.2.</span> <span class="nav-text">ollvm混淆使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Instructions-Substitution"><span class="nav-number">1.2.1.</span> <span class="nav-text">Instructions Substitution</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Control-Flow-Flattening"><span class="nav-number">1.2.2.</span> <span class="nav-text">Control Flow Flattening</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bogus-Control-Flow"><span class="nav-number">1.2.3.</span> <span class="nav-text">Bogus Control Flow</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Functions-annotations"><span class="nav-number">1.2.4.</span> <span class="nav-text">Functions annotations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误处理"><span class="nav-number">1.3.</span> <span class="nav-text">错误处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://fighting300.com/2017/09/07/ollvm-in-iOS/';
+          this.page.identifier = '2017/09/07/ollvm-in-iOS/';
+          this.page.title = 'iOS混淆--OLLVM在iOS中的实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dragonfly-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Bonjour," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour介绍bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即">
+<meta name="keywords" content="iOS,Bonjour">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Bonjour的使用-本地通信&#x2F;智能交互">
+<meta property="og:url" content="http://fighting300.com/2017/07/21/iOS-bonjour/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour介绍bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-Overview.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-API.png">
+<meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-API1.png">
+<meta property="og:updated_time" content="2017-09-26T09:56:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Bonjour的使用-本地通信&#x2F;智能交互">
+<meta name="twitter:description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour介绍bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即">
+<meta name="twitter:image" content="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-Overview.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fighting300.com/2017/07/21/iOS-bonjour/"/>
+
+
+
+
+
+  <title>iOS Bonjour的使用-本地通信/智能交互 | DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/07/21/iOS-bonjour/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS Bonjour的使用-本地通信/智能交互</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T18:34:41+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/21/iOS-bonjour/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/21/iOS-bonjour/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Introduction.html" target="_blank" rel="external">Bonjour</a>。现在简单写一篇Bonjour的入门介绍。</p>
+<h4 id="Bonjour介绍"><a href="#Bonjour介绍" class="headerlink" title="Bonjour介绍"></a>Bonjour介绍</h4><p>bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即可互相发现彼此的解决方案。可以用它来轻松探测并连接到相同网络中的其他设备，并与别的智能硬件进行交互或者其他操作。典型的Bonjour应用有Remote、AirPrint等。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-Overview.png" alt="Bonjour-overview"></p>
+<p>为了实现简单配置网络，Bonjour做了以下三点：   </p>
+<ol>
+<li><p>寻址(分配IP地址给主机）<br>一个在网络中的设备需要有一个自己的IP。有了IP地址,我们才能基于IP协议进行通信。对于IPV6标准,IP协议已经包括了自动寻找IP地址的功能。但是目前仍然普遍使用的IPV4不包含本地链路寻址功能。而Bonjour会在本地网络选择一个随机的IP地址进行测试,如果已经被占用,则继续挑选另外一个地址，直到选到可用的IP地址。</p>
+</li>
+<li><p>命名(使用名字而不是IP地址来代表主机）<br>Bonjour还实现了命名和解析功能，保证了我们服务的名字在本地网络是唯一的,并且把别人对我们名字的查询指向正确的IP地址和端口，而不是以IP地址这样不易读的方式来作为服务的标志。<br>而且Bonjour在系统级别上添加了一个mDNSResponder服务来处理请求和发送回复,从系统级层面上处理,我们就无需在应用内自己监听和返回IP地址,只需到系统内注册服务即可。减少了我们应用的工作量和提高了稳定性。</p>
+</li>
+<li><p>服务搜索（自动在网络搜索服务）<br>Bonjour可以只需指定所需服务的类型，即可收到本地网络上可用的设备列表。设备在本地网络发出请求,说我需要”XXX”类型的服务,例如：我要打印机服务。所有打印机服务的设备回应自己的名字。</p>
+</li>
+</ol>
+<a id="more"></a>
+<h4 id="Bonjour-API"><a href="#Bonjour-API" class="headerlink" title="Bonjour API"></a>Bonjour API</h4><p>Cocoa中网络框架有三层，最底层的是基于 BSD socket库，然后是 Cocoa 中基于 C 的 CFNetwork，最上面一层是 Cocoa 中 Bonjour。通常我们无需与 socket 打交道，我们会使用经 Cocoa 封装的 CFNetwork 和 Bonjour 来完成大多数工作。  </p>
+<blockquote>
+<p>cocoa 很多组件都有两种实现，一种是基于 C 的以 CF 开头的类（CF=Core Foundation），这是比较底层的；另一种是基于 Obj-C 的以 NS 开头的类(NS=Next Step)，这种类抽象层次更高，易于使用。对于网络框架也一样。Bonjour 中 NSNetService 也有对应的 CFNetService，NSInputStream 有对应的 CFInputStream。  </p>
+</blockquote>
+<p>通过 Bonjour，一个应用程序publish一个网络服务 service，然后网络中的其他程序就能自动发现这个 service，从而可以向这个 service 查询其 ip 和 port，然后通过获得的 ip 和 port 建立 socket 链接进行通信。通常我们是通过 NSNetService 和 NSNetServiceBrowser 来使用 Bonjour 的，前者用于建立与发布 service，后者用于监听查询网络上的 service。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-API.png" alt="Bonjour-API"></p>
+<h4 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h4><p>简单来说，建立Bonjour连接一般需要三个步骤，即服务端发布服务、客户端浏览服务、客户端/服务端交互。</p>
+<p><img src="http://ojca2gwha.bkt.clouddn.com/iOS-bonjour-API1.png" alt="Bonjour-API"></p>
+<h5 id="客户端发布服务"><a href="#客户端发布服务" class="headerlink" title="客户端发布服务"></a>客户端发布服务</h5><p>首先通过<code>NetService</code>对象初始化服务，指定服务的域、类型、名称和端口，在同一网络中，服务类型名必须唯一，这样才能精准定位服务。<br>Bonjour操作也需要异步进行，以免长时间阻碍主线程，所以我们将发布任务交给当前run loop去调度。   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">func setupService()&#123;</div><div class="line">    let service = NetService.init(domain: &quot;local.&quot;, type: &quot;_dragon._tcp&quot;, name: &quot;dragon&quot;, port: 2333)</div><div class="line">    service.schedule(in: RunLoop.current, forMode: .commonModes)</div><div class="line">    service.delegate = self</div><div class="line">    let dictData = &quot;http://fighting300.github.io&quot;.data(using: String.Encoding.utf8)</div><div class="line">    let data = NetService.data(fromTXTRecord: [&quot;node&quot;:dictData!])</div><div class="line">    service.setTXTRecord(data)</div><div class="line">    service.publish()</div><div class="line">    self.service = service</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外需要实现NetService协议<code>NetServiceDelegate</code>的代理方法跟踪服务发布信息。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">func netServiceWillPublish(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netServiceWillPublish&quot;)</div><div class="line">&#125;</div><div class="line">func netService(_ sender: NetService, didNotPublish errorDict: [String : NSNumber]) &#123;</div><div class="line">    print(&quot;----netService didNotPublish&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="客户端浏览服务"><a href="#客户端浏览服务" class="headerlink" title="客户端浏览服务"></a>客户端浏览服务</h5><p>服务发布成功后，会在代理方法中接受到发布的消息，这时候要在客户端通过<code>NetServiceBrowser</code>对象来浏览本地的服务，并展示本地网络中可用的服务。<br>可以通过<code>searchForServices</code>方法指定需要查找的服务类型和查找的域，然后运行在mainRunLoop中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func netServiceDidPublish(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService didPublish&quot;)</div><div class="line">    let browser = NetServiceBrowser()</div><div class="line">    browser.delegate = self</div><div class="line">    browser.searchForServices(ofType: &quot;_WE._tcp&quot;, inDomain: &quot;local.&quot;)</div><div class="line">    browser.schedule(in: RunLoop.current, forMode: .commonModes)</div><div class="line">    RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 300))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时实现NetServiceBrowser的代理<code>NetServiceBrowserDelegate</code>方法<code>netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool)</code>来处理相应服务的解析。当前代码实例中没有选择服务的服务，直接对扫描到的服务来做解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) &#123;</div><div class="line">    print(&quot;----netServiceBrowser didFind&quot;, service.domain, service.type, service.name, service.port,service)</div><div class="line">    // 在界面选择对应的service</div><div class="line">    self.service = service</div><div class="line">    service.delegate = self</div><div class="line">    service.resolve(withTimeout: 5)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceBrowser(_ browser: NetServiceBrowser, didRemove service: NetService, moreComing: Bool) &#123;</div><div class="line">    print(&quot;----netServiceBrowser didRemove&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="客户端-服务端交互"><a href="#客户端-服务端交互" class="headerlink" title="客户端/服务端交互"></a>客户端/服务端交互</h5><p>最后，可以在NetService代理的解析方法里<code>func netServiceDidResolveAddress(_ sender: NetService)</code>，拿到名称、类型、域、主机名和ip地址等信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">func netServiceWillResolve(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService willResolve&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceDidResolveAddress(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netService didResolveAddress&quot;, sender.name, sender.addresses, sender.hostName, sender.addresses?.first)</div><div class="line">    let data = sender.txtRecordData()</div><div class="line">    let dict = NetService.dictionary(fromTXTRecord: data!)</div><div class="line">    let info = String.init(data: dict[&quot;node&quot;]!, encoding: String.Encoding.utf8)</div><div class="line">    print(&quot;mac info = &quot;,info);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) &#123;</div><div class="line">    print(&quot;----netService didNotResolve &quot;, errorDict)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netServiceDidStop(_ sender: NetService) &#123;</div><div class="line">    print(&quot;----netServiceDidStop&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didUpdateTXTRecord data: Data) &#123;</div><div class="line">    print(&quot;----netService didUpdateTXTRecord&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func netService(_ sender: NetService, didAcceptConnectionWith inputStream: InputStream, outputStream: OutputStream) &#123;</div><div class="line">    print(&quot;----netService didAcceptConnectionWith&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// MARK: util 获取ip地址</div><div class="line">func IPFrom(data: Data) -&gt; String &#123;</div><div class="line">  let dataIn: NSData = data as NSData</div><div class="line">  var storage = sockaddr_storage()</div><div class="line">  dataIn.getBytes(&amp;storage, length: MemoryLayout&lt;sockaddr_storage&gt;.size)</div><div class="line">  if Int32(storage.ss_family) == AF_INET &#123;</div><div class="line">      let addr4 = withUnsafePointer(to: &amp;storage) &#123;</div><div class="line">          $0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) &#123;</div><div class="line">              $0.pointee</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      let ipString =  String(cString: inet_ntoa(addr4.sin_addr), encoding: .ascii)</div><div class="line">      print(&quot;ip&quot;, ipString)</div><div class="line">      return ipString</div><div class="line">  &#125;</div><div class="line">  return &quot;&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之后依靠以上获取的信息，需要通过Socket/Streams建立连接来进行通信，本篇文章不对这部分做更多的介绍，后续有时间再补充完整。</p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ol>
+<li><a href="http://mobileorchard.com/tutorial-networking-and-bonjour-on-iphone/" target="_blank" rel="external">http://mobileorchard.com/tutorial-networking-and-bonjour-on-iphone/</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Networking/Conceptual/NSNetServiceProgGuide/Introduction.html#//apple_ref/doc/uid/TP40002520-SW2" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Networking/Conceptual/NSNetServiceProgGuide/Introduction.html#//apple_ref/doc/uid/TP40002520-SW2</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150918/13434.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20150918/13434.html</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechat-reward.jpg" alt="DragonFly 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay-reward.jpg" alt="DragonFly 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Bonjour/" rel="tag"># Bonjour</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/ARKit-startup/" rel="next" title="ARKit入坑指南--技术实现分析">
+                <i class="fa fa-chevron-left"></i> ARKit入坑指南--技术实现分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/22/iOS-nfc/" rel="prev" title="iOS Core NFC指南">
+                iOS Core NFC指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fighting300" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/fighting300" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour介绍"><span class="nav-number">1.</span> <span class="nav-text">Bonjour介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour-API"><span class="nav-number">2.</span> <span class="nav-text">Bonjour API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立连接"><span class="nav-number">3.</span> <span class="nav-text">建立连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端发布服务"><span class="nav-number">3.1.</span> <span class="nav-text">客户端发布服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端浏览服务"><span class="nav-number">3.2.</span> <span class="nav-text">客户端浏览服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端-服务端交互"><span class="nav-number">3.3.</span> <span class="nav-text">客户端/服务端交互</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">3.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://fighting300.com/2017/07/21/iOS-bonjour/';
+          this.page.identifier = '2017/07/21/iOS-bonjour/';
+          this.page.title = 'iOS Bonjour的使用-本地通信/智能交互';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dragonfly-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
