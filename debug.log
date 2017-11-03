@@ -1626,3 +1626,13 @@
 {"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Database saved","time":"2017-11-03T07:04:31.299Z","v":0}
 {"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-11-03T07:04:39.723Z","v":0}
 {"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2017-11-03T07:04:49.087Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Processed: \u001b[35mlanguages/zh-hk.yml\u001b[39m","time":"2017-11-03T07:09:28.589Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-11-03T07:09:28.731Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-11-03T07:09:28.733Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":30,"msg":"Have a nice day","time":"2017-11-03T07:09:33.337Z","v":0}
+{"name":"hexo","hostname":"Leon-3.local","pid":52660,"level":20,"msg":"Database saved","time":"2017-11-03T07:09:33.376Z","v":0}
