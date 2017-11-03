@@ -114,6 +114,7 @@ $ hexo new "My-New-Post"  // 这儿是你的文章标题，创建后可以在文
 ```
 $ hexo server //hexo s
 ```
+要关闭当前的服务，请使用`cmd+c`关闭当前的终端。如果发现4000的端口被占用，可以使用`lsof -i :4000`和`kill -9 xxxx`命令来找到占用端口的进程并关闭它。
 
 ##### 发布内容  
 
@@ -233,6 +234,28 @@ $ hexo server --drafts
 ```
 $ hexo publish swfit-draft
 ```
+
+##### 6.主题配置保存  
+由于主题配置文件是从github下载下来的，但是本地的配置并没有上传到我们自己的github上，所以多电脑登录的时候，会丢失这部分内容。要保存并提交主题配置文件，有两种方式：  
+a. Hexo的数据文件  
+使用Hexo的[数据文件](https://hexo.io/zh-cn/docs/data-files.html)来保存主题配置文件的修改，需要Hexo的版本在3以上。  
+首先，在站点的`source/_data`目录下新建`next.yml 文件`(`_data`目录可能需要新建)
+然后，迁移站点配置文件和主题配置文件中的配置到`next.yml`中
+
+b. git subtree
+另一种方式是用git subtree单独管理主题文件的修改。
+首先我们需要fork出一份你是用的主题git代码，本地修改当前的配置文件后推送到远程仓库。然后用git subtree把`themes`当作子项目来管理。使用的命令如下：    
+```
+// 绑定子项目
+git remote add -f next git@github.com:xxxx/hexo-theme-next.git
+git subtree add --prefix=themes/next next master --squash
+// 更新子项目
+git fetch next master
+git subtree pull --prefix=themes/next next master --squash
+// 子目录push到远程仓库
+git subtree push --prefix=themes/next next master
+```
+
 
 
 ##### 参考文档
