@@ -5,13 +5,16 @@ tags: Swift
 categories: iOS
 ---
 
-1. inline
+#### 1.递归/间接(indirect)类型  
+间接类型是Swift2.0新增的类型，它允许将枚举中一个case的关联值再次定义为枚举，
+
+#### 2.inline
 
 
 <!--more-->  
-2. mutating
+#### 3.mutating
 
 
-3. discardableResult
+#### 4.discardableResult
 
-4. repeat
+#### 5.repeat

@@ -255,8 +255,34 @@ git subtree pull --prefix=themes/next next master --squash
 // 子目录push到远程仓库
 git subtree push --prefix=themes/next next master
 ```
+##### 7.node版本冲突错误  
+升级node版本后，发现运行过程中出现如下错误:  
+```
+Error: The module '/usr/local/lib/node_modules/hexo-cli/node_modules/dtrace-provider/build/Release/DTraceProviderBindings.node'
+was compiled against a different Node.js version using
+NODE_MODULE_VERSION 46. This version of Node.js requires
+NODE_MODULE_VERSION 59. Please try re-compiling or re-installing
+the module (for instance, using `npm rebuild` or `npm install`).
+    at Object.Module._extensions..node (module.js:670:18)
+    at Module.load (module.js:560:32)
+    at tryModuleLoad (module.js:503:12)
+    at Function.Module._load (module.js:495:3)
+    at Module.require (module.js:585:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (/usr/local/lib/node_modules/hexo-cli/node_modules/dtrace-provider/dtrace-provider.js:18:23)
+    at Module._compile (module.js:641:30)
+    at Object.Module._extensions..js (module.js:652:10)
+    at Module.load (module.js:560:32)
+    at tryModuleLoad (module.js:503:12)
+    at Function.Module._load (module.js:495:3)
+    at Module.require (module.js:585:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (/usr/local/lib/node_modules/hexo-cli/node_modules/bunyan/lib/bunyan.js:79:18)
+    at Module._compile (module.js:641:30)
+```
 
-
+解决方法为找到hexo的真正目录所在(目录地址为/usr/local/bin/hexo，其真正位置在`/usr/local/lib/node_modules/hexo-cli`)，删除node_modules文件夹后重新npm install。
+然后回到blog目录下，重复以上步骤即可。 
 
 ##### 参考文档
 1. [Hexo](https://hexo.io/)!
