@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ReactNative," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="由于Apple严格的审核流程，很多人一直以来都寻找iOS端的动态热发方案，从Hybrid到Lua、JSPatch再到现在非常火的ReactNative，但是动态热发的核心流程都是从服务端获取配置--&amp;gt;客户端解析--&amp;gt;运行。目前很多业务的实现例如可配置方案实现，其基本流程都符合以上流程，但是各">
+<meta name="keywords" content="ReactNative">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native源码分析">
+<meta property="og:url" content="http://fighting300.com/2017/03/02/reactnative-code/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="由于Apple严格的审核流程，很多人一直以来都寻找iOS端的动态热发方案，从Hybrid到Lua、JSPatch再到现在非常火的ReactNative，但是动态热发的核心流程都是从服务端获取配置--&amp;gt;客户端解析--&amp;gt;运行。目前很多业务的实现例如可配置方案实现，其基本流程都符合以上流程，但是各种方案都有其优劣势，比如可配制方案导致业务逻辑复杂，Hybrid体验不太好，JSPatch被禁用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-07T12:59:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native源码分析">
+<meta name="twitter:description" content="由于Apple严格的审核流程，很多人一直以来都寻找iOS端的动态热发方案，从Hybrid到Lua、JSPatch再到现在非常火的ReactNative，但是动态热发的核心流程都是从服务端获取配置--&amp;gt;客户端解析--&amp;gt;运行。目前很多业务的实现例如可配置方案实现，其基本流程都符合以上流程，但是各种方案都有其优劣势，比如可配制方案导致业务逻辑复杂，Hybrid体验不太好，JSPatch被禁用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fighting300.com/2017/03/02/reactnative-code/"/>
+
+
+
+
+
+  <title>React Native源码分析 | DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/03/02/reactnative-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React Native源码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T14:20:00+08:00">
+                2017-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/02/reactnative-code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/02/reactnative-code/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于Apple严格的审核流程，很多人一直以来都寻找iOS端的动态热发方案，从Hybrid到Lua、JSPatch再到现在非常火的ReactNative，但是动态热发的核心流程都是<code>从服务端获取配置--&gt;客户端解析--&gt;运行</code>。目前很多业务的实现例如可配置方案实现，其基本流程都符合以上流程，但是各种方案都有其优劣势，比如可配制方案导致业务逻辑复杂，Hybrid体验不太好，JSPatch被禁用等。而ReactNative则没有以上这些问题，除了学习成本，你可以很方便快捷的使用JS来实现客户端动态热发的功能。</p>
+<p>我们团队内部使用ReactNative开发已经一段时间了，开始的时候大概了解过其基础运行原理，但没有深入研究，在工作过程中抽空阅读了源码，从代码层级了解了ReactNative的运行流程，下面分享下其运行的完整流程(依赖于RN：0.41版本)。</p>
+<h4 id="ReactNative原理概述"><a href="#ReactNative原理概述" class="headerlink" title="ReactNative原理概述"></a>ReactNative原理概述</h4><p>React Native项目依赖React，React是一个支持JSX语法的用于构建用户界面的JS库，可以认为其相当于MVC框架中的View(视图)。React独创了虚拟Dom机制，使他有可能和原生语言互相结合。<br>而ReactNative让React拥有了于原生APP交互的功能，有了它就能让JS和移动端技术(iOS或Android)互相调用，这样就可以通过JS开发原生APP的功能，同时还可以支持热发上线。React Native也秉承了React的理念，<code>Learn Once,Write Anywhere</code>。</p>
+<p>当然所有的动态热发底层都离不开原生语言(iOS/Android)本身，在iOS中，ReactNative之所以能够运行起来，最主要依赖的是Objective-C语言与JavaScript的交互。Apple从iOS7开始，提供了JavaScriptCore的框架，提供了JS和OC沟通的可能，不了解JavaScriptCore的同学可以去了解下。例如iOS可以通过以下代码直接运行JS代码:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//JSContext为JS代码的运行环境  </span><br><span class="line">JSContext *context = [[JSContext alloc] init];  </span><br><span class="line">JSValue *result = [context evaluateScript:@&quot;2+8&quot;];  </span><br><span class="line">int sum = [result toInt32];</span><br></pre></td></tr></table></figure>
+<p>在OC端，可以很容易获取JS上下文，但是JS不知道OC有哪些方法可以调用。ReactNative解决该问题的方法是在OC和JS端保存了一份配置表，里面标记了所有的OC暴露的JS的模块和方法，这样无论那一方调用另一方，实际传递的数据只有ModuleId(模块标志ID)、MethodId(方法标志ID)和Arguments(参数)三个元素，当OC接收到三个参数之后，就可以通过runtime唯一确定要调用的函数并调用。  </p>
+<p>另外在RN中JS调用OC代码时，会注册要回调的block并且把BlockID作为参数发送给OC，OC收到参数是会创建block，用用完OC后就会执行这个刚刚创建的block。并会向block中传入参数和BlockId，然后在block内部调用JS方法，随后JS查找当时注册的block并执行。</p>
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><p>ReactNative的核心代码包括：  </p>
+<blockquote>
+<p>OC代码：在React项目的Base文件夹下，包括<code>RCTRootView</code>,<code>RCTBridge</code>,<code>RCTBatchedBridge</code>,<code>RCTJSCExecutor</code>(0.44之后RCTBatchedBridge，改为RCTCxxBridge)<br>JS代码：NodeModule中react-native/Libraries下的BatchedBridge和ReactNative文件夹，包括<code>BatchedBridge</code>,<code>MessageQueue</code>,<code>NativeModules</code>,<code>UIManager</code>等文件    </p>
+</blockquote>
+<p>以上代码流程可以分为初始化阶段和方法调用阶段。  </p>
+<h5 id="初始化ReactNative环境"><a href="#初始化ReactNative环境" class="headerlink" title="初始化ReactNative环境"></a>初始化ReactNative环境</h5><p>要使用ReactNative创建View，首先需要在OC的入口文件需要用如下代码来进行初始化操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</span><br><span class="line">                                                      moduleName:@&quot;AwesomeProject&quot;</span><br><span class="line">                                               initialProperties:nil</span><br><span class="line">                                                   launchOptions:launchOptions];</span><br></pre></td></tr></table></figure></p>
+<p>用户看到的内容都源于该<code>RootView</code>，所有的初始化工作都在其内完成。进入该方法内部，会发现ReactNative实际上先创建了一个<code>Bridge</code>对象，它是OC与JS交互的桥梁，而整个初始化最终的目的就是创建该对象，该对象其实是一个外壳。初始化方法的核心是Birdge对象的<code>setUp</code>方法，该方法主要的任务则是创建<code>BatchedBridge</code>(0.44版本之后用的是<code>CxxBridge</code>)。BatchedBridge的作用是批量读取JS对OC的方法调用，其内部持有<code>JSCExecutor</code>对象，用来执行JS代码。<br>创建BatchedBridge的关键是<code>start</code>方法，其流程可以分为五个步骤：  </p>
+<ul>
+<li>(1)读取JS源码  </li>
+<li>(2)初始化模块信息</li>
+<li>(3)初始化JS代码执行器，即<code>RCTJSCExecutor</code>对象  </li>
+<li>(4)生成模块列表并写入JS端  </li>
+<li>(5)执行JS源码  </li>
+</ul>
+<h6 id="读取JavaScript源码"><a href="#读取JavaScript源码" class="headerlink" title="读取JavaScript源码"></a>读取JavaScript源码</h6><p>第一步首页把JS代码加载进内存中，这一步中，JSX代码已经被转化成原生的JS代码。这一部分很简单，不用多说。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[self loadSource:^(NSError *error, RCTSource *source) &#123;</span><br><span class="line">  sourceCode = source.data;</span><br><span class="line">&#125;];</span><br><span class="line">// loadSource内部实际调用方法为：  </span><br><span class="line">NSData *data = [self attemptSynchronousLoadOfBundleAtURL:scriptURL</span><br><span class="line">                                        runtimeBCVersion:JSNoBytecodeFileFormatVersion</span><br><span class="line">                                            sourceLength:&amp;sourceLength</span><br><span class="line">                                                   error:&amp;error];</span><br></pre></td></tr></table></figure></p>
+<h6 id="初始化模块信息"><a href="#初始化模块信息" class="headerlink" title="初始化模块信息"></a>初始化模块信息</h6><p>初始化模块在<code>initModulesWithDispatchGroup</code>中实现，该方法会找到所有需要暴露给JS的类。每个需要暴露的类都会标记一个宏<code>RCT_EXPORT_MODULE</code>，宏的具体实现为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#define RCT_EXPORT_MODULE(js_name) \</span><br><span class="line">RCT_EXTERN void RCTRegisterModule(Class); \</span><br><span class="line">+ (NSString *)moduleName &#123; return @#js_name; &#125; \</span><br><span class="line">+ (void)load &#123; RCTRegisterModule(self); &#125;  </span><br><span class="line">// RCTRegisterModule具体实现：  </span><br><span class="line">void RCTRegisterModule(Class moduleClass)&#123;</span><br><span class="line">  static dispatch_once_t onceToken;</span><br><span class="line">  dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">    RCTModuleClasses = [NSMutableArray new];</span><br><span class="line">  &#125;);</span><br><span class="line">  // Register module</span><br><span class="line">  [RCTModuleClasses addObject:moduleClass];        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>标记了宏的类会在load时候调用RCTRegisterModule注册自己，这样RN就可以通过RCTModuleClasses拿到所有暴露给JS的类。然后循环遍历该数组，生成RCTModuleData对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for (Class moduleClass in RCTGetModuleClasses()) &#123;</span><br><span class="line">  NSString *moduleName = RCTBridgeModuleNameForClass(moduleClass);</span><br><span class="line">  RCTModuleData *moduleData = [[RCTModuleData alloc] initWithModuleClass:moduleClass</span><br><span class="line">                                                 bridge:self];</span><br><span class="line">  moduleDataByName[moduleName] = moduleData;</span><br><span class="line">  [moduleClassesByID addObject:moduleClass];</span><br><span class="line">  [moduleDataByID addObject:moduleData];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>RCTModuleData就是模块配置表的主要内容，该对象保存了每个Module的名字、常量已经所有暴露给JS的方法数组。所有暴露的JS方法需要用<code>RCT_EXPORT_METHOD</code>宏来标记，该宏会为函数名加上<code>__rct_export__</code>的前缀，后续再通过runtime获取类的函数列表，找出其中带有指定前缀的方法放入函数数组中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (NSArray&lt;id&lt;RCTBridgeMethod&gt;&gt; *)methods&#123;</span><br><span class="line">  unsigned int methodCount;</span><br><span class="line">  Method *methods = class_copyMethodList(object_getClass(_moduleClass), &amp;methodCount);</span><br><span class="line">  for (unsigned int i = 0; i &lt; methodCount; i++) &#123;</span><br><span class="line">    Method method = methods[i];</span><br><span class="line">    SEL selector = method_getName(method);</span><br><span class="line">    if ([NSStringFromSelector(selector) hasPrefix:@&quot;__rct_export__&quot;]) &#123;</span><br><span class="line">      IMP imp = method_getImplementation(method);</span><br><span class="line">      NSArray&lt;NSString *&gt; *entries = ((NSArray&lt;NSString *&gt; *(*)(id, SEL))imp)(_moduleClass, selector);</span><br><span class="line">      id&lt;RCTBridgeMethod&gt; moduleMethod =   [[RCTModuleMethod alloc] initWithMethodSignature:entries[1]</span><br><span class="line">                                                JSMethodName:entries[0]</span><br><span class="line">                                                 moduleClass:_moduleClass];</span><br><span class="line">      [_methods addObject:moduleMethod];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return _methods;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上流程使得Bridge持有一个数组，数组中保存了所有模块的RCTModuleData对象，只要给定ModuleID和MethodId就可以唯一确定要调用的方法。</p>
+<h6 id="初始化JS代码执行器"><a href="#初始化JS代码执行器" class="headerlink" title="初始化JS代码执行器"></a>初始化JS代码执行器</h6><p>这一步先创建了一个group，用于执行该步及下一步的操作，(<code>setUpExecutor</code>)方法会初始化<code>RCTJSCExecutor</code>对象，该对象被bridge持有，所有的JS与OC的通信都是通过该类来实现的。RCTJSCExecutor初始化时会实例化了一个JS线程，用来执行JS代码的线程。该线程执行的runRunLoopThread方法其实是启动了JS线程的runloop，保证了<code>_javaScriptThread</code>能够一直运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static NSThread *newJavaScriptThread(void)&#123;</span><br><span class="line">  NSThread *javaScriptThread = [[NSThread alloc] initWithTarget:[RCTJSCExecutor class]</span><br><span class="line">                                                       selector:@selector(runRunLoopThread)</span><br><span class="line">                                                         object:nil];</span><br><span class="line">  javaScriptThread.name = RCTJSCThreadName;</span><br><span class="line">  ......</span><br><span class="line">  [javaScriptThread start];</span><br><span class="line">  return javaScriptThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这一步还会进行很多JS上下文的准备，创建全局JSContext并添加很多全局回调block，由JS发起调用。需要重点注意的是<code>nativeRequireModuleConfig</code>和<code>nativeFlushQueueImmediate</code>这两个block，其中<code>nativeRequireModuleConfig</code>在JS注册新模块时调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">context[@&quot;nativeRequireModuleConfig&quot;] = ^NSArray *(NSString *moduleName) &#123;</span><br><span class="line">  NSArray *result = [strongSelf-&gt;_bridge configForModuleName:moduleName];</span><br><span class="line">  return RCTNullIfNil(result);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><code>nativeFlushQueueImmediate</code>该block用于在JS中直接调用OC，注意在RN中JS调用OC一般是由OC发起的，JS会把调用信息放到MessageQueue中等待OC来取。当OC调用了JS后，在对应的JS回调中才会实现调用OC的逻辑。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">context[@&quot;nativeFlushQueueImmediate&quot;] = ^(NSArray&lt;NSArray *&gt; *calls)&#123;</span><br><span class="line">     [strongSelf-&gt;_bridge handleBuffer:calls batchEnded:NO];</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>但是当消息队列由等待OC处理的逻辑，并且OC超过5ms没有取走的话，JS就会主动调用OC的以上方法，该部分JS的代码在MessageQueue中如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const now = new Date().getTime();</span><br><span class="line">if (global.nativeFlushQueueImmediate &amp;&amp; (now - this._lastFlush &gt;= MIN_TIME_BETWEEN_FLUSHES_MS || this._inCall === 0))&#123;</span><br><span class="line">  var queue = this._queue;</span><br><span class="line">  this._queue = [[], [], [], this._callID];</span><br><span class="line">  this._lastFlush = now;</span><br><span class="line">  global.nativeFlushQueueImmediate(queue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该handleBuffer方法是JS调用OC方法的关键，后续调用模块会提及。注意在这个里面使用到的JSC<em>JSXXX的宏的作用，实际上是会转换为调用苹果的JavaScriptCore对应的方法(去掉JSC</em>)。</p>
+<h6 id="生成模块列表并写入JS端"><a href="#生成模块列表并写入JS端" class="headerlink" title="生成模块列表并写入JS端"></a>生成模块列表并写入JS端</h6><p>这一步就是让JS获取所有模块的名字。首先调用<code>moduleConfig</code>方法获取当前module的config数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *)moduleConfig&#123;</span><br><span class="line">  NSMutableArray&lt;NSArray *&gt; *config = [NSMutableArray new];</span><br><span class="line">  for (RCTModuleData *moduleData in _moduleDataByID) &#123;</span><br><span class="line">    if (self.executorClass == [RCTJSCExecutor class]) &#123;</span><br><span class="line">      [config addObject:@[moduleData.name]];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      [config addObject:RCTNullIfNil(moduleData.config)];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return RCTJSONStringify(@&#123;@&quot;remoteModuleConfig&quot;: config,&#125;, NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后调用<code>injectJSONConfiguration</code>方法把config注入JS执行环境中，保存为<code>__fbBatchedBridgeConfig</code>，之后在NativeModule.js中会用到该属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[_javaScriptExecutor injectJSONText:configJSON</span><br><span class="line">                asGlobalObjectNamed:@&quot;__fbBatchedBridgeConfig&quot;</span><br><span class="line">                           callback:onComplete];</span><br></pre></td></tr></table></figure></p>
+<h6 id="执行JS源码"><a href="#执行JS源码" class="headerlink" title="执行JS源码"></a>执行JS源码</h6><p>modules和JS代码准备好后，会在dispatch_group_notify的JS子线程内执行jsBundle代码。执行完毕后会将_displayLink添加到runloop(注意是在jsThread所在的runloop)中，开始运行。运行代码时，第三步中的block会被执行，从而向JS端写入配置信息。这样JS和OC就具备了交互的能力，准备工作到此完成。具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[_javaScriptExecutor executeApplicationScript:script sourceURL:url onComplete:^(NSError *scriptLoadError) &#123;</span><br><span class="line"></span><br><span class="line">  [self-&gt;_javaScriptExecutor flushedQueue:^(id json, NSError *error)&#123;</span><br><span class="line">     [self handleBuffer:json batchEnded:YES];</span><br><span class="line">     onComplete(error);</span><br><span class="line">   &#125;];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<h5 id="方法执行阶段"><a href="#方法执行阶段" class="headerlink" title="方法执行阶段"></a>方法执行阶段</h5><p>上面的工作完成之后，初始化bridge的工作就完成了，jsBundle已经加载完成，OC端的配置表也已经处理好，并且成功已经传递给JS端，JS的上下文配置已经准备好，下面就开始执行JS代码了。React就会开始计算好所有的布局信息，以及Component层级关系等，等待native端完成对应的真正的页面渲染和布局。回到RCTRootView的初始化方法中，注意在[RCTRootView initWithBridge:…]的初始化方法中，注册了几个JS执行情况的通知，我们重点关注JS执行完毕后的通知RCTJavaScriptDidLoadNotification。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)bundleFinishedLoading:(RCTBridge *)bridge&#123;</span><br><span class="line">  _contentView = [[RCTRootContentView alloc] initWithFrame:self.bounds  bridge:bridge</span><br><span class="line">                                                reactTag:self.reactTag  sizeFlexiblity:_sizeFlexibility];</span><br><span class="line">  [self runApplication:bridge];</span><br><span class="line">  [self insertSubview:_contentView atIndex:0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在创建RCTRootContentView的时候，注意有个参数是reactTag，这个属性很重要，每一个reactTag都应该是唯一的，从1开始每次递增10。RCTRootContentView初始化时，还需要在RCTUIManager中通过reactTag去注册，从而由RCTUIManager来统一管理所有的JS端使用Component对应的每个原生view(<code>_viewRegistry[tag]</code>表)，有了这个我们就可以很方便的在其他地方通过reactTag获取到我们的Component所在的rootView.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (NSNumber *)allocateRootTag&#123;</span><br><span class="line">  NSNumber *rootTag = objc_getAssociatedObject(self, _cmd) ?: @1;</span><br><span class="line">  objc_setAssociatedObject(self, _cmd, @(rootTag.integerValue + 10), OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">  return rootTag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后才是[RCTRootView runApplication]，这里就会调用JS里面AppRegistry对应的方法runApplication了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)runApplication:(RCTBridge *)bridge&#123;</span><br><span class="line">  NSString *moduleName = _moduleName ?: @&quot;&quot;;</span><br><span class="line">  NSDictionary *appParameters = @&#123;</span><br><span class="line">    @&quot;rootTag&quot;: _contentView.reactTag,</span><br><span class="line">    @&quot;initialProps&quot;: _appProperties ?: @&#123;&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  RCTLogInfo(@&quot;Running application %@ (%@)&quot;, moduleName, appParameters);</span><br><span class="line">  [bridge enqueueJSCall:@&quot;AppRegistry&quot;</span><br><span class="line">                 method:@&quot;runApplication&quot;</span><br><span class="line">                   args:@[moduleName, appParameters]</span><br><span class="line">             completion:NULL];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行JS代码的时候，JS会计算好每个View的布局属性等信息，然后通过调用native的系统方法来完成页面渲染布局。这个过程就设置到JS和Native的相互通信了。如前文所述，在RN中，OC和JS的交互都是通过传递ModuleId，MethodId和Arguments进行的。</p>
+<h6 id="调用JS代码"><a href="#调用JS代码" class="headerlink" title="调用JS代码"></a>调用JS代码</h6><p>在OC中，JS代码一直在一个单独的子线程上面运行，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)executeBlockOnJavaScriptQueue:(dispatch_block_t)block&#123;</span><br><span class="line">  if ([NSThread currentThread] != _javaScriptThread) &#123;</span><br><span class="line">    [self performSelector:@selector(executeBlockOnJavaScriptQueue:)</span><br><span class="line">                 onThread:_javaScriptThread withObject:block waitUntilDone:NO];</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    block();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用JS代码的核心函数如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)_executeJSCall:(NSString *)method arguments:(NSArray *)arguments unwrapResult:(BOOL)unwrapResult callback:(RCTJavaScriptCallback)onComplete&#123;</span><br><span class="line">  __weak RCTJSCExecutor *weakSelf = self;</span><br><span class="line">  [self executeBlockOnJavaScriptQueue:^&#123;</span><br><span class="line">    RCTJSCExecutor *strongSelf = weakSelf;</span><br><span class="line">    JSContext *context = strongSelf-&gt;_context.context;</span><br><span class="line">    JSGlobalContextRef ctx = context.JSGlobalContextRef;</span><br><span class="line"></span><br><span class="line">    JSValueRef errorJSRef = NULL;</span><br><span class="line">    JSValueRef batchedBridgeRef = strongSelf-&gt;_batchedBridgeRef;</span><br><span class="line"></span><br><span class="line">    JSValueRef methodJSRef = JSC_JSObjectGetProperty(ctx, (JSObjectRef)batchedBridgeRef, methodNameJSStringRef, &amp;errorJSRef);</span><br><span class="line">    JSValueRef jsArgs[arguments.count];</span><br><span class="line">    for (NSUInteger i = 0; i &lt; arguments.count; i++) &#123;</span><br><span class="line">      jsArgs[i] = [JSC_JSValue(ctx) valueWithObject:arguments[i] inContext:context].JSValueRef;</span><br><span class="line">    &#125;</span><br><span class="line">    JSValueRef resultJSRef = JSC_JSObjectCallAsFunction(ctx, (JSObjectRef)methodJSRef, (JSObjectRef)batchedBridgeRef, arguments.count, jsArgs, &amp;errorJSRef);</span><br><span class="line"></span><br><span class="line">    JSValue *result = [JSC_JSValue(ctx) valueWithJSValueRef:resultJSRef inContext:context];</span><br><span class="line">    id objcValue = unwrapResult ? [result toObject] : result;</span><br><span class="line"></span><br><span class="line">    onComplete(objcValue, error);</span><br><span class="line">  &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，这个函数名是我们要调用JS的中转函数名，比如<code>callFunctionReturnFlushedQueue</code>。也就是说它的作用其实是处理参数，而非真正要调用的 JS函数。<br>这个中转函数接收到的参数包含了ModuleId、MethodId和Arguments，然后由中转函数查找自己的模块配置表，找到真正要调用的JS函数。</p>
+<h6 id="JS调用OC代码"><a href="#JS调用OC代码" class="headerlink" title="JS调用OC代码"></a>JS调用OC代码</h6><p>JS代码中<code>MessageQueue.js</code>和<code>NativeModule.js</code>是核心文件。<code>BatchedBridge.js</code>文件仅仅是MessageQueue.js的导入文件，不用关注。<br>MessageQueue文件是js端与oc通信的一个桥梁文件，里边有个计时器将要调用oc方法的事件放入一个queue中。<br>NativeModule文件实现了JS调用OC代码。需要注意的是这个调用其实都是OC先调用JS文件，执行JS，在这时候传入适当的参数，然后实现了JS调用OC方法。<br>在调用OC代码时，JS会解析出方法的ModuleId、MethodId和Arguments并放入到MessageQueue中，等待OC主动拿走，或者超时后主动发送给OC。</p>
+<p>OC负责处理调用的方法是<code>handleBuffer</code>，它的参数是一个含有四个元素的数组，每个元素也都是一个数组，分别存放了ModuleId、MethodId、Params，第四个元素目测用处不大。<br>函数内部在每一次方调用中调用<code>_handleRequestNumber:moduleID:methodID:params</code>方法，通过查找模块配置表找出要调用的方法，并通过runtime动态的调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[method invokeWithBridge:self module:moduleData.instance arguments:params];</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，有一个很关键的方法：<code>processMethodSignature</code>，它会根据JS的CallbackId创建一个Block，并且在调用完函数后执行这个Block。</p>
+<p><code>RCTUIManager.h, UIManage.js</code>这两个类一个是在oc端，一个是在js端，通过这两个类RN将我们的component转换成了我们原生的视图类。该类实现了视图的创建、查找、删除等功能。创建View的时候，每个View都有一个</p>
+<p>最新的0.48版本的总体流程和以上流程差别不大，主要是替换了初始化部分的执行顺序，大家可以自行参阅最新的代码。</p>
+<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
+<li><a href="http://blog.cnbang.net/tech/2698/" target="_blank" rel="noopener">React Native通信机制详解</a>   </li>
+<li><a href="http://www.jianshu.com/p/0688b24950f4" target="_blank" rel="noopener">React Native源码分析</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechat-reward.jpg" alt="DragonFly 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay-reward.jpg" alt="DragonFly 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ReactNative/" rel="tag"># ReactNative</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/25/swift-Tips2/" rel="next" title="Swift语法特性2">
+                <i class="fa fa-chevron-left"></i> Swift语法特性2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/01/iOS-code-obfuscate/" rel="prev" title="iOS代码加固">
+                iOS代码加固 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fighting300" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/fighting300" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/bb7ca9a08b3c" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ReactNative原理概述"><span class="nav-number">1.</span> <span class="nav-text">ReactNative原理概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码分析"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化ReactNative环境"><span class="nav-number">2.1.</span> <span class="nav-text">初始化ReactNative环境</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#读取JavaScript源码"><span class="nav-number">2.1.1.</span> <span class="nav-text">读取JavaScript源码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#初始化模块信息"><span class="nav-number">2.1.2.</span> <span class="nav-text">初始化模块信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#初始化JS代码执行器"><span class="nav-number">2.1.3.</span> <span class="nav-text">初始化JS代码执行器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#生成模块列表并写入JS端"><span class="nav-number">2.1.4.</span> <span class="nav-text">生成模块列表并写入JS端</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行JS源码"><span class="nav-number">2.1.5.</span> <span class="nav-text">执行JS源码</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法执行阶段"><span class="nav-number">2.2.</span> <span class="nav-text">方法执行阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#调用JS代码"><span class="nav-number">2.2.1.</span> <span class="nav-text">调用JS代码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#JS调用OC代码"><span class="nav-number">2.2.2.</span> <span class="nav-text">JS调用OC代码</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">2.3.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://fighting300.com/2017/03/02/reactnative-code/';
+          this.page.identifier = '2017/03/02/reactnative-code/';
+          this.page.title = 'React Native源码分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dragonfly-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

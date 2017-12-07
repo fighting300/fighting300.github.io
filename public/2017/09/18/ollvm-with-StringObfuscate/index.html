@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所">
+<meta name="description" content="之前研究ollvm的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的混淆框架,功能包含常量字符串混淆以及ollvm原有的一些功能。该页面有关于他们项目的简介👍。简单分析发现字符串混淆的部分主">
 <meta name="keywords" content="安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS混淆-ollvm中添加对String的混淆">
@@ -385,28 +385,28 @@
       
 
       
-        <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="external">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="external">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">专栏的文章</a>。</p>
+        <p>之前<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="noopener">研究ollvm</a>的时候，发现开源的ollvm库中没有对字符串混淆的部分，但是很多APP中都可能会有一些需要加密的字符串。机缘巧合发现上海交大的GoSSIP小组开源了他们设计的基于LLVM4.0的<a href="https://github.com/GoSSIP-SJTU/Armariris" target="_blank" rel="noopener">混淆框架</a>,功能包含常量字符串混淆以及ollvm原有的一些功能。<a href="https://zhuanlan.zhihu.com/p/27617441" target="_blank" rel="noopener">该页面</a>有关于他们项目的简介👍。<br>简单分析发现字符串混淆的部分主要由字符串加密的Pass完成，之后我们考虑把字符串混淆的功能加入ollvm中，所以本文简单介绍下如何将字符串加密的Pass继承到ollvm中。Pass其实可以简单的理解为LLVM优化／转换工作的一个最小单元，可以把所有的混淆工作都是由一个一个Pass组成的，想要做具体的了解，可以看下以下<a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="noopener">专栏的文章</a>。</p>
 <h4 id="Pass集成"><a href="#Pass集成" class="headerlink" title="Pass集成"></a>Pass集成</h4><p>首先提取字符串加密文件对应pass文件，该文件所在目录为lib/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-cpp.png" alt="pass文件目录"></p>
 <a id="more"></a>
 <p>提取后放在ollvm相同目录下，并把头文件也复制到对应目录下，该文件所在目录为include/llvm/Transform/Obfuscation。<br><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-h.png" alt="头文件目录"></p>
 <p>修改lib/Transform/Obfuscation目录下的CMakeLists.txt文件，将StringObfuscation.cpp添加到编译库中。然后修改Transform/IPO下的PassManagerBuilder.cpp文件，添加字符串加密的编译代码。具体代码如下:</p>
 <h5 id="1-添加引用"><a href="#1-添加引用" class="headerlink" title="1.添加引用"></a>1.添加引用</h5><p><code>#include &quot;llvm/Transforms/Obfuscation/StringObfuscation.h&quot;</code></p>
-<h5 id="2-插入函数声明，即编译时的编译参数-mllvm-sobf"><a href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf" class="headerlink" title="2.插入函数声明，即编译时的编译参数-mllvm -sobf"></a>2.插入函数声明，即编译时的编译参数<code>-mllvm -sobf</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static cl::opt&lt;std::string&gt; Seed(&quot;seed&quot;, cl::init(&quot;&quot;),</div><div class="line">                           cl::desc(&quot;seed for the random&quot;));</div><div class="line"></div><div class="line">static cl::opt&lt;bool&gt; StringObf(&quot;sobf&quot;, cl::init(false),</div><div class="line">                           cl::desc(&quot;Enable the string obfuscation&quot;));</div></pre></td></tr></table></figure>
-<h5 id="3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><a href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化" class="headerlink" title="3.在PassManagerBuilder()构造函数中添加随机数因子的初始化"></a>3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(!Seed.empty()) &#123;</div><div class="line">  llvm::cryptoutils-&gt;prng_seed(Seed.c_str());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="2-插入函数声明，即编译时的编译参数-mllvm-sobf"><a href="#2-插入函数声明，即编译时的编译参数-mllvm-sobf" class="headerlink" title="2.插入函数声明，即编译时的编译参数-mllvm -sobf"></a>2.插入函数声明，即编译时的编译参数<code>-mllvm -sobf</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static cl::opt&lt;std::string&gt; Seed(&quot;seed&quot;, cl::init(&quot;&quot;),</span><br><span class="line">                           cl::desc(&quot;seed for the random&quot;));</span><br><span class="line"></span><br><span class="line">static cl::opt&lt;bool&gt; StringObf(&quot;sobf&quot;, cl::init(false),</span><br><span class="line">                           cl::desc(&quot;Enable the string obfuscation&quot;));</span><br></pre></td></tr></table></figure>
+<h5 id="3-在PassManagerBuilder-构造函数中添加随机数因子的初始化"><a href="#3-在PassManagerBuilder-构造函数中添加随机数因子的初始化" class="headerlink" title="3.在PassManagerBuilder()构造函数中添加随机数因子的初始化"></a>3.在PassManagerBuilder()构造函数中添加随机数因子的初始化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(!Seed.empty()) &#123;</span><br><span class="line">  llvm::cryptoutils-&gt;prng_seed(Seed.c_str());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-seed.png" alt="插入随机因子初始化"></p>
-<h5 id="4-添加pss到-PassManagerBuilder-populateModulePassManager中"><a href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中" class="headerlink" title="4.添加pss到 PassManagerBuilder::populateModulePassManager中"></a>4.添加pss到 PassManagerBuilder::populateModulePassManager中</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MPM.add(createStringObfuscation(StringObf));</div></pre></td></tr></table></figure>
+<h5 id="4-添加pss到-PassManagerBuilder-populateModulePassManager中"><a href="#4-添加pss到-PassManagerBuilder-populateModulePassManager中" class="headerlink" title="4.添加pss到 PassManagerBuilder::populateModulePassManager中"></a>4.添加pss到 PassManagerBuilder::populateModulePassManager中</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MPM.add(createStringObfuscation(StringObf));</span><br></pre></td></tr></table></figure>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-use.png" alt="添加Pass"></p>
-<h5 id="5-在主路径下运行编译命令"><a href="#5-在主路径下运行编译命令" class="headerlink" title="5.在主路径下运行编译命令"></a>5.在主路径下运行编译命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir build</div><div class="line">cd build</div><div class="line">cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/   // 代码所在路径</div><div class="line">make -j7</div></pre></td></tr></table></figure>
-<p>即可生成build最终文件，用于项目编译。我在github上也新建了一个添加了字符串混淆功能的<a href="https://github.com/fighting300/obfuscator" target="_blank" rel="external">ollvm版本</a>，想要直接使用的小伙伴可以下载使用。</p>
+<h5 id="5-在主路径下运行编译命令"><a href="#5-在主路径下运行编译命令" class="headerlink" title="5.在主路径下运行编译命令"></a>5.在主路径下运行编译命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/   // 代码所在路径</span><br><span class="line">make -j7</span><br></pre></td></tr></table></figure>
+<p>即可生成build最终文件，用于项目编译。我在github上也新建了一个添加了字符串混淆功能的<a href="https://github.com/fighting300/obfuscator" target="_blank" rel="noopener">ollvm版本</a>，想要直接使用的小伙伴可以下载使用。</p>
 <h5 id="6-使用效果"><a href="#6-使用效果" class="headerlink" title="6.使用效果"></a>6.使用效果</h5><p>在OC代码中添加了简单的字符串、混淆后的效果如下图：  </p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-before.png" alt="字符串混淆前"></p>
 <p><img src="http://ojca2gwha.bkt.clouddn.com/ollvm-string-after.png" alt="字符串混淆后"></p>
-<h4 id="问题及解决方案"><a href="#问题及解决方案" class="headerlink" title="问题及解决方案"></a>问题及解决方案</h4><p>编译成功后，则可按照<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="external">上篇文章</a>所述，在XCode中编译项目。   </p>
-<h5 id="1-bcf不支持Invoke指令"><a href="#1-bcf不支持Invoke指令" class="headerlink" title="1. bcf不支持Invoke指令"></a>1. bcf不支持Invoke指令</h5><p>在实际使用过程中，发现ollvm目前不支持@synchronized、try…catch等少数语法，然后导致bcf报错。<a href="https://llvm.org/docs/LangRef.html#invoke-instruction" target="_blank" rel="external">这些语法</a>会生成invoke指令，目前可以在bcf前过滤包含InvokeInst的方法，具体代码可以参考<a href="https://github.com/fighting300/obfuscator/commit/ae0e5acd873cd9a8c839a013a635422022fd0d6b" target="_blank" rel="external">该Github地址</a>。</p>
-<h5 id="2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><a href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。" class="headerlink" title="2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"></a>2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。<a href="https://qtfreet.com/?p=313" target="_blank" rel="external">该bug</a>未经过验证。</h5><p>若有其他问题，可以联系，或者comment(翻墙才能评论哈。。。)</p>
+<h4 id="问题及解决方案"><a href="#问题及解决方案" class="headerlink" title="问题及解决方案"></a>问题及解决方案</h4><p>编译成功后，则可按照<a href="http://fighting300.github.io/2017/09/07/ollvm-in-iOS/" target="_blank" rel="noopener">上篇文章</a>所述，在XCode中编译项目。   </p>
+<h5 id="1-bcf不支持Invoke指令"><a href="#1-bcf不支持Invoke指令" class="headerlink" title="1. bcf不支持Invoke指令"></a>1. bcf不支持Invoke指令</h5><p>在实际使用过程中，发现ollvm目前不支持@synchronized、try…catch等少数语法，然后导致bcf报错。<a href="https://llvm.org/docs/LangRef.html#invoke-instruction" target="_blank" rel="noopener">这些语法</a>会生成invoke指令，目前可以在bcf前过滤包含InvokeInst的方法，具体代码可以参考<a href="https://github.com/fighting300/obfuscator/commit/ae0e5acd873cd9a8c839a013a635422022fd0d6b" target="_blank" rel="noopener">该Github地址</a>。</p>
+<h5 id="2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"><a href="#2-目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。" class="headerlink" title="2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。该bug未经过验证。"></a>2.目前该字符串识别还有bug，即不会加密每个函数的第一个字符串。。。<a href="https://qtfreet.com/?p=313" target="_blank" rel="noopener">该bug</a>未经过验证。</h5><p>若有其他问题，可以联系，或者comment(翻墙才能评论哈。。。)</p>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
-<li><a href="http://bobao.360.cn/learning/detail/4069.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/4069.html</a></li>
-<li><a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="external">http://www.nagain.com/activity/article/14/</a></li>
+<li><a href="http://bobao.360.cn/learning/detail/4069.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/4069.html</a></li>
+<li><a href="http://www.nagain.com/activity/article/14/" target="_blank" rel="noopener">http://www.nagain.com/activity/article/14/</a></li>
 </ol>
 
       
@@ -566,7 +566,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -588,7 +588,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
