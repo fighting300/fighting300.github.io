@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。 开发环境 Xcode版本： Xcode9以上Xcode 9 Beta：https://developer.apple.com/download/下载最新的beta版本就可">
+<meta name="description" content="ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。 开发环境 Xcode版本： Xcode9以上Xcode 9 Beta：https://de">
 <meta name="keywords" content="ARKit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARKit上手指南 01 添加3D物体">
@@ -386,7 +386,7 @@
       
         <p>ARKit是2017年6月6日，苹果发布的iOS11系统所新增的框架,它能够帮助我们以最简单快捷的方式实现AR技术功能。而且ARKit框架对基于3D场景(SceneKit)和2D场景(SpriteKit)的增强现实都提供了支持。</p>
 <h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><ol>
-<li>Xcode版本： Xcode9以上<br>Xcode 9 Beta：<a href="https://developer.apple.com/download/" target="_blank" rel="external">https://developer.apple.com/download/</a><br>下载最新的beta版本就可以了，不过Xcode需要Mac 10.12.4及以上的版本。  </li>
+<li>Xcode版本： Xcode9以上<br>Xcode 9 Beta：<a href="https://developer.apple.com/download/" target="_blank" rel="noopener">https://developer.apple.com/download/</a><br>下载最新的beta版本就可以了，不过Xcode需要Mac 10.12.4及以上的版本。  </li>
 <li>iOS系统： iOS11以上</li>
 <li>iOS设备： A9/A10处理器的iOS设备，即iPhone6s、iPad2017及以上的设备</li>
 </ol>
@@ -396,12 +396,12 @@
 <p><img src="http://ojca2gwha.bkt.clouddn.com/AR-Plane.jpg" alt="3D飞机"></p>
 <p>实际项目中，你也可以不使用该模版来创建项目，直接引入相关库也可以进行开发。</p>
 <p>在项目中可以看到<code>viewWillAppear</code>方法中已经初始化了ARWorldTrackingConfiguration实例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">override func viewWillAppear(_ animated: Bool) &#123;</div><div class="line">      super.viewWillAppear(animated)  </div><div class="line"></div><div class="line">      // Create a session configuration</div><div class="line">      let configuration = ARWorldTrackingConfiguration()</div><div class="line"></div><div class="line">      // Run the view&apos;s session</div><div class="line">      sceneView.session.run(configuration)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">override func viewWillAppear(_ animated: Bool) &#123;</span><br><span class="line">      super.viewWillAppear(animated)  </span><br><span class="line"></span><br><span class="line">      // Create a session configuration</span><br><span class="line">      let configuration = ARWorldTrackingConfiguration()</span><br><span class="line"></span><br><span class="line">      // Run the view&apos;s session</span><br><span class="line">      sceneView.session.run(configuration)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="放置3D物体"><a href="#放置3D物体" class="headerlink" title="放置3D物体"></a>放置3D物体</h4><p>SceneKit有一些基础类，SCNScene是所有3D内容的容器，可以在其中添加多个3D物体。<br>要向scene中添加内容，要创建SCNGeometry，然后将其包装为SCNNode并添加到SCNScene中。</p>
 <p>首先注释掉<code>let scene = SCNScene(named: &quot;art.scnassets/ship.scn&quot;)! sceneView.scene = scene</code>，然后添加代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line">	super.viewDidLoad()</div><div class="line">	// 存放所有3D几何体的容器</div><div class="line">	let scene = SCNScene()</div><div class="line"></div><div class="line">	// 想要绘制的 3D 立方体</div><div class="line">	let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.0)</div><div class="line"></div><div class="line">	// 将几何体包装为node以便添加到scene</div><div class="line">	let boxNode = SCNNode(geometry: boxGeometry)</div><div class="line"></div><div class="line">	// 把box放在摄像头正前方</div><div class="line">	boxNode.position = SCNVector3Make(0, 0, -0.5)</div><div class="line"></div><div class="line">	// rootNode是一个特殊的node，它是所有node的起始点</div><div class="line">	scene.rootNode.addChildNode(boxNode)</div><div class="line"></div><div class="line">	// 将 scene 赋给 view</div><div class="line">	sceneView.scene = scene</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">	super.viewDidLoad()</span><br><span class="line">	// 存放所有3D几何体的容器</span><br><span class="line">	let scene = SCNScene()</span><br><span class="line"></span><br><span class="line">	// 想要绘制的 3D 立方体</span><br><span class="line">	let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.0)</span><br><span class="line"></span><br><span class="line">	// 将几何体包装为node以便添加到scene</span><br><span class="line">	let boxNode = SCNNode(geometry: boxGeometry)</span><br><span class="line"></span><br><span class="line">	// 把box放在摄像头正前方</span><br><span class="line">	boxNode.position = SCNVector3Make(0, 0, -0.5)</span><br><span class="line"></span><br><span class="line">	// rootNode是一个特殊的node，它是所有node的起始点</span><br><span class="line">	scene.rootNode.addChildNode(boxNode)</span><br><span class="line"></span><br><span class="line">	// 将 scene 赋给 view</span><br><span class="line">	sceneView.scene = scene</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>现在运行该项目，就会看到有3D立方体悬浮在空中，并且全方位无死角。</p>
-<p>此外还可以增加一些调试信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// ARKit统计信息例如fps等</div><div class="line">sceneView.showsStatistics = YES;</div><div class="line"></div><div class="line">sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints];</div><div class="line">// 调整摄像头属性 当前摄像头有效直径在10m范围内</div><div class="line">if let camera = sceneView.pointOfView?.camera &#123;</div><div class="line">	camera.wantsHDR = true</div><div class="line">      camera.wantsExposureAdaptation = true</div><div class="line">      camera.exposureOffset = -1</div><div class="line">      camera.minimumExposure = -1</div><div class="line">      camera.zFar = 10</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此外还可以增加一些调试信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// ARKit统计信息例如fps等</span><br><span class="line">sceneView.showsStatistics = YES;</span><br><span class="line"></span><br><span class="line">sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints];</span><br><span class="line">// 调整摄像头属性 当前摄像头有效直径在10m范围内</span><br><span class="line">if let camera = sceneView.pointOfView?.camera &#123;</span><br><span class="line">	camera.wantsHDR = true</span><br><span class="line">      camera.wantsExposureAdaptation = true</span><br><span class="line">      camera.exposureOffset = -1</span><br><span class="line">      camera.minimumExposure = -1</span><br><span class="line">      camera.zFar = 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>之前简单体验了ARKit的功能，下面简单介绍ARKit的工作原理：   </p>
 <h4 id="ARKit工作原理"><a href="#ARKit工作原理" class="headerlink" title="ARKit工作原理"></a>ARKit工作原理</h4><p>在ARKit中，创建虚拟3D模型其实可以分为两个步骤：   </p>
 <ol>
@@ -581,7 +581,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -603,7 +603,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
