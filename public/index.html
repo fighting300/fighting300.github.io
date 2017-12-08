@@ -277,6 +277,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/12/08/iOS-LogShowAndRedirect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/08/iOS-LogShowAndRedirect/" itemprop="url">iOS中的日志同步获取-NSLog重定向及其他</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T21:13:48+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/08/iOS-LogShowAndRedirect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/08/iOS-LogShowAndRedirect/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>我们在真机测试时经常会发现一个难题是无法查看真机的<code>NSLog</code>类型的实时日志，这时候需要RD复现问题来定位当时的日志，以方便查找问题。这个问题在测试中是非常常见的，也是功能测试会花费比较长时间的一个原因。以下我们讨论下能即时查看日志的几种方案。</p>
+<h5 id="NSLog输出到哪里？"><a href="#NSLog输出到哪里？" class="headerlink" title="NSLog输出到哪里？"></a>NSLog输出到哪里？</h5><p>在iOS开发中，我们经常会用到NSLog调试，但是我们却不太了解它。在NSLog本质是一个C函数，它的函数声明如下：<br><code>FOUNDATION_EXPORT void NSLog(NSString *format, ...)</code><br>系统对它的说明是：<code>Logs an error message to the Apple System Log facility.</code>。他是用来输出信息到标准Error控制台上去的，其内部其实是使用<code>Apple System Log</code>的API。在调试阶段，日志会输出到到Xcode中，而在iOS真机上，它会输出到系统的<code>/var/log/syslog</code>这个文件中。</p>
+<p>在iOS中，把日志输出到文件中的句柄在<code>unistd.h</code>文件中有定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define	 STDIN_FILENO	0	/* standard input file descriptor */</span><br><span class="line">#define	STDOUT_FILENO	1	/* standard output file descriptor */</span><br><span class="line">#define	STDERR_FILENO	2	/* standard error file descriptor */</span><br></pre></td></tr></table></figure></p>
+<p>NSLog输出的是到<code>STDERR_FILENO</code>上，我们可以在iOS中使用c语言输出到的文件的<code>fprintf</code>来验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@&quot;iOS NSLog&quot;);</span><br><span class="line">fprintf (stderr, &quot;%s\n&quot;, &quot;fprintf log&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>由于fprintf并不会像NSLog那样，在内部调用ASL接口，所以只是单纯的输出信息，并没有添加日期、进程名、进程id等，也不会自动换行。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/08/iOS-LogShowAndRedirect/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/30/tools-MagicaVoxel-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1720,169 +1859,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/08/22/iOS-nfc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="DragonFly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DragonFly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/22/iOS-nfc/" itemprop="url">iOS Core NFC指南</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T19:41:17+08:00">
-                2017-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/22/iOS-nfc/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/22/iOS-nfc/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>大家可能听过NFC这项功能，或者有可能你每天都在使用这个功能，比如当你在进出地铁时闸机扫描地铁卡就用到了NFC技术。<br>简单来说NFC就是可以让智能手机的NFC模块，可以像读卡器一般，读取电子标签的相关信息，实现NFC手机之间的数据交互或是读取其他IC卡内的数据。NFC(机场通讯)，其实由非接触式射频识别（RFID）演变而来，是一种短距高频的无线电技术，在13.56MHz频率运行于20厘米距离内。它的传输速度有106 Kbit/秒、212 Kbit/秒或者424 Kbit/秒三种。目前NFC已通过成为ISO/IEC IS 18092国际标准、ECMA-340标准与ETSI TS 102 190标准。NFC可以采用主动和被动两种读取模式。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1944396-b31bb992a4bbb9f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="NFC使用场景">  </p>
-<h4 id="Core-NFC介绍"><a href="#Core-NFC介绍" class="headerlink" title="Core NFC介绍"></a>Core NFC介绍</h4><p>或者你可能还吐槽过Apple怎么还不支持NFC呢，其实iPhone6已经有NFC硬件了，已支持Apple Pay支付系统，只是接口没开放，终于在今年的WWDC，苹果在iOS11系统上对开发者开放了NFC接口框架Core NFC，虽然目前权限只有只读模式。<br>Apple的Core NFC可以用于检测NFC(近场通讯)标签和读取包含NDEF(NFC Data Exchange Format)数据1到5类型的标签信息，只是该功能只支持iPhone 7和iPhone 7P及以上的机型。目前Core NFC其实同时有NFC和RFID的API存在，但是RFID可能没有很高的安全性，所以苹果没有推广使用(或者还在开发中)。</p>
-<blockquote>
-<p>NFC Data Exchange Format : NFC数据交换格式，NFC组织约定的NFC tag中的数据格式。NDEF是轻量级的紧凑的二进制格式，可带有URL、vCard和NFC定义的各种数据类型。NDEF的由各种数据记录组成，而各个记录由报头(Header)和有效载荷(Payload)组成，其中NDEF记录的数据类型和大小由记录载荷的报头注明，这里的报头包含3部分，分别为Length、Type和Identifier。</p>
-</blockquote>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/CoreNFC-tags.png" alt="NFC标签图例"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/22/iOS-nfc/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1936,7 +1912,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1958,7 +1934,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

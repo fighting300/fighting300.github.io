@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour介绍bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bon">
+<meta name="description" content="之前一直考虑在local现场怎么与别的用户通信，后来陆续了解了苹果的Bonjour。现在简单写一篇Bonjour的入门介绍。 Bonjour介绍bonjour其实来自法语，是你好的意思。而Bonjour服务是苹果公司发布的一个基于ZEROCONF工作组(IETF下属小组)的工作,用于实现零配置网络联网的解决方案。Bonjour是基于IP层协议的,简单来说,就是一套解决方案,能够不需要复杂的配置,即">
 <meta name="keywords" content="iOS,Bonjour">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS Bonjour的使用-本地通信&#x2F;智能交互">
@@ -579,7 +579,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -601,7 +601,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -674,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour介绍"><span class="nav-number">1.</span> <span class="nav-text">Bonjour介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour-API"><span class="nav-number">2.</span> <span class="nav-text">Bonjour API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立连接"><span class="nav-number">3.</span> <span class="nav-text">建立连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端发布服务"><span class="nav-number">3.1.</span> <span class="nav-text">客户端发布服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端浏览服务"><span class="nav-number">3.2.</span> <span class="nav-text">客户端浏览服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端-服务端交互"><span class="nav-number">3.3.</span> <span class="nav-text">客户端/服务端交互</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">3.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour介绍"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Bonjour&#x4ECB;&#x7ECD;" class="headerlink" title="Bonjour&#x4ECB;&#x7ECD;"></a>Bonjour&#x4ECB;&#x7ECD;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bonjour-API"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Bonjour-API" class="headerlink" title="Bonjour API"></a>Bonjour API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立连接"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;" class="headerlink" title="&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;"></a>&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端发布服务"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x5E03;&#x670D;&#x52A1;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x5E03;&#x670D;&#x52A1;"></a>&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x5E03;&#x670D;&#x52A1;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端浏览服务"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x5BA2;&#x6237;&#x7AEF;&#x6D4F;&#x89C8;&#x670D;&#x52A1;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;&#x6D4F;&#x89C8;&#x670D;&#x52A1;"></a>&#x5BA2;&#x6237;&#x7AEF;&#x6D4F;&#x89C8;&#x670D;&#x52A1;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端-服务端交互"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x7AEF;&#x4EA4;&#x4E92;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;/&#x670D;&#x52A1;&#x7AEF;&#x4EA4;&#x4E92;"></a>&#x5BA2;&#x6237;&#x7AEF;/&#x670D;&#x52A1;&#x7AEF;&#x4EA4;&#x4E92;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</span></a></li></ol></li></ol></div>
             
 
           </div>

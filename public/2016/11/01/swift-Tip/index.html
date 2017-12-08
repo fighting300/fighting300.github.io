@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="最近在写swift的过程中，发现有很多特性使用的不太熟练，而且有些新特性看过之后很容易忘记，所以该文章记录一些Swift语法的新特性。(本文持续更新)   1. 初始化Designated initializers即最常用的初始化方法init()，默认不加修饰符的init方法都需要在方法中保证所有的非Optional实">
+<meta name="description" content="最近在写swift的过程中，发现有很多特性使用的不太熟练，而且有些新特性看过之后很容易忘记，所以该文章记录一些Swift语法的新特性。(本文持续更新)   1. 初始化Designated initializers即最常用的初始化方法init()，默认不加修饰符的init方法都需要在方法中保证所有的非Optional实例变量被赋值初始化，其子类也会隐式或显式调用父类的designated初始化方法">
 <meta name="keywords" content="Swift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift语法特性1">
@@ -558,7 +558,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -580,7 +580,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -653,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初始化"><span class="nav-number">1.</span> <span class="nav-text">1. 初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-访问控制"><span class="nav-number">2.</span> <span class="nav-text">2. 访问控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-inout-传址调用"><span class="nav-number">3.</span> <span class="nav-text">3. inout 传址调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-错误处理-–-guard-提前退出"><span class="nav-number">4.</span> <span class="nav-text">4. 错误处理 – guard 提前退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-错误处理-–-defer-延迟执行"><span class="nav-number">5.</span> <span class="nav-text">5. 错误处理 – defer 延迟执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-precondition-discardableResult"><span class="nav-number">6.</span> <span class="nav-text">6.precondition  discardableResult</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-协议"><span class="nav-number">7.</span> <span class="nav-text">7.协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">7.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初始化"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x521D;&#x59CB;&#x5316;" class="headerlink" title="1. &#x521D;&#x59CB;&#x5316;"></a>1. &#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-访问控制"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-&#x8BBF;&#x95EE;&#x63A7;&#x5236;" class="headerlink" title="2. &#x8BBF;&#x95EE;&#x63A7;&#x5236;"></a>2. &#x8BBF;&#x95EE;&#x63A7;&#x5236;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-inout-传址调用"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-inout-&#x4F20;&#x5740;&#x8C03;&#x7528;" class="headerlink" title="3. inout &#x4F20;&#x5740;&#x8C03;&#x7528;"></a>3. inout &#x4F20;&#x5740;&#x8C03;&#x7528;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-错误处理-–-guard-提前退出"><span class="nav-number">4.</span> <span class="nav-text"><a href="#4-&#x9519;&#x8BEF;&#x5904;&#x7406;-&#x2013;-guard-&#x63D0;&#x524D;&#x9000;&#x51FA;" class="headerlink" title="4. &#x9519;&#x8BEF;&#x5904;&#x7406; &#x2013; guard &#x63D0;&#x524D;&#x9000;&#x51FA;"></a>4. &#x9519;&#x8BEF;&#x5904;&#x7406; &#x2013; guard &#x63D0;&#x524D;&#x9000;&#x51FA;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-错误处理-–-defer-延迟执行"><span class="nav-number">5.</span> <span class="nav-text"><a href="#5-&#x9519;&#x8BEF;&#x5904;&#x7406;-&#x2013;-defer-&#x5EF6;&#x8FDF;&#x6267;&#x884C;" class="headerlink" title="5. &#x9519;&#x8BEF;&#x5904;&#x7406; &#x2013; defer &#x5EF6;&#x8FDF;&#x6267;&#x884C;"></a>5. &#x9519;&#x8BEF;&#x5904;&#x7406; &#x2013; defer &#x5EF6;&#x8FDF;&#x6267;&#x884C;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-precondition-discardableResult"><span class="nav-number">6.</span> <span class="nav-text"><a href="#6-precondition-discardableResult" class="headerlink" title="6.precondition  discardableResult"></a>6.precondition  discardableResult</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-协议"><span class="nav-number">7.</span> <span class="nav-text"><a href="#7-&#x534F;&#x8BAE;" class="headerlink" title="7.&#x534F;&#x8BAE;"></a>7.&#x534F;&#x8BAE;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">7.1.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li></ol></li></ol></div>
             
 
           </div>

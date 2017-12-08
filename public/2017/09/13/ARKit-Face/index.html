@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。之前的版本中前置摄像头是不支持AKKit模块的，幸而新发布的版本中添加了对Face识别的支持，然而新的API需要原前置深感摄像头(TrueDepth Camera)的支持，所以看来还得">
+<meta name="description" content="Apple昨晚发布了强大但是死贵无比的iPhoneX，惊呆了我们。然后只能默默去刷了下API，发现ARKit新添了基于Face的API。之前的版本中前置摄像头是不支持AKKit模块的，幸而新发布的版本中添加了对Face识别的支持，然而新的API需要原前置深感摄像头(TrueDepth Camera)的支持，所以看来还得入手一台iPhone X呐。    新增API首先新增了ARFaceTracki">
 <meta name="keywords" content="ARKit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARKit-基于Face的AR体验">
@@ -571,7 +571,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -593,7 +593,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -666,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#新增API"><span class="nav-number">1.</span> <span class="nav-text">新增API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始面部跟踪"><span class="nav-number">2.</span> <span class="nav-text">开始面部跟踪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跟踪脸部位置和方向"><span class="nav-number">3.</span> <span class="nav-text">跟踪脸部位置和方向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用Face-Geometry来模拟用户面部"><span class="nav-number">3.1.</span> <span class="nav-text">使用Face Geometry来模拟用户面部</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在面部呈现3D内容"><span class="nav-number">3.2.</span> <span class="nav-text">在面部呈现3D内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#让你的形象动起来"><span class="nav-number">3.3.</span> <span class="nav-text">让你的形象动起来</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#参考文档"><span class="nav-number">3.3.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#新增API"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x65B0;&#x589E;API" class="headerlink" title="&#x65B0;&#x589E;API"></a>&#x65B0;&#x589E;API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始面部跟踪"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5F00;&#x59CB;&#x9762;&#x90E8;&#x8DDF;&#x8E2A;" class="headerlink" title="&#x5F00;&#x59CB;&#x9762;&#x90E8;&#x8DDF;&#x8E2A;"></a>&#x5F00;&#x59CB;&#x9762;&#x90E8;&#x8DDF;&#x8E2A;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跟踪脸部位置和方向"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x8DDF;&#x8E2A;&#x8138;&#x90E8;&#x4F4D;&#x7F6E;&#x548C;&#x65B9;&#x5411;" class="headerlink" title="&#x8DDF;&#x8E2A;&#x8138;&#x90E8;&#x4F4D;&#x7F6E;&#x548C;&#x65B9;&#x5411;"></a>&#x8DDF;&#x8E2A;&#x8138;&#x90E8;&#x4F4D;&#x7F6E;&#x548C;&#x65B9;&#x5411;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用Face-Geometry来模拟用户面部"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;Face-Geometry&#x6765;&#x6A21;&#x62DF;&#x7528;&#x6237;&#x9762;&#x90E8;" class="headerlink" title="&#x4F7F;&#x7528;Face Geometry&#x6765;&#x6A21;&#x62DF;&#x7528;&#x6237;&#x9762;&#x90E8;"></a>&#x4F7F;&#x7528;Face Geometry&#x6765;&#x6A21;&#x62DF;&#x7528;&#x6237;&#x9762;&#x90E8;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在面部呈现3D内容"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x5728;&#x9762;&#x90E8;&#x5448;&#x73B0;3D&#x5185;&#x5BB9;" class="headerlink" title="&#x5728;&#x9762;&#x90E8;&#x5448;&#x73B0;3D&#x5185;&#x5BB9;"></a>&#x5728;&#x9762;&#x90E8;&#x5448;&#x73B0;3D&#x5185;&#x5BB9;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#让你的形象动起来"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x8BA9;&#x4F60;&#x7684;&#x5F62;&#x8C61;&#x52A8;&#x8D77;&#x6765;" class="headerlink" title="&#x8BA9;&#x4F60;&#x7684;&#x5F62;&#x8C61;&#x52A8;&#x8D77;&#x6765;"></a>&#x8BA9;&#x4F60;&#x7684;&#x5F62;&#x8C61;&#x52A8;&#x8D77;&#x6765;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#参考文档"><span class="nav-number">3.3.1.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。新版iPhone的适配工作主要集中在iPhoneX上，相信大家已经对iPhoneX的刘海记忆深刻了，除了吐槽，留给我们的还有比较麻烦的适配工作。下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文">
+<meta name="description" content="iPhone发布会前，就隐隐感觉到一波适配工作要袭来的赶脚，果然不出所料。新版iPhone的适配工作主要集中在iPhoneX上，相信大家已经对iPhoneX的刘海记忆深刻了，除了吐槽，留给我们的还有比较麻烦的适配工作。下面简单分享下在整理过程中发现的适配注意点。(适配工作主要在UI方面，后续发现的适配点会陆续补充到该文档中)      上下黑边问题运行新版Xcode的iPhoneX模拟器，你可能发">
 <meta name="keywords" content="iOS 11">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS11&#x2F;iPhoneX最新适配指南">
@@ -586,7 +586,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -608,7 +608,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -681,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#上下黑边问题"><span class="nav-number">1.</span> <span class="nav-text">上下黑边问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS11新增版本判断API"><span class="nav-number">2.</span> <span class="nav-text">iOS11新增版本判断API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI适配"><span class="nav-number">3.</span> <span class="nav-text">UI适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导航栏适配"><span class="nav-number">3.1.</span> <span class="nav-text">导航栏适配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安全区域"><span class="nav-number">3.2.</span> <span class="nav-text">安全区域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UIScrollView-amp-UITableView"><span class="nav-number">3.3.</span> <span class="nav-text">UIScrollView & UITableView</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他方案……"><span class="nav-number">3.4.</span> <span class="nav-text">其他方案……</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API适配"><span class="nav-number">4.</span> <span class="nav-text">API适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LocalAuthentication-本地认证"><span class="nav-number">4.1.</span> <span class="nav-text">LocalAuthentication 本地认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">4.2.</span> <span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">4.3.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#上下黑边问题"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E0A;&#x4E0B;&#x9ED1;&#x8FB9;&#x95EE;&#x9898;" class="headerlink" title="&#x4E0A;&#x4E0B;&#x9ED1;&#x8FB9;&#x95EE;&#x9898;"></a>&#x4E0A;&#x4E0B;&#x9ED1;&#x8FB9;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS11新增版本判断API"><span class="nav-number">2.</span> <span class="nav-text"><a href="#iOS11&#x65B0;&#x589E;&#x7248;&#x672C;&#x5224;&#x65AD;API" class="headerlink" title="iOS11&#x65B0;&#x589E;&#x7248;&#x672C;&#x5224;&#x65AD;API"></a>iOS11&#x65B0;&#x589E;&#x7248;&#x672C;&#x5224;&#x65AD;API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI适配"><span class="nav-number">3.</span> <span class="nav-text"><a href="#UI&#x9002;&#x914D;" class="headerlink" title="UI&#x9002;&#x914D;"></a>UI&#x9002;&#x914D;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导航栏适配"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5BFC;&#x822A;&#x680F;&#x9002;&#x914D;" class="headerlink" title="&#x5BFC;&#x822A;&#x680F;&#x9002;&#x914D;"></a>&#x5BFC;&#x822A;&#x680F;&#x9002;&#x914D;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安全区域"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x5B89;&#x5168;&#x533A;&#x57DF;" class="headerlink" title="&#x5B89;&#x5168;&#x533A;&#x57DF;"></a>&#x5B89;&#x5168;&#x533A;&#x57DF;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UIScrollView-amp-UITableView"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#UIScrollView-amp-UITableView" class="headerlink" title="UIScrollView &amp; UITableView"></a>UIScrollView &amp; UITableView</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他方案……"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x5176;&#x4ED6;&#x65B9;&#x6848;&#x2026;&#x2026;" class="headerlink" title="&#x5176;&#x4ED6;&#x65B9;&#x6848;&#x2026;&#x2026;"></a>&#x5176;&#x4ED6;&#x65B9;&#x6848;&#x2026;&#x2026;</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API适配"><span class="nav-number">4.</span> <span class="nav-text"><a href="#API&#x9002;&#x914D;" class="headerlink" title="API&#x9002;&#x914D;"></a>API&#x9002;&#x914D;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LocalAuthentication-本地认证"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#LocalAuthentication-&#x672C;&#x5730;&#x8BA4;&#x8BC1;" class="headerlink" title="LocalAuthentication &#x672C;&#x5730;&#x8BA4;&#x8BC1;"></a>LocalAuthentication &#x672C;&#x5730;&#x8BA4;&#x8BC1;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</span></a></li></ol></li></ol></div>
             
 
           </div>

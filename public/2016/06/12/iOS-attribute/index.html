@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="在学习开源代码的时候，经常会遇到__attribute__的相关使用，但是在使用的时候又会忘记，所以用这篇文章总结下iOS开发中经常使用的attribute。__attribute__其实是GNU C的一种机制，本质是一个编译器的指令，在声明的时候可以提供一些属性，在编译阶段起作用，来做多样化的错误检查和高级优化。可以">
+<meta name="description" content="在学习开源代码的时候，经常会遇到__attribute__的相关使用，但是在使用的时候又会忘记，所以用这篇文章总结下iOS开发中经常使用的attribute。__attribute__其实是GNU C的一种机制，本质是一个编译器的指令，在声明的时候可以提供一些属性，在编译阶段起作用，来做多样化的错误检查和高级优化。可以分别用于设置函数属性、变量属性和类型属性，语法一般为: __attribute_">
 <meta name="keywords" content="iOS,attribute,宏">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS中的attribute和宏">
@@ -595,7 +595,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +617,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -690,7 +690,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数属性"><span class="nav-number">1.</span> <span class="nav-text">函数属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型-变量属性"><span class="nav-number">2.</span> <span class="nav-text">类型/变量属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clang-Attributes"><span class="nav-number">3.</span> <span class="nav-text">Clang Attributes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS中的宏"><span class="nav-number">4.</span> <span class="nav-text">iOS中的宏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统宏"><span class="nav-number">4.1.</span> <span class="nav-text">系统宏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常量-表达式宏"><span class="nav-number">4.2.</span> <span class="nav-text">常量/表达式宏</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#参考文档"><span class="nav-number">4.2.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数属性"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x51FD;&#x6570;&#x5C5E;&#x6027;" class="headerlink" title="&#x51FD;&#x6570;&#x5C5E;&#x6027;"></a>&#x51FD;&#x6570;&#x5C5E;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型-变量属性"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7C7B;&#x578B;-&#x53D8;&#x91CF;&#x5C5E;&#x6027;" class="headerlink" title="&#x7C7B;&#x578B;/&#x53D8;&#x91CF;&#x5C5E;&#x6027;"></a>&#x7C7B;&#x578B;/&#x53D8;&#x91CF;&#x5C5E;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clang-Attributes"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Clang-Attributes" class="headerlink" title="Clang Attributes"></a>Clang Attributes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS中的宏"><span class="nav-number">4.</span> <span class="nav-text"><a href="#iOS&#x4E2D;&#x7684;&#x5B8F;" class="headerlink" title="iOS&#x4E2D;&#x7684;&#x5B8F;"></a>iOS&#x4E2D;&#x7684;&#x5B8F;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统宏"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x7CFB;&#x7EDF;&#x5B8F;" class="headerlink" title="&#x7CFB;&#x7EDF;&#x5B8F;"></a><strong>&#x7CFB;&#x7EDF;&#x5B8F;</strong></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常量-表达式宏"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x5E38;&#x91CF;-&#x8868;&#x8FBE;&#x5F0F;&#x5B8F;" class="headerlink" title="&#x5E38;&#x91CF;/&#x8868;&#x8FBE;&#x5F0F;&#x5B8F;"></a><strong>&#x5E38;&#x91CF;/&#x8868;&#x8FBE;&#x5F0F;&#x5B8F;</strong></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#参考文档"><span class="nav-number">4.2.1.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

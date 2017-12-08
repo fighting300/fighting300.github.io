@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="我们在真机测试时经常会发现一个难题是无法查看真机的NSLog类型的实时日志，这时候需要RD复现问题来定位当时的日志，以方便查找问题。这个问题在测试中是非常常见的，也是功能测试会花费比较长时间的一个原因。以下我们讨论下能即时查看日志的几种方案。 NSLog输出到哪里？在iOS开发中，我们经常会用到NSLog调试，但是我们却不太了解它。在NSLog本质是一个C函数，它的函数声明如下：FOUNDATIO">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS中的日志同步获取-NSLog重定向及其他">
+<meta property="og:url" content="http://fighting300.com/2017/12/08/iOS-LogShowAndRedirect/index.html">
+<meta property="og:site_name" content="DragonFly的博客">
+<meta property="og:description" content="我们在真机测试时经常会发现一个难题是无法查看真机的NSLog类型的实时日志，这时候需要RD复现问题来定位当时的日志，以方便查找问题。这个问题在测试中是非常常见的，也是功能测试会花费比较长时间的一个原因。以下我们讨论下能即时查看日志的几种方案。 NSLog输出到哪里？在iOS开发中，我们经常会用到NSLog调试，但是我们却不太了解它。在NSLog本质是一个C函数，它的函数声明如下：FOUNDATIO">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-08T13:33:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS中的日志同步获取-NSLog重定向及其他">
+<meta name="twitter:description" content="我们在真机测试时经常会发现一个难题是无法查看真机的NSLog类型的实时日志，这时候需要RD复现问题来定位当时的日志，以方便查找问题。这个问题在测试中是非常常见的，也是功能测试会花费比较长时间的一个原因。以下我们讨论下能即时查看日志的几种方案。 NSLog输出到哪里？在iOS开发中，我们经常会用到NSLog调试，但是我们却不太了解它。在NSLog本质是一个C函数，它的函数声明如下：FOUNDATIO">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fighting300.com/2017/12/08/iOS-LogShowAndRedirect/"/>
+
+
+
+
+
+  <title>iOS中的日志同步获取-NSLog重定向及其他 | DragonFly的博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106064035-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DragonFly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我曾七次鄙视自己的灵魂</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/12/08/iOS-LogShowAndRedirect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS中的日志同步获取-NSLog重定向及其他</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T21:13:48+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/08/iOS-LogShowAndRedirect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/08/iOS-LogShowAndRedirect/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们在真机测试时经常会发现一个难题是无法查看真机的<code>NSLog</code>类型的实时日志，这时候需要RD复现问题来定位当时的日志，以方便查找问题。这个问题在测试中是非常常见的，也是功能测试会花费比较长时间的一个原因。以下我们讨论下能即时查看日志的几种方案。</p>
+<h5 id="NSLog输出到哪里？"><a href="#NSLog输出到哪里？" class="headerlink" title="NSLog输出到哪里？"></a>NSLog输出到哪里？</h5><p>在iOS开发中，我们经常会用到NSLog调试，但是我们却不太了解它。在NSLog本质是一个C函数，它的函数声明如下：<br><code>FOUNDATION_EXPORT void NSLog(NSString *format, ...)</code><br>系统对它的说明是：<code>Logs an error message to the Apple System Log facility.</code>。他是用来输出信息到标准Error控制台上去的，其内部其实是使用<code>Apple System Log</code>的API。在调试阶段，日志会输出到到Xcode中，而在iOS真机上，它会输出到系统的<code>/var/log/syslog</code>这个文件中。</p>
+<p>在iOS中，把日志输出到文件中的句柄在<code>unistd.h</code>文件中有定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define	 STDIN_FILENO	0	/* standard input file descriptor */</span><br><span class="line">#define	STDOUT_FILENO	1	/* standard output file descriptor */</span><br><span class="line">#define	STDERR_FILENO	2	/* standard error file descriptor */</span><br></pre></td></tr></table></figure></p>
+<p>NSLog输出的是到<code>STDERR_FILENO</code>上，我们可以在iOS中使用c语言输出到的文件的<code>fprintf</code>来验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@&quot;iOS NSLog&quot;);</span><br><span class="line">fprintf (stderr, &quot;%s\n&quot;, &quot;fprintf log&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>由于fprintf并不会像NSLog那样，在内部调用ASL接口，所以只是单纯的输出信息，并没有添加日期、进程名、进程id等，也不会自动换行。</p>
+<a id="more"></a>
+<h5 id="ASL读取日志"><a href="#ASL读取日志" class="headerlink" title="ASL读取日志"></a>ASL读取日志</h5><p>首先我们可以想到的是既然日志写入系统的syslog中，那我们可以直接读取这些日志。从ASL读取日志的核心代码如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;asl.h&gt;</span><br><span class="line">// 从日志的对象aslmsg中获取我们需要的数据</span><br><span class="line">+(instancetype)logMessageFromASLMessage:(aslmsg)aslMessage&#123;</span><br><span class="line">    SystemLogMessage *logMessage = [[SystemLogMessage alloc] init];</span><br><span class="line">    const char *timestamp = asl_get(aslMessage, ASL_KEY_TIME);</span><br><span class="line">    if (timestamp) &#123;</span><br><span class="line">        NSTimeInterval timeInterval = [@(timestamp) integerValue];</span><br><span class="line">        const char *nanoseconds = asl_get(aslMessage, ASL_KEY_TIME_NSEC);</span><br><span class="line">        if (nanoseconds) &#123;</span><br><span class="line">            timeInterval += [@(nanoseconds) doubleValue] / NSEC_PER_SEC;</span><br><span class="line">        &#125;</span><br><span class="line">        logMessage.timeInterval = timeInterval;</span><br><span class="line">        logMessage.date = [NSDate dateWithTimeIntervalSince1970:timeInterval];</span><br><span class="line">    &#125;</span><br><span class="line">    const char *sender = asl_get(aslMessage, ASL_KEY_SENDER);</span><br><span class="line">    if (sender) &#123;</span><br><span class="line">        logMessage.sender = @(sender);</span><br><span class="line">    &#125;</span><br><span class="line">    const char *messageText = asl_get(aslMessage, ASL_KEY_MSG);</span><br><span class="line">    if (messageText) &#123;</span><br><span class="line">        logMessage.messageText = @(messageText);//NSLog写入的文本内容</span><br><span class="line">    &#125;</span><br><span class="line">    const char *messageID = asl_get(aslMessage, ASL_KEY_MSG_ID);</span><br><span class="line">    if (messageID) &#123;</span><br><span class="line">        logMessage.messageID = [@(messageID) longLongValue];</span><br><span class="line">    &#125;</span><br><span class="line">    return logMessage;</span><br><span class="line">&#125;</span><br><span class="line">+ (NSMutableArray&lt;SystemLogMessage *&gt; *)allLogMessagesForCurrentProcess&#123;</span><br><span class="line">    asl_object_t query = asl_new(ASL_TYPE_QUERY);</span><br><span class="line">    // Filter for messages from the current process. Note that this appears to happen by default on device, but is required in the simulator.</span><br><span class="line">    NSString *pidString = [NSString stringWithFormat:@&quot;%d&quot;, [[NSProcessInfo processInfo] processIdentifier]];</span><br><span class="line">    asl_set_query(query, ASL_KEY_PID, [pidString UTF8String], ASL_QUERY_OP_EQUAL);</span><br><span class="line"></span><br><span class="line">    aslresponse response = asl_search(NULL, query);</span><br><span class="line">    aslmsg aslMessage = NULL;</span><br><span class="line"></span><br><span class="line">    NSMutableArray *logMessages = [NSMutableArray array];</span><br><span class="line">    while ((aslMessage = asl_next(response))) &#123;</span><br><span class="line">        [logMessages addObject:[SystemLogMessage logMessageFromASLMessage:aslMessage]];</span><br><span class="line">    &#125;</span><br><span class="line">    asl_release(response);</span><br><span class="line"></span><br><span class="line">    return logMessages;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用以上方法的好处是不会影响Xcode控制台的输出，可以用非侵入性的方式来读取日志。</p>
+<h5 id="NSLog重定向"><a href="#NSLog重定向" class="headerlink" title="NSLog重定向"></a>NSLog重定向</h5><p>另一种方式就是重定向NSLog，这样NSLog就不会写到系统的syslog中了。</p>
+<h6 id="dup2重定向"><a href="#dup2重定向" class="headerlink" title="dup2重定向"></a>dup2重定向</h6><p>通过重定向，可以直接截取<code>stdout,stderr</code>等标准输出的信息，然后保存在想要存储的位置，上传到服务器或者显示到View上。<br>要做到重定向，需要通过<code>NSPipe</code>创建一个管道，pipe有读端和写端，然后通过<code>dup2</code>将标准输入重定向到pipe的写端。再通过<code>NSFileHandle</code>监听pipe的读端，最后再处理读出的信息。<br>之后通过printf或者NSLog写数据，都会写到pipe的写端，同时pipe会将这些数据直接传送到读端，最后通过NSFileHandle的监控函数取出这些数据。<br>核心代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (void)redirectStandardOutput&#123;</span><br><span class="line">    //记录标准输出及错误流原始文件描述符</span><br><span class="line">    self.outFd = dup(STDOUT_FILENO);</span><br><span class="line">    self.errFd = dup(STDERR_FILENO);</span><br><span class="line">#if BETA_BUILD</span><br><span class="line">    stdout-&gt;_flags = 10;</span><br><span class="line">    NSPipe *outPipe = [NSPipe pipe];</span><br><span class="line">    NSFileHandle *pipeOutHandle = [outPipe fileHandleForReading];</span><br><span class="line">    dup2([[outPipe fileHandleForWriting] fileDescriptor], STDOUT_FILENO);</span><br><span class="line">    [pipeOutHandle readInBackgroundAndNotify];</span><br><span class="line"></span><br><span class="line">    stderr-&gt;_flags = 10;</span><br><span class="line">    NSPipe *errPipe = [NSPipe pipe];</span><br><span class="line">    NSFileHandle *pipeErrHandle = [errPipe fileHandleForReading];</span><br><span class="line">    dup2([[errPipe fileHandleForWriting] fileDescriptor], STDERR_FILENO);</span><br><span class="line">    [pipeErrHandle readInBackgroundAndNotify];</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redirectOutNotificationHandle:) name:NSFileHandleReadCompletionNotification object:pipeOutHandle];</span><br><span class="line"></span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redirectErrNotificationHandle:) name:NSFileHandleReadCompletionNotification object:pipeErrHandle];</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(void)recoverStandardOutput&#123;</span><br><span class="line">#if BETA_BUILD</span><br><span class="line">    dup2(self.outFd, STDOUT_FILENO);</span><br><span class="line">    dup2(self.errFd, STDERR_FILENO);</span><br><span class="line">    [[NSNotificationCenter defaultCenter] removeObserver:self];</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 重定向之后的NSLog输出</span><br><span class="line">- (void)redirectOutNotificationHandle:(NSNotification *)nf&#123;</span><br><span class="line">#if BETA_BUILD</span><br><span class="line">    NSData *data = [[nf userInfo] objectForKey:NSFileHandleNotificationDataItem];</span><br><span class="line">    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br><span class="line">    // YOUR CODE HERE...  保存日志并上传或展示</span><br><span class="line">#endif</span><br><span class="line">    [[nf object] readInBackgroundAndNotify];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 重定向之后的错误输出</span><br><span class="line">- (void)redirectErrNotificationHandle:(NSNotification *)nf&#123;</span><br><span class="line">#if BETA_BUILD</span><br><span class="line">    NSData *data = [[nf userInfo] objectForKey:NSFileHandleNotificationDataItem];</span><br><span class="line">    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br><span class="line">    // YOUR CODE HERE...  保存日志并上传或展示</span><br><span class="line">#endif</span><br><span class="line">    [[nf object] readInBackgroundAndNotify];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="文件重定向"><a href="#文件重定向" class="headerlink" title="文件重定向"></a>文件重定向</h6><p>另一种重定向的方式是利用c语言的<code>freopen</code>函数进行重定向，将写往stderr的内容重定向到我们制定的文件中去，一旦执行了上述代码那么在这个之后的NSLog将不会在控制台显示了，会直接输出在指定的文件中。<br>在模拟器中，我们可以使用终端的tail命令(tail -f xxx.log)对这个文件进行实时查看，就如同我们在Xcode的输出窗口中看到的那样，你还可以结合grep命令进行实时过滤查看，非常方便在大量的日志信息中迅速定位到我们要的日志信息。<br><code>FILE * freopen ( const char * filename, const char * mode, FILE * stream );</code></p>
+<p>具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</span><br><span class="line">NSString *documentsPath = [paths objectAtIndex:0];</span><br><span class="line">NSString *loggingPath = [documentsPath stringByAppendingPathComponent:@&quot;/xxx.log&quot;];</span><br><span class="line">//redirect NSLog</span><br><span class="line">freopen([loggingPath cStringUsingEncoding:NSASCIIStringEncoding], &quot;a+&quot;, stderr);</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就可以把可获取的日志文件发送给服务端或者通过itunes共享出来。但是由于iOS严格的沙盒机制，我们无法知道stderr原来的文件路径，也无法直接使用沙盒外的文件，所以freopen无法重定向回去，只能使用第1点所述的dup和dup2来实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 重定向</span><br><span class="line">int origin1 = dup(STDERR_FILENO);</span><br><span class="line">FILE * myFile = freopen([loggingPath cStringUsingEncoding:NSASCIIStringEncoding], &quot;a+&quot;, stderr);</span><br><span class="line">// 恢复重定向</span><br><span class="line">dup2(origin1, STDERR_FILENO);</span><br></pre></td></tr></table></figure></p>
+<h6 id="使用GCD的dispatch-Source重定向方式"><a href="#使用GCD的dispatch-Source重定向方式" class="headerlink" title="使用GCD的dispatch Source重定向方式"></a>使用GCD的dispatch Source重定向方式</h6><p>具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">- (dispatch_source_t)_startCapturingWritingToFD:(int)fd  &#123;</span><br><span class="line">    int fildes[2];</span><br><span class="line">    pipe(fildes);  // [0] is read end of pipe while [1] is write end</span><br><span class="line">    dup2(fildes[1], fd);  // Duplicate write end of pipe &quot;onto&quot; fd (this closes fd)</span><br><span class="line">    close(fildes[1]);  // Close original write end of pipe</span><br><span class="line">    fd = fildes[0];  // We can now monitor the read end of the pipe</span><br><span class="line">    char* buffer = malloc(1024);</span><br><span class="line">    NSMutableData* data = [[NSMutableData alloc] init];</span><br><span class="line">    fcntl(fd, F_SETFL, O_NONBLOCK);</span><br><span class="line">    dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fd, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));</span><br><span class="line">    dispatch_source_set_cancel_handler(source, ^&#123;</span><br><span class="line">        free(buffer);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_source_set_event_handler(source, ^&#123;</span><br><span class="line">        @autoreleasepool &#123;</span><br><span class="line"></span><br><span class="line">            while (1) &#123;</span><br><span class="line">                ssize_t size = read(fd, buffer, 1024);</span><br><span class="line">                if (size &lt;= 0) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                [data appendBytes:buffer length:size];</span><br><span class="line">                if (size &lt; 1024) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br><span class="line">            //printf(&quot;aString = %s&quot;,[aString UTF8String]);</span><br><span class="line">            //NSLog(@&quot;aString = %@&quot;,aString);</span><br><span class="line">            // Do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_resume(source);</span><br><span class="line">    return source;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="日志同步-上传"><a href="#日志同步-上传" class="headerlink" title="日志同步/上传"></a>日志同步/上传</h5><p>重定向或者存储的数据可以传到服务端或者通过server同步到网页上，就可以更方便的看到这些数据了。<br>如果想再网页端实时查看日志，可以在App内置一个小型http web服务器。GitHub上开源的项目有<a href="https://github.com/swisspol/GCDWebServer" target="_blank" rel="noopener">GCDWebServer</a>，可以使用该工具，在APP开启webserver服务，并在同一局域网下，使用<code>http://localhost:8080</code>来请求最新日志了。<br>上传服务端的部分很简单，实现简单的网络请求就可以，这儿不做叙述。<br>另外在实际项目中，可以设置一个开关来开启或关闭这个重定向，在调试测试的过程中可以打开开关来查看程序当前的日志。</p>
+<p>通过以上处理，真机测试中，日志就可以很方便的获取和查看了，这样能节省不少人力和时间成本。</p>
+<h6 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h6><ol>
+<li><a href="http://lizaochengwen.iteye.com/blog/1476080" target="_blank" rel="noopener">iOS IO重定向</a>  </li>
+<li><a href="http://www.bijishequ.com/detail/355322?p=" target="_blank" rel="noopener">iOS 日志</a>  </li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechat-reward.jpg" alt="DragonFly 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay-reward.jpg" alt="DragonFly 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/30/tools-MagicaVoxel-model/" rel="next" title="快速创建ARKit模型-使用MagicaVoxel创建3D模型">
+                <i class="fa fa-chevron-left"></i> 快速创建ARKit模型-使用MagicaVoxel创建3D模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.jpeg"
+              alt="DragonFly" />
+          
+            <p class="site-author-name" itemprop="name">DragonFly</p>
+            <p class="site-description motion-element" itemprop="description">iOS开发、ReactNative开发、AR</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fighting300" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:fighting300@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2163931165" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>微博</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fighting300" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/fighting300" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/bb7ca9a08b3c" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSLog输出到哪里？"><span class="nav-number">1.</span> <span class="nav-text"><a href="#NSLog&#x8F93;&#x51FA;&#x5230;&#x54EA;&#x91CC;&#xFF1F;" class="headerlink" title="NSLog&#x8F93;&#x51FA;&#x5230;&#x54EA;&#x91CC;&#xFF1F;"></a>NSLog&#x8F93;&#x51FA;&#x5230;&#x54EA;&#x91CC;&#xFF1F;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ASL读取日志"><span class="nav-number">2.</span> <span class="nav-text"><a href="#ASL&#x8BFB;&#x53D6;&#x65E5;&#x5FD7;" class="headerlink" title="ASL&#x8BFB;&#x53D6;&#x65E5;&#x5FD7;"></a>ASL&#x8BFB;&#x53D6;&#x65E5;&#x5FD7;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NSLog重定向"><span class="nav-number">3.</span> <span class="nav-text"><a href="#NSLog&#x91CD;&#x5B9A;&#x5411;" class="headerlink" title="NSLog&#x91CD;&#x5B9A;&#x5411;"></a>NSLog&#x91CD;&#x5B9A;&#x5411;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#dup2重定向"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#dup2&#x91CD;&#x5B9A;&#x5411;" class="headerlink" title="dup2&#x91CD;&#x5B9A;&#x5411;"></a>dup2&#x91CD;&#x5B9A;&#x5411;</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件重定向"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6587;&#x4EF6;&#x91CD;&#x5B9A;&#x5411;" class="headerlink" title="&#x6587;&#x4EF6;&#x91CD;&#x5B9A;&#x5411;"></a>&#x6587;&#x4EF6;&#x91CD;&#x5B9A;&#x5411;</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用GCD的dispatch-Source重定向方式"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;GCD&#x7684;dispatch-Source&#x91CD;&#x5B9A;&#x5411;&#x65B9;&#x5F0F;" class="headerlink" title="&#x4F7F;&#x7528;GCD&#x7684;dispatch Source&#x91CD;&#x5B9A;&#x5411;&#x65B9;&#x5F0F;"></a>&#x4F7F;&#x7528;GCD&#x7684;dispatch Source&#x91CD;&#x5B9A;&#x5411;&#x65B9;&#x5F0F;</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日志同步-上传"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x65E5;&#x5FD7;&#x540C;&#x6B65;-&#x4E0A;&#x4F20;" class="headerlink" title="&#x65E5;&#x5FD7;&#x540C;&#x6B65;/&#x4E0A;&#x4F20;"></a>&#x65E5;&#x5FD7;&#x540C;&#x6B65;/&#x4E0A;&#x4F20;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#参考文档"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DragonFly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dragonfly-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://fighting300.com/2017/12/08/iOS-LogShowAndRedirect/';
+          this.page.identifier = '2017/12/08/iOS-LogShowAndRedirect/';
+          this.page.title = 'iOS中的日志同步获取-NSLog重定向及其他';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dragonfly-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
