@@ -95,7 +95,7 @@
 
 
 
-<meta name="description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器">
+<meta name="description" content="OLLVM简介OLLVM（Obfuscator-LLVM）是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目strong.protect。目前，OLLVM已经支持LLVM-4.0版本。 LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以">
 <meta name="keywords" content="安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS混淆--OLLVM在iOS中的实践">
@@ -587,7 +587,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -609,7 +609,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -682,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OLLVM简介"><span class="nav-number">1.</span> <span class="nav-text">OLLVM简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OLLVM-iOS编译环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">OLLVM iOS编译环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ollvm混淆使用"><span class="nav-number">1.2.</span> <span class="nav-text">ollvm混淆使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Instructions-Substitution"><span class="nav-number">1.2.1.</span> <span class="nav-text">Instructions Substitution</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Control-Flow-Flattening"><span class="nav-number">1.2.2.</span> <span class="nav-text">Control Flow Flattening</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bogus-Control-Flow"><span class="nav-number">1.2.3.</span> <span class="nav-text">Bogus Control Flow</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Functions-annotations"><span class="nav-number">1.2.4.</span> <span class="nav-text">Functions annotations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误处理"><span class="nav-number">1.3.</span> <span class="nav-text">错误处理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OLLVM简介"><span class="nav-number">1.</span> <span class="nav-text"><a href="#OLLVM&#x7B80;&#x4ECB;" class="headerlink" title="OLLVM&#x7B80;&#x4ECB;"></a>OLLVM&#x7B80;&#x4ECB;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OLLVM-iOS编译环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#OLLVM-iOS&#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x642D;&#x5EFA;" class="headerlink" title="OLLVM iOS&#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x642D;&#x5EFA;"></a>OLLVM iOS&#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x642D;&#x5EFA;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ollvm混淆使用"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#ollvm&#x6DF7;&#x6DC6;&#x4F7F;&#x7528;" class="headerlink" title="ollvm&#x6DF7;&#x6DC6;&#x4F7F;&#x7528;"></a>ollvm&#x6DF7;&#x6DC6;&#x4F7F;&#x7528;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Instructions-Substitution"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#Instructions-Substitution" class="headerlink" title="Instructions Substitution"></a>Instructions Substitution</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Control-Flow-Flattening"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#Control-Flow-Flattening" class="headerlink" title="Control Flow Flattening"></a>Control Flow Flattening</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bogus-Control-Flow"><span class="nav-number">1.2.3.</span> <span class="nav-text"><a href="#Bogus-Control-Flow" class="headerlink" title="Bogus Control Flow"></a>Bogus Control Flow</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Functions-annotations"><span class="nav-number">1.2.4.</span> <span class="nav-text"><a href="#Functions-annotations" class="headerlink" title="Functions annotations"></a>Functions annotations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误处理"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x9519;&#x8BEF;&#x5904;&#x7406;" class="headerlink" title="&#x9519;&#x8BEF;&#x5904;&#x7406;"></a>&#x9519;&#x8BEF;&#x5904;&#x7406;</span></a></li></ol></li></ol></div>
             
 
           </div>
