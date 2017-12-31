@@ -282,7 +282,7 @@ the module (for instance, using `npm rebuild` or `npm install`).
 ```
 
 解决方法为找到hexo的真正目录所在(目录地址为/usr/local/bin/hexo，其真正位置在`/usr/local/lib/node_modules/hexo-cli`)，删除node_modules文件夹后重新npm install。
-然后回到blog目录下，重复以上步骤即可。 
+然后回到blog目录下，重复以上步骤即可。
 
 ##### 参考文档
 1. [Hexo](https://hexo.io/)!

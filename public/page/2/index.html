@@ -277,6 +277,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/09/07/ollvm-in-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DragonFly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DragonFly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/07/ollvm-in-iOS/" itemprop="url">iOS混淆--OLLVM在iOS中的实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T12:15:18+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/07/ollvm-in-iOS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/07/ollvm-in-iOS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="OLLVM简介"><a href="#OLLVM简介" class="headerlink" title="OLLVM简介"></a>OLLVM简介</h3><p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="noopener">OLLVM（Obfuscator-LLVM）</a>是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个项目，该项目旨在提供一套开源的针对LLVM的代码混淆工具，以增加对逆向工程的难度。后期转向商业项目<a href="http://link.zhihu.com/?target=https%3A//strong.codes/" target="_blank" rel="noopener">strong.protect</a>。目前，OLLVM已经支持LLVM-4.0版本。</p>
+<p>LLVM是一个优秀的编译器框架，它也采用经典的三段式设计。前端可以使用不同的编译工具对代码文件做词法分析以形成抽象语法树AST，然后将分析好的代码转换成LLVM的中间表示IR（intermediate representation）；中间部分的优化器只对中间表示IR操作，通过一系列的Pass对IR做优化；后端负责将优化好的IR解释成对应平台的机器码。LLVM的优点在于，中间表示IR代码编写良好，而且不同的前端语言最终都转换成同一种的IR。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1944396-3ce371d488ad67ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LLVM IR 是LLVM的中间表示，优化器就是对IR进行操作的，具体的优化操作由一些列的Pass来完成，当前端生成初级IR后，Pass会依次对IR进行处理，最终生成后端可用的IR。下图可以说明这个过程：<br><img src="http://upload-images.jianshu.io/upload_images/1944396-20cd55c8ee11762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>OLLVM的混淆操作就是在中间表示IR层，通过编写Pass来混淆IR，然后后端依据IR来生成的目标代码也就被混淆了。得益于LLVM的设计，OLLVM适用LLVM支持的所有语言（C,C++,Objective-C,Ada,Fortran）和目标平台（x86,x86-64,PowerPC,PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/07/ollvm-in-iOS/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://fighting300.com/2017/08/22/iOS-nfc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1742,177 +1903,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fighting300.com/2016/03/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="DragonFly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DragonFly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/28/hello-world/" itemprop="url">如何搭建我的博客 - Hexo之Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-28T01:16:11+08:00">
-                2016-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index">
-                    <span itemprop="name">tools</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/03/28/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/03/28/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>其实很久以前就搭建完博客的基础部分，只是懒癌发作，迟迟没有补上文章来总结，但是记录自己的心得还是必要的。下面描述下搭建博客的整个流程和一些问题的解决方案。搭建博客其实有很多种框架，比如可能大家熟悉的<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">WordPress</a>、<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>等，这里我们将使用很火很流程的Hexo来作为博客基础框架。</p>
-<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>搭建博客的大体流程主要分为：<code>GitHub配置</code>、<code>Hexo管理</code>、<code>域名绑定</code>三个步骤，非常简单。</p>
-<h3 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h3><p>首先需要在<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>上注册一个账号(当然估计你们都有了)。然后创建一个仓库，命名为<code>xxx.github.io</code>，xxx会是你注册时的用户名，所以注册账号时认真想个不错的名字吧，因为这个地址会是你的域名(假如你不单独申请域名的话)。</p>
-<p><img src="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-github.png" alt="新建GitHub仓库">  </p>
-<h3 id="Hexo管理"><a href="#Hexo管理" class="headerlink" title="Hexo管理"></a>Hexo管理</h3><h4 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h4><p>在进行下一步前，你需要在你的Mac上安装好git(没安装过的，直接去官网找吧，顺便面壁思过下)和Node.js。</p>
-<p>Node安装的最佳方式是使用nvm，这是Node.js的版本管理器，安装方式很简单。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 1. Homebrew 安装方式，此安装方式无需重启</span><br><span class="line">$ brew install nvm  </span><br><span class="line">$ mkdir ~/.nvm</span><br><span class="line">$ export NVM_DIR=~/.nvm</span><br><span class="line">$ . $(brew --prefix nvm)/nvm.sh</span><br><span class="line">// 2. curl安装</span><br><span class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure>
-<p>安装完nvm后，执行以下命令即可安装Node。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure></p>
-<p>Hexo安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
-<p>所有的工具已经安装完成，下面可以创建博客内容，并上传到我们的github仓库了。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/03/28/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1961,7 +1956,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1983,7 +1978,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2063,7 +2058,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
