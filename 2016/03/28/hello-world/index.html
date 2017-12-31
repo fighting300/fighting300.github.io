@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-aliyun.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-dnspod.png">
 <meta property="og:image" content="http://ojca2gwha.bkt.clouddn.com/Hexo-blog-review.png">
-<meta property="og:updated_time" content="2017-12-01T06:36:38.000Z">
+<meta property="og:updated_time" content="2017-12-11T03:49:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何搭建我的博客 - Hexo之Hello World">
 <meta name="twitter:description" content="其实很久以前就搭建完博客的基础部分，只是懒癌发作，迟迟没有补上文章来总结，但是记录自己的心得还是必要的。下面描述下搭建博客的整个流程和一些问题的解决方案。搭建博客其实有很多种框架，比如可能大家熟悉的WordPress、Hexo等，这里我们将使用很火很流程的Hexo来作为博客基础框架。 Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利">
@@ -446,7 +446,7 @@
 <h5 id="6-主题配置保存"><a href="#6-主题配置保存" class="headerlink" title="6.主题配置保存"></a>6.主题配置保存</h5><p>由于主题配置文件是从github下载下来的，但是本地的配置并没有上传到我们自己的github上，所以多电脑登录的时候，会丢失这部分内容。要保存并提交主题配置文件，有两种方式：<br>a. Hexo的数据文件<br>使用Hexo的<a href="https://hexo.io/zh-cn/docs/data-files.html" target="_blank" rel="noopener">数据文件</a>来保存主题配置文件的修改，需要Hexo的版本在3以上。<br>首先，在站点的<code>source/_data</code>目录下新建<code>next.yml 文件</code>(<code>_data</code>目录可能需要新建)<br>然后，迁移站点配置文件和主题配置文件中的配置到<code>next.yml</code>中</p>
 <p>b. git subtree<br>另一种方式是用git subtree单独管理主题文件的修改。<br>首先我们需要fork出一份你是用的主题git代码，本地修改当前的配置文件后推送到远程仓库。然后用git subtree把<code>themes</code>当作子项目来管理。使用的命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 绑定子项目</span><br><span class="line">git remote add -f next git@github.com:xxxx/hexo-theme-next.git</span><br><span class="line">git subtree add --prefix=themes/next next master --squash</span><br><span class="line">// 更新子项目</span><br><span class="line">git fetch next master</span><br><span class="line">git subtree pull --prefix=themes/next next master --squash</span><br><span class="line">// 子目录push到远程仓库</span><br><span class="line">git subtree push --prefix=themes/next next master</span><br></pre></td></tr></table></figure></p>
 <h5 id="7-node版本冲突错误"><a href="#7-node版本冲突错误" class="headerlink" title="7.node版本冲突错误"></a>7.node版本冲突错误</h5><p>升级node版本后，发现运行过程中出现如下错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Error: The module &apos;/usr/local/lib/node_modules/hexo-cli/node_modules/dtrace-provider/build/Release/DTraceProviderBindings.node&apos;</span><br><span class="line">was compiled against a different Node.js version using</span><br><span class="line">NODE_MODULE_VERSION 46. This version of Node.js requires</span><br><span class="line">NODE_MODULE_VERSION 59. Please try re-compiling or re-installing</span><br><span class="line">the module (for instance, using `npm rebuild` or `npm install`).</span><br><span class="line">    at Object.Module._extensions..node (module.js:670:18)</span><br><span class="line">    at Module.load (module.js:560:32)</span><br><span class="line">    at tryModuleLoad (module.js:503:12)</span><br><span class="line">    at Function.Module._load (module.js:495:3)</span><br><span class="line">    at Module.require (module.js:585:17)</span><br><span class="line">    at require (internal/module.js:11:18)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/hexo-cli/node_modules/dtrace-provider/dtrace-provider.js:18:23)</span><br><span class="line">    at Module._compile (module.js:641:30)</span><br><span class="line">    at Object.Module._extensions..js (module.js:652:10)</span><br><span class="line">    at Module.load (module.js:560:32)</span><br><span class="line">    at tryModuleLoad (module.js:503:12)</span><br><span class="line">    at Function.Module._load (module.js:495:3)</span><br><span class="line">    at Module.require (module.js:585:17)</span><br><span class="line">    at require (internal/module.js:11:18)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/hexo-cli/node_modules/bunyan/lib/bunyan.js:79:18)</span><br><span class="line">    at Module._compile (module.js:641:30)</span><br></pre></td></tr></table></figure></p>
-<p>解决方法为找到hexo的真正目录所在(目录地址为/usr/local/bin/hexo，其真正位置在<code>/usr/local/lib/node_modules/hexo-cli</code>)，删除node_modules文件夹后重新npm install。<br>然后回到blog目录下，重复以上步骤即可。 </p>
+<p>解决方法为找到hexo的真正目录所在(目录地址为/usr/local/bin/hexo，其真正位置在<code>/usr/local/lib/node_modules/hexo-cli</code>)，删除node_modules文件夹后重新npm install。<br>然后回到blog目录下，重复以上步骤即可。</p>
 <h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
 <li><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>!</li>
 <li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT</a></li>
@@ -607,7 +607,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -629,7 +629,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -725,7 +725,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
